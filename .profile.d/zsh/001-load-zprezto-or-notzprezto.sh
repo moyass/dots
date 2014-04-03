@@ -23,7 +23,12 @@ else
     # Use bash everywhere now. // last week
 		# Ya... bash is boring. // this week
 		# yo-yo!
-    chsh -s /bin/zsh
+
+		echo "Switch default shell to zsh? [Yn]"
+		read -n 1 -r
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+	    chsh -s /bin/zsh
+    fi
   fi
 
   # load zprezto config
