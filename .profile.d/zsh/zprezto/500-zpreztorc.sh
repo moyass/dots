@@ -47,7 +47,8 @@ zstyle ':prezto:load' pmodule \
 # Auto convert .... to ../..
 zstyle ':prezto:module:editor' dot-expansion 'yes'
 
-set zstyle ':prezto:module:prompt' theme 'pure'
+#zstyle ':prezto:module:prompt' theme 'pure'
+#set zstyle ':prezto:module:prompt' theme 'pure'
 
 #  ZPREZTO LOADER
 # ============================

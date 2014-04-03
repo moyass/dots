@@ -6,6 +6,9 @@
 
 PURE_CMD_MAX_EXEC_TIME=10
 
-fpath=("${ZDOTDIR:-$HOME}/.profile.d/zsh/zprezto" $fpath)
+#fpath=("$HOME/.profile.d/zsh/zprezto" $fpath)
+fpath=("$HOME/.profile.d/zsh/zprezto" $fpath)
+#prompt pure
 
-prompt 'pure'
+ zstyle ':prezto:module:prompt' theme 'pure'
+

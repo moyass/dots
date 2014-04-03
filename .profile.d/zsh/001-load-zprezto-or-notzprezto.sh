@@ -20,8 +20,10 @@ else
     # WARN: DANGER! DANGER! DANGER!
     # Bash's ubiquity has utimate usefulness.
     # The pain of switching shells is tedious.
-    # Use bash everywhere now.
-    # chsh -s /bin/zsh
+    # Use bash everywhere now. // last week
+		# Ya... bash is boring. // this week
+		# yo-yo!
+    chsh -s /bin/zsh
   fi
 
   # load zprezto config
