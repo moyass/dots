@@ -1,128 +1,196 @@
-"---------------------------------------------------------------
-" file:     ~/.vimrc
-" author:   jason ryan - http://jasonwryan.com/
-" vim:fenc=utf-8:nu:ai:si:et:ts=4:sw=4:fdm=indent:fdn=1:ft=vim:
-"---------------------------------------------------------------
-
-syntax on
+" ==================================================
+" Basics.
+" ==================================================
+" syntax, utf-8, ft, nocompatible, autoreload
 filetype plugin on
 filetype indent on
+set nocompatible          " leave the old ways behind
+set encoding=utf-8 nobomb " UTF-8 encoding for all new files
+set clipboard+=unnamed    " yank and copy to the OS clipboard
+set shortmess=atI
 
-if exists('$WINDOWID') && &term =~ "rxvt"
-    colorscheme miromiro
-else
-    colorscheme miro8                   " colourscheme for the 8 colour linux term
+if &t_Co > 2 || has("gui_running")
+  set t_Co=256            " 256 colors please
+  syntax on 
+  set hlsearch            " highlighted search
 endif
 
-set ttyfast                             " don't lag…
-set cursorline                          " track position
-set nocompatible                        " leave the old ways behind…
-set nowrap                              " don't wrap lines
-set nobackup                            " disable backup files (filename~)
-set splitbelow                          " place new files below the current
-set showmatch                           " matching brackets & the like
-set clipboard+=unnamed                  " yank and copy to X clipboard
-set encoding=utf-8                      " UTF-8 encoding for all new files
-set backspace=2                         " full backspacing capabilities (indent,eol,start)
-set scrolloff=10                        " keep 10 lines of context
-set number                              " show line numbers
-set ww=b,s,h,l,<,>,[,]                  " whichwrap -- left/right keys can traverse up/down
-set linebreak                           " attempt to wrap lines cleanly
-set wildmenu                            " enhanced tab-completion shows all matching cmds in a popup menu
-set spelllang=en_gb                     " real English spelling
-set dictionary+=/usr/share/dict/words   " use standard dictionary
-set wildmode=list:longest,full          " full completion options
-set mouse=a
-let g:is_posix=1                        " POSIX shell scripts
-let g:loaded_matchparen=1               " disable parenthesis hlight plugin
-let g:is_bash=1                         " bash syntax the default for hlighting
-let g:vimsyn_noerror=1                  " hack for correct syntax hlighting
 
-" tabs and indenting
-set tabstop=2                           " tabs appear as n number of columns
-set shiftwidth=2                        " n cols for auto-indenting
-set noexpandtab                         " insert spaces instead of tabs
-set autoindent                          " auto indents next new line
+" ==================================================
+" On Windows...
+" ==================================================
+if has("gui_win32")
+	" ... do nonsense.
 
-" searching
-set hlsearch                            " highlight all search results
-set incsearch                           " increment search
-set ignorecase                          " case-insensitive search
-set smartcase                           " uppercase causes case-sensitive search
+  " Stupid hack to prevent Win7-gvim window unsapping when vimrc autoreloads
+	let myguifont="Consolas:h12"
 
-" listchars
-set listchars=trail:·,precedes:«,extends:»,eol:↲,tab:▸\ 
+	if (&guifont != myguifont)
+		execute "set guifont=".myguifont 
+	endif
+	
+	" gvim gui
+	set guioptions=aceg  " http://vimdoc.sourceforge.net/htmldoc/options.html#%27guioptions%27
+	set guioptions-=m " menubar
+	set guioptions-=r " scrollbar
+	set guioptions-=Tt " toolbar
 
-" status bar info and appearance
-set statusline=\ \%f%m%r%h%w\ ::\ %y\ [%{&ff}]\%=\ [%p%%:\ %l/%L]\ 
-set laststatus=2
+	" Autoreload gvimrc.
+  if has("autocmd") " https://github.com/paranoida/vimrc/plugins.vim
+    au BufWritePost *vimrc source $MYGVIMRC
+  endif
+
+  set noswapfile  " no swapfiles on windows
+
+	" pathogen with $VIM/vimfiles/bundle path
+	call pathogen#infect($VIM.'\vimfiles\bundle\{}')
+
+" ==================================================
+" Not on Windows...
+" ==================================================
+else
+	" ... we're not on windows, so just be normal.
+
+	call pathogen#infect('~/.vim/bundle/{}')
+
+  	" Autoreload vimrc.
+  if has("autocmd") " https://github.com/paranoida/vimrc/plugins.vim
+    au BufWritePost *vimrc source $MYVIMRC
+  endif
+
+  
+  set directory=~/tmp " put swapfiles in /tmp instead of current directory.
+  set backupdir=~/.vim/backups
+  if exists("&undodir")
+    set undodir=~/.vim/undo
+  endif
+endif
+
+
+" ==================================================
+" Colorscheme.
+" ==================================================
+if has("gui_running")
+  colorscheme ir_black
+else
+  "if exists('$WINDOWID') && &term =~ "rxvt"
+    colorscheme miromiro
+  "else
+  "  colorscheme miro8       " colourscheme for the 8 colour linux term
+  "endif
+endif
+
+	
+" ==================================================
+" Files
+" ==================================================
+set nobackup    " disable backup files (filename~)
+"set noswapfile
+"set modeline    " disabled to use securemodelines plugin
+"set modelines=5
+"set exrc secure " Enable per-directory .vimrc files and disable unsafe commands in them
+"set binary noeol  " Don’t add empty newlines at the end of files 
+
+" ==================================================
+" User Interaction (Keys, Mouse)
+" ==================================================
+let mapleader="\\"
+set timeout timeoutlen=5000 ttimeoutlen=5000
+set backspace=2 " full backspacing capabilities (indent,eol,start)
+set mouse=a " enable mouse in all modes
+set mousehide     " Hide the mouse when typing text
+set nostartofline
+
+
+" ==================================================
+" GUI
+" ==================================================
+
+set cursorline            " track position
+set scrolloff=15          " keep x lines of context
+set ttyfast
+
+set noerrorbells          " no beeps on errors
+set visualbell            " show visual bell
+
+set title                 " show title in console title bar
+set noruler               " no: display row, column and % of document
+set showmatch             " show matching () {} etc.
+set wildmenu              " enhanced tab-completion shows all matching cmds in a popup menu
+set splitright splitbelow " place new splits right then below
+
+" ==================================================
+" Folding.
+" ==================================================
+set foldmethod=indent
+set foldnestmax=4     " deepest fold level
+set nofoldenable      " start without folds
+" set foldcolumn=1
+" set foldlevel=0
+
+
+" ==================================================
+" Line numbers.
+" ==================================================
+set number                " show linenumbers by default
+
+if exists("&relativenumber")
+  au InsertEnter * set norelativenumber number
+  au InsertLeave * set relativenumber number
+endif
+
+" ==================================================
+" Code format & Indenting.
+" ==================================================
+set autoindent            " auto indents next new line
+set nosmartindent
+set nocindent
+set expandtab         " expand tabs with spaces
+set tabstop=2         " <Tab> move three characters
+set shiftwidth=2      " >> and << shift 3 spaces
+set softtabstop=2     " see spaces as tabs
+set nowrap                " don't wrap lines
+" set textwidth=79            " hard wrap at 79 characters
+
+" ==================================================
+" Searching.
+" ==================================================
+set hlsearch " highlight all search results
+set incsearch " increment search
+set ignorecase " case-insensitive search
+set smartcase " uppercase causes case-sensitive search
+
+" ==================================================
+" Status bar.
+" ==================================================
 set cmdheight=1
+set showcmd               " show partial commands in the status line
+set showmode              " show current mode
+set laststatus=2 " turns status line always on and configures it
+set statusline=%<%f\ %m\ %h%r%=%b\ 0x%B\ \ %l,%c%V\ %P\ of\ %L
+
+
+set listchars=trail:·,precedes:«,extends:»,eol:↲,tab:▸\
 
 if has("autocmd")
-    " always jump to the last cursor position
-    autocmd BufReadPost * if line("'\"")>0 && line("'\"")<=line("$")|exe "normal g`\""|endif
-    " limit cols to 80 in various filetypes
-    autocmd BufRead *.txt set tw=80 " limit width to n cols for txt files
-    autocmd BufRead *.markdown set tw=80 nolist nocindent spell" for blog entries
-    autocmd BufRead ~/.mutt/temp/mutt-* set tw=79 ft=mail nolist nocindent spell   " width, mail syntax hilight, spellcheck
-    autocmd BufRead /tmp/vimprobable* set tw=80 spell
-    autocmd FileType tex set tw=80 nolist spell nocindent
+  " Restore cursor position
+  au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
+
+  " Filetypes (au = autocmd)
+  " https://github.com/patoroco/system-config/blob/master/.vimrc
+  au FileType helpfile set nonumber " no line numbers when viewing help
+  au FileType mail,tex set textwidth=72
+  au FileType cpp,c,java,sh,pl,php,asp set autoindent
+  au FileType cpp,c,java,sh,pl,php,asp set smartindent
+  au FileType cpp,c,java,sh,pl,php,asp set cindent
+  au BufNewFile,BufRead  modprobe.conf    set syntax=modconf
+	au BufNewFile,BufRead *.json setfiletype json syntax=javascript
 endif
 
-" Map keys to toggle functions
-function! MapToggle(key, opt)
-  let cmd = ':set '.a:opt.'! \| set '.a:opt."?\<CR>"
-  exec 'nnoremap '.a:key.' '.cmd
-  exec 'inoremap '.a:key." \<C-O>".cmd
-endfunction
 
-command! -nargs=+ MapToggle call MapToggle(<f-args>)
-" Keys & functions
-MapToggle <F4> number
-MapToggle <F5> spell
-MapToggle <F6> paste
-MapToggle <F7> hlsearch
-MapToggle <F8> wrap
+" ==================================================
+" Load keybinds.
+" ==================================================
+so ~/.vim/_keys.vim
 
-" LaTeX settings
-set grepprg=grep\ -nH\ $*
-let g:tex_flavor='latex'
-let g:Tex_DefaultTargetFormat='pdf'
-let g:Tex_ViewRule_pdf='evince'
-let g:Tex_CompileRule_dvi='latex -interaction=nonstopmode $*'
-let g:Tex_CompileRule_pdf='pdflatex -interaction=nonstopmode $*'
-
-" set path for latexsuite
-set runtimepath=~/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,~/.vim/after
-
-" keep cursor centered
-:nnoremap j jzz
-:nnoremap k kzz
-
-" space bar un-highlights search
-:noremap <silent> <Space> :silent noh<Bar>echo<CR>
-
-" Allows writing to files with root priviledges
-cmap w!! w !sudo tee % > /dev/null
-
-" toggle colored right border after 80 chars
-set colorcolumn=0
-let s:color_column_old = 80
-
-function! s:ToggleColorColumn()
-    if s:color_column_old == 0
-        let s:color_column_old = &colorcolumn
-        windo let &colorcolumn = 0
-    else
-        windo let &colorcolumn=s:color_column_old
-        let s:color_column_old = 0
-    endif
-endfunction
-
-nnoremap <bar> :call <SID>ToggleColorColumn()<cr>
-
-" command to pull image URL
-:command -nargs=1 Url :read !imgurl <args>
-
-" disable syntax highlighting in vimdiff...
-if &diff | syntax off | endif
+" vim: ts=2:sw=2:tw=80:et :
