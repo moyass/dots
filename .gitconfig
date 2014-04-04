@@ -8,7 +8,6 @@ email = guy@guyhughes.ca
 
 [credential]
 helper = cache
-# helper = osxkeychain on osx if you're lazy
 
 [alias]
 br = branch
