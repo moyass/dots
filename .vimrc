@@ -12,7 +12,7 @@ set notimeout ttimeout  ttimeoutlen=10  " fix timeouts in terminal vim
 
 if &t_Co > 2 || has("gui_running")
   set t_Co=256            " 256 colors please
-  syntax on 
+  syntax on
   set hlsearch            " highlighted search
 endif
 
@@ -21,45 +21,45 @@ endif
 " On Windows...
 " ==================================================
 if has("gui_win32")
-	" ... do nonsense.
+  " ... do nonsense.
 
   " Stupid hack to prevent Win7-gvim window unsapping when vimrc autoreloads
-	let myguifont="Consolas:h12"
+  let myguifont="Consolas:h12"
 
-	if (&guifont != myguifont)
-		execute "set guifont=".myguifont 
-	endif
-	
-	" gvim gui
-	set guioptions=aceg  " http://vimdoc.sourceforge.net/htmldoc/options.html#%27guioptions%27
-	set guioptions-=m " menubar
-	set guioptions-=r " scrollbar
-	set guioptions-=Tt " toolbar
+  if (&guifont != myguifont)
+    execute "set guifont=".myguifont
+  endif
 
-	" Autoreload gvimrc.
+  " gvim gui
+  set guioptions=aceg  " http://vimdoc.sourceforge.net/htmldoc/options.html#%27guioptions%27
+  set guioptions-=m " menubar
+  set guioptions-=r " scrollbar
+  set guioptions-=Tt " toolbar
+
+  " Autoreload gvimrc.
   if has("autocmd") " https://github.com/paranoida/vimrc/plugins.vim
     au BufWritePost *vimrc source $MYGVIMRC
   endif
 
   set noswapfile  " no swapfiles on windows
 
-	" pathogen with $VIM/vimfiles/bundle path
-	call pathogen#infect($VIM.'\vimfiles\bundle\{}')
+  " pathogen with $VIM/vimfiles/bundle path
+  call pathogen#infect($VIM.'\vimfiles\bundle\{}')
 
 " ==================================================
 " Not on Windows...
 " ==================================================
 else
-	" ... we're not on windows, so just be normal.
+  " ... we're not on windows, so just be normal.
 
-	call pathogen#infect('~/.vim/bundle/{}')
+  call pathogen#infect('~/.vim/bundle/{}')
 
-  	" Autoreload vimrc.
+    " Autoreload vimrc.
     if has("autocmd")
       au BufWritePost *vimrc source $MYVIMRC
     endif
 
-  
+
   set directory=~/tmp " put swapfiles in /tmp instead of current directory.
   set backupdir=~/.vim/backups
   if exists("&undodir")
@@ -81,14 +81,14 @@ else
   "endif
 endif
 
-	
+
 " ==================================================
 " Files.
 " ==================================================
 set nobackup    " disable backup files (filename~)
 "set noswapfile
 "set exrc secure " Enable per-directory .vimrc files and disable unsafe commands in them
-"set binary noeol  " Don’t add empty newlines at the end of files 
+"set binary noeol  " Don’t add empty newlines at the end of files
 "set modeline    " disabled to use securemodelines plugin
 "set modelines=5
 
@@ -127,7 +127,7 @@ endif
 " ==================================================
 " Folding.
 " ==================================================
-set foldmethod=marker
+set foldmethod=manual
 set foldnestmax=4     " deepest fold level
 set nofoldenable      " start without folds
 " set foldcolumn=1
@@ -162,23 +162,30 @@ set showbreak=...
 " ==================================================
 " Searching.
 " ==================================================
-set hlsearch " highlight all search results
 set incsearch " increment search
 set ignorecase " case-insensitive search
 set smartcase " uppercase causes case-sensitive search
+"set hlsearch " included with colours -- highlight search results
 
 " ==================================================
-" Status bar.
+" Status bar < Powerline with Airline.
 " ==================================================
 set cmdheight=1
 set showcmd               " show partial commands in the status line
 set showmode              " show current mode
 set laststatus=2 " turns status line always on and configures it
-set statusline=%<%f\ %m\ %h%r%=%b\ 0x%B\ \ %l,%c%V\ %P\ of\ %L
+"set statusline=%<%f\ %m\ %h%r%=%b\ 0x%B\ \ %l,%c%V\ %P\ of\ %L
+
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_theme = "powerlineish"
 
 
 set listchars=trail:·,precedes:«,extends:»,eol:↲,tab:▸\
 
+" ==================================================
+" Filetype misc.
+" ==================================================
 if has("autocmd")
   " Restore cursor position
   au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
@@ -191,7 +198,7 @@ if has("autocmd")
   au FileType cpp,c,java,sh,pl,php,asp set smartindent
   au FileType cpp,c,java,sh,pl,php,asp set cindent
   au BufNewFile,BufRead  modprobe.conf    set syntax=modconf
-	au BufNewFile,BufRead *.json setfiletype json syntax=javascript
+  au BufNewFile,BufRead *.json setfiletype json syntax=javascript
 endif
 
 
@@ -261,7 +268,7 @@ map! <S-Insert> <MiddleMouse>
 " ==================================================
 " Append modeline to file.
 " ==================================================
-" http://vim.wikia.com/wiki/Modeline_magic  
+" http://vim.wikia.com/wiki/Modeline_magic
 nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
 
 
