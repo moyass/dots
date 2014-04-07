@@ -74,11 +74,8 @@ endif
 if has("gui_running")
   colorscheme ir_black
 else
-  "if exists('$WINDOWID') && &term =~ "rxvt"
-    colorscheme miromiro
-  "else
-  "  colorscheme miro8       " colourscheme for the 8 colour linux term
-  "endif
+  set background=dark
+  colorscheme mirodark
 endif
 
 

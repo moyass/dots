@@ -20,6 +20,8 @@ export CDPATH="$CDPATH:$HOME/Projects"
 export VISUAL="vim"
 export EDITOR="vim"
 
+export ARCHFLAGS="-arch x86_64"
+
 export GREP_COLOR="1;33"
 alias grep='grep --color=auto'
 
