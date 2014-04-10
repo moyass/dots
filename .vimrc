@@ -60,7 +60,8 @@ else
     endif
 
 
-  set directory=~/tmp " put swapfiles in /tmp instead of current directory.
+  set directory=/tmp " put swapfiles in /tmp instead of current directory.
+  set backup
   set backupdir=~/.vim/backups
   if exists("&undodir")
     set undodir=~/.vim/undo
@@ -82,7 +83,7 @@ endif
 " ==================================================
 " Files.
 " ==================================================
-set nobackup    " disable backup files (filename~)
+set backup    " disable backup files (filename~)
 "set noswapfile
 "set exrc secure " Enable per-directory .vimrc files and disable unsafe commands in them
 "set binary noeol  " Don’t add empty newlines at the end of files

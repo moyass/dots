@@ -46,3 +46,6 @@ checkout = git clone 'git://repo.or.cz/vcscommand' 'vcscommand'
 
 [bundle/wildfire]
 checkout = git clone 'github.com:gcmt/wildfire.vim' 'wildfire'
+
+[bundle/salt-vim]
+checkout = git clone 'github.com:saltstack/salt-vim' 'salt-vim'
