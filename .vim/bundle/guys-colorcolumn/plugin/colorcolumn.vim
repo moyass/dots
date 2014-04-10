@@ -13,3 +13,4 @@ function! s:ToggleColorColumn()
         let s:color_column_old = 0
     endif
 endfunction
+command! -nargs=? ColourColumn call s:ToggleColourColumn()

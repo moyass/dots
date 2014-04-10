@@ -1,4 +1,5 @@
 set passkeys+=mail.google.com:#jkaec?<CR><DOWN><UP>,gi 
+set passkeys+=cloud.digitalocean.com:[a-z]pamqwertyuiiop@#$%^*(&^)_(jr<CR><DOWN><UP>,gi 
 
 " Highlight all search matches, not just the first.
 set hlfind
@@ -13,7 +14,6 @@ nmap -builtin -silent k 3k
 nmap -builtin ) :tn<CR>
 nmap -builtin ( :tp<CR>
 
-nmap -builtin ; :
 
 " Shut up.
 javascript dactyl.beep = function() { return false; }
