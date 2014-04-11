@@ -1,9 +1,117 @@
-set passkeys+=mail.google.com:#jkaec?<CR><DOWN><UP>,gi 
-set passkeys+=cloud.digitalocean.com:[a-z]pamqwertyuiiop@#$%^*(&^)_(jr<CR><DOWN><UP>,gi 
 
-" Highlight all search matches, not just the first.
+"
+" ~/.pentadactylrc
+"
+" {"a":"http://www.archlinux.org/news/"
+"f":"https://bbs.archlinux.org/index.php"
+"g":"https://github.com/"
+"m":"http://daringfireball.net/projects/markdown/dingus/"
+"n":"http://www.news.com.au/"
+"p":"https://plus.google.com/u/0/"
+"r":"http://www.reddit.com/"
+"s":"http://stackoverflow.com/"
+"t":"http://127.0.0.1:9091/transmission/web/"
+"w":"http://wongdev.com/""
+"v":"https://vip.ventraip.com.au/landing.php"
+"b":"http://192.168.1.254/"
+"u":"https://myuws.uws.edu.au/"
+styledisable -name=hybrid
+"c":"http://localhost:631/"
+"x":"http://forum.xda-developers.com/google-nexus-5/"
+"d":"https://drive.google.com/#my-drive"}
+" REMINDER
+" fix search while passkeys
+" [about:config] accessibility.typeaheadfind: false
+
+
+"loadplugins '\.(js|penta)$'
+group user
+
+" Options {{{
+" -----------------------------------------------------------------------------
+
+" no bottom or right scrollbar
+set guioptions-=br            
+
+" hi all search matches, not just the first.
 set hlfind
 
+" google
+set defsearch=g       
+
+" popup windows
+" expected behaviour: open target=_blank in new tab, but resized popups in a new window
+" actual: ?
+set popups=resized
+
+" Shut up.
+"javascript dactyl.beep = function() { return false; }
+
+
+"}}}
+" Status line {{{
+" -----------------------------------------------------------------------------
+
+"hi CmdLine padding: 1px !important; font: normal 11pt 'Consolas' !important;
+"hi CmdOutput font: normal 11pt 'Consolas' !important;
+"hi CompItem font: normal 11pt 'Consolas' !important;
+
+" w0ng statusline
+" https://github.com/w0ng/dotfiles/blob/master/.pentadactylrc
+hi -a StatusLine font-weight: normal;
+hi -a StatusLineNormal color:#C5C8C6 !important; background:#282A2E !important;
+
+" alternative statusline
+"hi StatusLine -moz-appearance: none !important; font-weight: bold; background: transparent !important; border: 0px !important; min-height: 22px !important; text-shadow: none !important; font: normal 14px/1 'Consolas' !important; padding: 3px 0px 3px 5px !important;
+
+" hints
+hi Hint font-size: 9pt; background: rgba(210,1,133,0.8) !important; border: 2px solid rgb(165,1,105); padding: 4px; border-radius: 3px; font-weight: bold; margin-left: -25px; color: white; font-family: Consolas; line-height:1em;
+hi HintActive background: rgba(145,197,43,0.8) !important;
+hi HintElem background: rgba(255, 209, 20, 0.7) !important;
+"}}}
+" Font {{{
+" -----------------------------------------------------------------------------
+
+" Linux fonts :%s/Consolas/Cousine/
+" Windows fonts :%s/Cousine/Consolas/
+" Cousine font: http://www.fontsquirrel.com/fonts/cousine
+" Inspired to use cousine by w0ng: https://github.com/w0ng/dotfiles/blob/master/.pentadactylrc
+
+hi FontCode -a font-family: Consolas important; font-size: 9pt !important;
+hi FontFixed -a font-family: Consolas !important; font-size: 9pt !important;
+hi Normal -a font-family: Consolas !important; font-size: 9pt !important;
+"}}}
+
+set passkeys+=mail.google.com:#jkaec?<CR><DOWN><UP>,gi
+set passkeys+=cloud.digitalocean.com:[a-z]pamqwertyuiiop@#$%^*(&^)_(jr<CR><DOWN><UP>,gi
+
+" Mappings {{{
+" -----------------------------------------------------------------------------
+
+map \\ <Leader>
+
+nmap -builtin <Leader>p :private winopen<CR>
+
+nmap -builtin <Leader>\\ :noh<CR>
+
+" Swap semicolon and colon, as in vim.
+" https://github.com/w0ng/dotfiles/blob/master/.pentadactylr
+nmap -builtin ; :
+nmap -builtin : ;
+vmap -builtin ; :
+vmap -builtin : ;
+
+
+" https://github.com/w0ng/dotfiles/blob/master/.pentadactylrc
+nmap -builtin <C-S-n> :tabmove! +1<CR>
+nmap -builtin <C-S-p> :tabmove! -1<CR>
+
+" Noscript plugin
+" https://github.com/w0ng/dotfiles/blob/master/.pentadactylrc
+nmap -builtin ss :set script!<CR>
+nmap -builtin sa :set noscript-sites!=<A-Tab>
+nmap -builtin st :set noscript-tempsites!=<A-Tab>
+nmap -builtin su :set noscript-untrusted!=<A-Tab>
 
 " FASTER
 nmap -builtin -silent j 3j
@@ -15,14 +123,90 @@ nmap -builtin ) :tn<CR>
 nmap -builtin ( :tp<CR>
 
 
-" Shut up.
-javascript dactyl.beep = function() { return false; }
+" Toggle Styles {{{
+" -----------------------------------------------------------------------------
 
-" Make the pentadactyl gui less ugly, please
-highlight Hint       font-size: 14px; background: rgba(210,1,133,0.8) !important; border: 2px solid rgb(165,1,105); padding: 4px; border-radius: 3px; font-weight: bold; margin-left: -25px; color: white; font-family: Helvetica; line-height:1em;
-highlight HintActive background: rgba(145,197,43,0.8)    !important;
-highlight HintElem   background: rgba(255, 209, 20, 0.7) !important;
-highlight StatusLine -moz-appearance: none !important; font-weight: bold; background: transparent !important; border: 0px !important; min-height: 22px !important; text-shadow: none !important; font: normal 14px/1 'Menlo' !important; padding: 3px 0px 3px 5px !important;
-highlight CmdLine    padding: 1px !important; font: normal 14px 'Menlo' !important;
-highlight CmdOutput  font: normal 13px 'Menlo' !important;
-highlight CompItem   font: normal 13px 'Menlo' !important;
+" Go Dark
+map -builtin <F4> :styletoggle<Space>-name<Space>hybrid<CR>   
+      
+" Disabled -- FF minitab theme 
+" map -builtin <F3> :styletoggle<Space>-name<Space>minitabs<CR>
+
+" }}}
+" }}}
+
+
+
+" Style: Hybrid Colourscheme {{{
+" -----------------------------------------------------------------------------
+" https://github.com/w0ng/dotfiles/blob/master/.pentadactylrc
+" TODO: Fix webfonts colouring/antialiasing.
+
+style -name hybrid http://*,https://*,file://*,about:blank <<EOM
+  * {
+    color: #C5C8C6 !important;
+    background: #1D1F21 !important;
+    border-color: #282A2E !important;
+  }
+  a, a * {
+    color: #81A2BE !important;
+    text-decoration: none !important;
+  }
+  a:hover, a:hover * {
+    color: #F0C674 !important;
+  }
+  a:visited, a:visited * {
+    color: #b294bb !important;
+  }
+  a:visited:hover, a:visited:hover * {
+    color: #de935f !important;
+  }
+EOM
+styledisable -name=hybrid
+
+"}}}
+" Style: Minimalistic Tabs 
+" -----------------------------------------------------------------------------
+" https://github.com/w0ng/dotfiles/blob/master/.pentadactylrc
+" TODO: capatibility for FF australis
+style -name minitabs chrome://* <<EOM
+  #TabsToolbar toolbarbutton {
+    display: none !important;
+  }
+  .tabbrowser-tabs {
+    background: #282A2E !important;
+  }
+  .tabbrowser-tab {
+    -moz-appearance: none !important;
+    -moz-border-radius: 0 !important;
+    background: #282A2E !important;
+    border: none !important;
+    color: #707880 !important;
+    font-family: Cousine;
+    font-size: 9pt !important;
+    height: 18px !important;
+    margin: 0 !important;
+    min-height: 0 !important;
+    padding: 0 0.5ex !important;
+  }
+  .tabbrowser-tab:not([pinned]) {
+    max-width: 125px !important;
+    min-width: 125px !important;
+  }
+  .tabbrowser-tab:not([fadein]) {
+    max-width: 1px !important;
+    min-width: 1px !important;
+  }
+  .tabbrowser-tab:hover {
+    background: #F0C674 !important;
+    color: #282A2E !important;
+  }
+  .tabbrowser-tab[selected] {
+    background: #282A2E !important;
+    color: #F0C674 !important;
+  }
+EOM
+
+styledisable -name=minitabs
+
+" vim:ft=vim:foldmethod=marker: 
