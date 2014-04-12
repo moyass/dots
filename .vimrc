@@ -74,6 +74,55 @@ endif
 
 " }}}
 " ==============================================================================
+" ==============================================================================
+" Vim Plugins.  "{{{
+" ==============================================================================
+
+" Autoreload vimrc.
+if has("autocmd")
+  augroup reload_vimrc " {
+    au!
+    au BufWritePost $MYVIMRC source $MYVIMRC
+  augroup END " }
+endif
+
+" Increment-Activator {{{
+" ==================================================
+
+" don't use <C-a> or <C-x>
+let g:increment_activator_no_default_key_mappings = 1
+
+" `'_'` is all files...
+let g:increment_activator_filetype_candidates = {
+      \   '_' : [                            
+      \     ['VERBOTEN', 'erlaubt'],
+      \     ['ACHTUNG', 'DANGER'],
+      \     ['1-VL','2-L', '3-M', '4-H', '5-VH']
+      \   ],
+      \ }
+" }}}
+
+" Pathogen."{{{
+" ==================================================
+" This comes after the `let g:*` statements above so that they are in force (like
+" the law) when the bundles are added to `set runtimepath` for the first time.
+" ACHTUNG: If you screw this up, then you will screw up everything. 
+
+if has ("win32") " returns 1 on WOW64
+  " pathogen: plugins in $VIM/vimfiles/bundle/**
+  call pathogen#infect($VIM.'\vimfiles\bundle\{}')
+else
+  " pathogen: plugins in $HOME/.vim/bundle/**
+  call pathogen#infect($HOME.'/.vim/bundle/{}')
+endif
+
+call pathogen#helptags()
+
+"}}}
+
+"}}}
+" ==============================================================================
+
 
 " ==============================================================================
 " Code format & Indenting."{{{
@@ -141,7 +190,7 @@ if has("gui_running")
   colorscheme ir_black
 else
   "if exists('$WINDOWID') && &term =~ "rxvt"
-  colorscheme miromiro
+  colorscheme mirodark
   "else
   "  colorscheme miro8
   "endif
@@ -213,234 +262,185 @@ endif
 " Filetype misc."{{{
 " ==================================================
 if has("autocmd")
-  " Restore cursor position
-  au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
+" Restore cursor position
+au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
 
-    " Filetypes (au = autocmd)
-    au FileType helpfile setlocal nonumber " no line numbers when viewing help
-    au FileType mail,tex setlocal textwidth=72
-    au FileType cpp,c,java,sh,pl,php,asp setlocal autoindent
-    au FileType c,cpp,java setlocal foldmethod=syntax foldnestmax=5
-    au FileType cpp,c,java,sh,pl,php,asp setlocal cindent
-    au BufNewFile,BufRead  modprobe.conf setlocal syntax=modconf
-    "au BufNewFile,BufRead *.json setfiletype json syntax=javascript
+  " Filetypes (au = autocmd)
+  au FileType helpfile setlocal nonumber " no line numbers when viewing help
+  au FileType mail,tex setlocal textwidth=72
+  au FileType cpp,c,java,sh,pl,php,asp setlocal autoindent
+  au FileType c,cpp,java setlocal foldmethod=syntax foldnestmax=5
+  au FileType cpp,c,java,sh,pl,php,asp setlocal cindent
+  au BufNewFile,BufRead  modprobe.conf setlocal syntax=modconf
+  "au BufNewFile,BufRead *.json setfiletype json syntax=javascript
 
-    "https://github.com/patoroco/system-config/blob/master/.vimrc
+  "https://github.com/patoroco/system-config/blob/master/.vimrc
 
-  endif
-  " }}}
+endif
+" }}}
 
-  " }}}
-  " ==============================================================================
+" }}}
+" ==============================================================================
 
-  " ==============================================================================
-  " Vim Plugins.  "{{{
-  " ==============================================================================
+" ==============================================================================
+" Keybindings.  "{{{ 
+" ==============================================================================
 
-  " Autoreload vimrc.
-  if has("autocmd")
-    augroup reload_vimrc " {
-      au!
-      au BufWritePost $MYVIMRC source $MYVIMRC
-    augroup END " }
-  endif
+" Shift + Insert = Paste."{{{
+" ==================================================
+map <S-Insert> <MiddleMouse>
+map! <S-Insert> <MiddleMouse>
+"}}}
 
-  " Increment-Activator {{{
-  " ==================================================
+" Switch colon and semi-colon
+nnoremap ; :
+nnoremap : ;
+vnoremap ; :
+vnoremap : ;
 
-  " don't use <C-a> or <C-x>
-  let g:increment_activator_no_default_key_mappings = 1
+" <Leader>d to _ buffer
+nmap <silent> <leader>d "_d 
+vmap <silent> <leader>d "_d
 
-  " `'_'` is all files...
-  let g:increment_activator_filetype_candidates = {
-        \   '_' : [                            
-        \     ['VERBOTEN', 'erlaubt'],
-        \     ['ACHTUNG', 'DANGER'],
-        \     ['1-VL','2-L', '3-M', '4-H', '5-VH']
-        \   ],
-        \ }
-  " }}}
-
-  " Pathogen."{{{
-  " ==================================================
-  " This comes after the `let g:*` statements above so that they are in force (like
-  " the law) when the bundles are added to `set runtimepath` for the first time.
-  " ACHTUNG: If you screw this up, then you will screw up everything. 
-
-  if has ("win32") " returns 1 on WOW64
-    " pathogen: plugins in $VIM/vimfiles/bundle/**
-    call pathogen#infect($VIM.'\vimfiles\bundle\{}')
-  else
-    " pathogen: plugins in $HOME/.vim/bundle/**
-    call pathogen#infect('~/.vim/bundle/{}')
-  endif
-
-  call pathogen#helptags()
-
-  "}}}
-
-  "}}}
-  " ==============================================================================
-
-  " ==============================================================================
-  " Keybindings.  "{{{ 
-  " ==============================================================================
-
-  " Shift + Insert = Paste."{{{
-  " ==================================================
-  map <S-Insert> <MiddleMouse>
-  map! <S-Insert> <MiddleMouse>
-  "}}}
-
-  " Switch colon and semi-colon
-  nnoremap ; :
-  nnoremap : ;
-  vnoremap ; :
-  vnoremap : ;
-
-  " <Leader>d to _ buffer
-  nmap <silent> <leader>d "_d 
-  vmap <silent> <leader>d "_d
-
-  " Insert new line after the cursor with shift+enter
-  nmap <S-CR> i<Enter><Esc>l
+" Insert new line after the cursor with shift+enter
+nmap <S-CR> i<Enter><Esc>l
 
 
-  "Open a Quickfix window for the last search. 
-  nnoremap <silent> ,/ :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
+"Open a Quickfix window for the last search. 
+nnoremap <silent> ,/ :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
 
-  " Tabs."{{{
-  " ==================================================
-  " https://github.com/icco/dotFiles/blob/master/link/vimrc
-  " @author David Patierno
-  :nnoremap ,. :tabnew<CR>
-  :nnoremap ., :tabclose<CR>
-  :nnoremap .q :tabp<CR>
-  :nnoremap .e :tabn<CR>
-  :nnoremap .1 :tabn 1<CR>
-  :nnoremap .2 :tabn 2<CR>
-  :nnoremap .3 :tabn 3<CR>
-  :nnoremap .4 :tabn 4<CR>
-  :nnoremap .5 :tabn 5<CR>
-  :nnoremap .6 :tabn 6<CR>
-  :nnoremap .7 :tabn 7<CR>
-  :nnoremap .8 :tabn 8<CR>
-  :nnoremap .9 :tabn 9<CR>"}}}
+" Tabs."{{{
+" ==================================================
+" https://github.com/icco/dotFiles/blob/master/link/vimrc
+" @author David Patierno
+:nnoremap ,. :tabnew<CR>
+:nnoremap ., :tabclose<CR>
+:nnoremap .q :tabp<CR>
+:nnoremap .e :tabn<CR>
+:nnoremap .1 :tabn 1<CR>
+:nnoremap .2 :tabn 2<CR>
+:nnoremap .3 :tabn 3<CR>
+:nnoremap .4 :tabn 4<CR>
+:nnoremap .5 :tabn 5<CR>
+:nnoremap .6 :tabn 6<CR>
+:nnoremap .7 :tabn 7<CR>
+:nnoremap .8 :tabn 8<CR>
+:nnoremap .9 :tabn 9<CR>"}}}
 
-  " Splits."{{{
-  " ==================================================
-  " https://github.com/icco/dotFiles/blob/master/link/vimrc
-  :nnoremap .w <c-w><Up><CR>
-  :nnoremap .s <c-w><Down><CR>
-  " don't use <C-a> or <C-x>
-  :nnoremap .a <c-w><Left><CR>
-  :nnoremap .d <c-w><Right><CR>
-  " don't use <C-a> or <C-x>"}}}
+" Splits."{{{
+" ==================================================
+" https://github.com/icco/dotFiles/blob/master/link/vimrc
+:nnoremap .w <c-w><Up><CR>
+:nnoremap .s <c-w><Down><CR>
+" don't use <C-a> or <C-x>
+:nnoremap .a <c-w><Left><CR>
+:nnoremap .d <c-w><Right><CR>
+" don't use <C-a> or <C-x>"}}}
 
-  " Folding."{{{
-  " ==================================================
+" Folding."{{{
+" ==================================================
 
-  " Toggle fold
-  nnoremap <space> za
+" Toggle fold
+nnoremap <space> za
 
-  " Create and destroy folds with space. 
-  " https://github.com/icco/dotFiles/blob/master/link/vimrc
-  " Vulnerable to spacebar attack from domesticated animals.
-  " Especially significant others. Like ghosts.
-  ":vnoremap <space> zf<CR>
-  ":nnoremap <space> zd<CR>
-  "}}}
+" Create and destroy folds with space. 
+" https://github.com/icco/dotFiles/blob/master/link/vimrc
+" Vulnerable to spacebar attack from domesticated animals.
+" Especially significant others. Like ghosts.
+":vnoremap <space> zf<CR>
+":nnoremap <space> zd<CR>
+"}}}
 
-  " Clear hlsearch. Noh!"{{{
-  " ==================================================
-  :map <silent> <Leader>\\ :nohls<cr>; echo 'Suche-Highlight ist weg' <CR> 
-  :map <silent> // :nohls<cr>; echo 'Suche-Highlight ist weg' <CR> 
-  "}}}
+" Clear hlsearch. Noh!"{{{
+" ==================================================
+:map <silent> <Leader>\\ :nohls<cr>; echo 'Suche-Highlight ist weg' <CR> 
+:map <silent> // :nohls<cr>; echo 'Suche-Highlight ist weg' <CR> 
+"}}}
 
-  " Spell Check."{{{
-  " ==================================================
-  " https://github.com/icco/dotFiles/blob/master/link/vimrc
-  " vim: ts=2:sw=2:tw=80:et :
-  :map <Leader>sp :set spell!<cr>
-  "}}}
+" Spell Check."{{{
+" ==================================================
+" https://github.com/icco/dotFiles/blob/master/link/vimrc
+" vim: ts=2:sw=2:tw=80:et :
+:map <Leader>sp :set spell!<cr>
+"}}}
 
-  " Append modeline to file."{{{
-  " ==================================================
-  " http://vim.wikia.com/wiki/Modeline_magic
-  nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
-  "}}}
+" Append modeline to file."{{{
+" ==================================================
+" http://vim.wikia.com/wiki/Modeline_magic
+nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
+"}}}
 
-  " Disabled -- Kill the arrow keys."{{{
-  " ==================================================
-  " Discipline? Security? Fascism? 1334? scriptkiddie?
-  "inoremap  <Up>     <NOP>  " This protects yourself
-  "inoremap  <Down>   <NOP> " from your worst enemy
-  "inoremap  <Left>   <NOP> " ... yourself. But only
-  "inoremap  <Right>  <NOP> " if you enable it.
+" Disabled -- Kill the arrow keys."{{{
+" ==================================================
+" Discipline? Security? Fascism? 1334? scriptkiddie?
+"inoremap  <Up>     <NOP>  " This protects yourself
+"inoremap  <Down>   <NOP> " from your worst enemy
+"inoremap  <Left>   <NOP> " ... yourself. But only
+"inoremap  <Right>  <NOP> " if you enable it.
 
-  "noremap   <Up>     <NOP> " This helps you save
-  "noremap   <Down>   <NOP> " time by making you
-  "noremap   <Left>   <NOP> " type 20j instead of
-  "noremap   <Right>  <NOP> " scrolling like a moron.
-  "}}}
+"noremap   <Up>     <NOP> " This helps you save
+"noremap   <Down>   <NOP> " time by making you
+"noremap   <Left>   <NOP> " type 20j instead of
+"noremap   <Right>  <NOP> " scrolling like a moron.
+"}}}
 
-  " Plugin: Tabular. "{{{
-  " ==================================================
-  " Key: <LEADER>a  (A for Align)
+" Plugin: Tabular. "{{{
+" ==================================================
+" Key: <LEADER>a  (A for Align)
 
-  " Automatic"{{{
-  nnoremap <silent> <Leader>aa :Tabularize<CR>
-  vnoremap <silent> <Leader>aa :Tabularize<CR>
-  "}}}
-  " `=` Equals sign"{{{
-  nnoremap <silent> <Leader>a= :Tabularize /=<CR>
-  vnoremap <silent> <Leader>a= :Tabularize /=<CR>
-  "}}}
-  " `#` Hash comments"{{{
-  nnoremap <silent> <Leader>a# :Tabularize /"<CR>
-  vnoremap <silent> <Leader>a# :Tabularize /"<CR>
-  nnoremap <silent> <Leader>a3 :Tabularize /"<CR>
-  vnoremap <silent> <Leader>a3 :Tabularize /"<CR>
-  "}}}
-  " `"` Double-quotes for vim comments"{{{
-  nnoremap <silent> <Leader>a' :Tabularize /"<CR>
-  vnoremap <silent> <Leader>a' :Tabularize /"<CR>
-  nnoremap <silent> <Leader>a" :Tabularize /"<CR>
-  vnoremap <silent> <Leader>a" :Tabularize /"<CR>
-  "}}}
-  " `:` Colon assignments, JSON-safe style"{{{
-  nnoremap <silent> <Leader>a: :Tabularize /:\zs<CR>
-  vnoremap <silent> <Leader>a: :Tabularize /:\zs<CR>
-  "}}}
-  " `|` Pipes, cucumber tables"{{{
-  nnoremap <silent> <Leader>a\| :Tabularize /\|<CR>
-  vnoremap <silent> <Leader>a\| :Tabularize /\|<CR>
-  nnoremap <silent> <Leader>a\\ :Tabularize /\|<CR>
-  vnoremap <silent> <Leader>a\\ :Tabularize /\|<CR>
-  "}}}
-  "}}}
+" Automatic"{{{
+nnoremap <silent> <Leader>aa :Tabularize<CR>
+vnoremap <silent> <Leader>aa :Tabularize<CR>
+"}}}
+" `=` Equals sign"{{{
+nnoremap <silent> <Leader>a= :Tabularize /=<CR>
+vnoremap <silent> <Leader>a= :Tabularize /=<CR>
+"}}}
+" `#` Hash comments"{{{
+nnoremap <silent> <Leader>a# :Tabularize /"<CR>
+vnoremap <silent> <Leader>a# :Tabularize /"<CR>
+nnoremap <silent> <Leader>a3 :Tabularize /"<CR>
+vnoremap <silent> <Leader>a3 :Tabularize /"<CR>
+"}}}
+" `"` Double-quotes for vim comments"{{{
+nnoremap <silent> <Leader>a' :Tabularize /"<CR>
+vnoremap <silent> <Leader>a' :Tabularize /"<CR>
+nnoremap <silent> <Leader>a" :Tabularize /"<CR>
+vnoremap <silent> <Leader>a" :Tabularize /"<CR>
+"}}}
+" `:` Colon assignments, JSON-safe style"{{{
+nnoremap <silent> <Leader>a: :Tabularize /:\zs<CR>
+vnoremap <silent> <Leader>a: :Tabularize /:\zs<CR>
+"}}}
+" `|` Pipes, cucumber tables"{{{
+nnoremap <silent> <Leader>a\| :Tabularize /\|<CR>
+vnoremap <silent> <Leader>a\| :Tabularize /\|<CR>
+nnoremap <silent> <Leader>a\\ :Tabularize /\|<CR>
+vnoremap <silent> <Leader>a\\ :Tabularize /\|<CR>
+"}}}
+"}}}
 
-  " Plugin: guys-laundry."{{{
-  " ==================================================
-  " Enable LAUNDRY keybinds
-  " let g:laundry_defaultkeys = 1
+" Plugin: guys-laundry."{{{
+" ==================================================
+" Enable LAUNDRY keybinds
+" let g:laundry_defaultkeys = 1
 
-  " Development mode {{{
-  " if exists('g:laundry_defaultkeys')
-  "  g:laundry_no_default_key_mappings = 0 
-  " endif
-  " " }}}
+" Development mode {{{
+" if exists('g:laundry_defaultkeys')
+"  g:laundry_no_default_key_mappings = 0 
+" endif
+" " }}}
 
-  "}}}
+"}}}
 
-  " Edit vimrc. {{{
-  " ==================================================
-  nnoremap <Leader>v :tabnew $MYVIMRC<CR>
-  "}}}
+" Edit vimrc. {{{
+" ==================================================
+nnoremap <Leader>v :tabnew $MYVIMRC<CR>
+"}}}
 
-  " }}} 
-  " ==============================================================================
+" }}} 
+" ==============================================================================
 
-  " vim: ts=2:sw=2:tw=78:fdm=marker:et :
+" vim: ts=2:sw=2:tw=78:fdm=marker:et :
 
 
