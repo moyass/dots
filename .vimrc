@@ -27,7 +27,7 @@ endif
 "  OS Settings  {{{
 " ==============================================================================
 
-" Windows... pitiful... "{{{
+" Windows... pitiful... "{{{a
 " ==================================================
 if has("gui_win32") " returns 1 on WOW64  =>[OS-Settings]
   " ... do nonsense.
@@ -40,10 +40,10 @@ if has("gui_win32") " returns 1 on WOW64  =>[OS-Settings]
   endif
 
   let s:vimbackups='$MYVIMRC/../vimtmp' 
-  set directory=s:vimbackups " swapfiles
-  set noswapfile      " no swap on windows
-  set backupdir=s:vimbackups
-  set backup        " no backup on windows
+  set directory^=s:vimbackups " swapfiles
+  set noswapfile      
+  set backupdir^=s:vimbackups
+  set backup        
   " Disabled - assume %USERPROFILE% is on a network share,
   " this is better for performance.
   if exists("&undodir")
@@ -51,14 +51,14 @@ if has("gui_win32") " returns 1 on WOW64  =>[OS-Settings]
   endif
   "}}}
 
-  " Not Windows... Lucky you! "{{{
+  " Not Windows... Lucky you!a "{{{
   " ==================================================
 else
   " ... we're not on windows, so just be normal.
-  set directory=/tmp " put swapfiles in /tmp instead of current directory.
-  set backupdir=~/.vim/backups
+  set directory^=/tmp " put swapfiles in /tmp instead of current directory.
+  set backupdir^=~/.vim/backups
   if exists("&undodir")
-    set undodir=~/.vim/undo
+    set undodir^=~/.vim/undo
   endif
 
 endif  " [/OS-Settings]<=
@@ -78,13 +78,24 @@ endif
 " Vim Plugins.  "{{{
 " ==============================================================================
 
-" Autoreload vimrc.
 if has("autocmd")
-  augroup reload_vimrc " {
-    au!
-    au BufWritePost $MYVIMRC source $MYVIMRC
-  augroup END " }
-endif
+  
+  " Resize splits with window
+  au VimResized * :wincmd = 
+
+  " automatically leave insert mode after 'updatetime' ms of inacction
+  " http://vim.wikia.com/wiki/To_switch_back_to_normal_mode_automatically_after_inaction
+  au CursorHoldI * stopinsert
+
+  " Restore cursor position
+  au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
+
+    " Autoreload vimrc.
+    augroup reload_vimrc " {
+      au!
+      au BufWritePost $MYVIMRC source $MYVIMRC
+    augroup END " }
+  endif
 
 " Increment-Activator {{{
 " ==================================================
@@ -123,11 +134,10 @@ call pathogen#helptags()
 "}}}
 " ==============================================================================
 
-
 " ==============================================================================
 " Code format & Indenting."{{{
 " ==============================================================================
-set autoindent      " auto indents next new line
+set noautoindent      " auto indents next new line
 set nosmartindent
 set nocindent
 set expandtab       " expand tabs with spaces
@@ -136,6 +146,9 @@ set shiftwidth=2    " >> and << shift 3 spaces
 set softtabstop=2   " see spaces as tabs
 set showbreak=...\  " show x in front of wrapped lines (trailing escaped space `\ `)
 set textwidth=0     " disable hard wrap (e.g. set to 79 for new files)
+set formatoptions=q " Format text with gq, but don't format as I type.
+set formatoptions+=n " gq recognizes numbered lists, and will try to
+set formatoptions+=1 " break before, not after, a 1 letter word
 set wrap
 set linebreak       " wrap long lines at a character in &breakat
 
@@ -147,11 +160,19 @@ set linebreak       " wrap long lines at a character in &breakat
 " ==============================================================================
 let mapleader="\\"
 set backspace=2 " full backspacing capabilities (indent,eol,start)
-set mouse=a " enable mouse in all modes
+set mouse=nv " enable mouse in normal, visual
 set mousehide     " Hide the mouse when typing text
-set nostartofline
+set nostartofline " Avoid moving cursor to BOL when jumping around
+set ttyfast
 
-set complete=.,w,b,u,t  " Better Completion TODO: add more
+set whichwrap=b,s,h,l,<,> " <BS> <Space> h l <Left> <Right> can change lines
+set virtualedit=block " Let cursor move past the last char in <C-v> mode
+set scrolloff=3 " Keep 3 context lines above and below the cursor
+set backspace=2 " Allow backspacing over autoindent, EOL, and BOL
+set showmatch " Briefly jump to a paren once it's balanced
+set matchtime=2 " (for only .2 seconds).
+
+set complete=.,w,b,u,t  " Better Completion TODO: g.
 set completeopt=longest,menuone,preview
 
 " }}}
@@ -164,21 +185,29 @@ set completeopt=longest,menuone,preview
 "  Options."{{{
 " ==================================================
 set cursorline            " track position
-set scrolloff=2          " keep x lines of context
-set ttyfast
 
 set noerrorbells          " no beeps on errors
 set visualbell            " show visual bell
 set title                 " show title in console title bar
 set noruler               " no: display row, column and % of document
 set showmatch             " show matching () {} etc.
-set wildmenu              " enhanced tab-completion shows all matching cmds in a popup menu
-set splitright " place new splits right & below
-set splitbelow
 
-if has("autcmd")
-  au VimResized * :wincmd = " resize splits with window
-endif"}}}
+
+" Commandline. "{{{
+
+set history=1000
+set wildmenu              " enhanced tab-completion shows all matching cmds in a popup menu
+"}}}
+
+
+
+
+
+
+set splitright " place new splits right & below
+
+
+"}}}
 
 " Listchars: show spaces, tab, eol trailing"{{{
 set listchars=trail:·,precedes:«,extends:»,eol:↲,tab:▸\
@@ -251,19 +280,26 @@ endif
 " ==============================================================================
 " Files."{{{
 " ==============================================================================
-"set nobackup    " Disabled - See above (OS Settings)
-"set noswapfile  " Disabled - See above (OS Settings) 
-"set exrc secure " Per-directory .vimrc files without unsafe cmds
-"set binary noeol  " Don’t add empty newlines at the end of files
-"set modeline    " Disabled - Using securemodelines plugin
-"set modelines=5 
+
+" Disabled - Superseeded by other functionality. {{{
+" set nobackup     " Disabled - See above (OS Settings)
+" set noswapfile   " Disabled - See above (OS Settings)
+" set exrc secure  " Disabled -  Per-directory .vimrc files without unsafe cmds
+" set binary noeol " Disabled - Don’t add empty newlines at the end of files
+set nomodeline     " Disabled - Using securemodelines plugin
+" set modelines=5
+" }}}
+
+set noautowrite " Never write a file unless I request it.
+set noautowriteall " NEVER.
+"set noautoread " Don't automatically re-read changed files.
+set ffs=unix,dos,mac " Try recognizing dos, unix, and mac line endings.
+ 
 
 " ==================================================
 " Filetype misc."{{{
 " ==================================================
 if has("autocmd")
-" Restore cursor position
-au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
 
   " Filetypes (au = autocmd)
   au FileType helpfile setlocal nonumber " no line numbers when viewing help
@@ -292,19 +328,33 @@ map <S-Insert> <MiddleMouse>
 map! <S-Insert> <MiddleMouse>
 "}}}
 
-" Switch colon and semi-colon
+" Load gui menus for terminal vim "{{{
+if !has('gui_running')
+  source $VIMRUNTIME/menu.vim 
+  map <F10> :emenu <C-Z>
+endif
+"}}}
+
+" Switch colon and semi-colon"{{{
 nnoremap ; :
 nnoremap : ;
 vnoremap ; :
 vnoremap : ;
+"}}}
 
 " <Leader>d to _ buffer
 nmap <silent> <leader>d "_d 
 vmap <silent> <leader>d "_d
+"normal/insert mode, ar inserts spaces to right align to &tw or 80 chars
+nnoremap <leader>ar :AlignRight<CR>
 
-" Insert new line after the cursor with shift+enter
-nmap <S-CR> i<Enter><Esc>l
+" In normal/insert mode, ac center aligns the text after it to &tw or 80 chars
+nnoremap <leader>ac :center<CR>
 
+" Pressing an 'enter visual mode' key while in visual mode changes mode.
+vmap <C-V> <ESC>`<<C-v>`>
+vmap V <ESC>`<V`>
+vmap v <ESC>`<v`>
 
 "Open a Quickfix window for the last search. 
 nnoremap <silent> ,/ :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
@@ -343,18 +393,13 @@ nnoremap <silent> ,/ :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
 " Toggle fold
 nnoremap <space> za
 
-" Create and destroy folds with space. 
-" https://github.com/icco/dotFiles/blob/master/link/vimrc
-" Vulnerable to spacebar attack from domesticated animals.
-" Especially significant others. Like ghosts.
-":vnoremap <space> zf<CR>
-":nnoremap <space> zd<CR>
-"}}}
+" <space> in visual mode creates a fold over the marked range
+vnoremap <space> zf
 
 " Clear hlsearch. Noh!"{{{
 " ==================================================
-:map <silent> <Leader>\\ :nohls<cr>; echo 'Suche-Highlight ist weg' <CR> 
-:map <silent> // :nohls<cr>; echo 'Suche-Highlight ist weg' <CR> 
+noremap <silent> <Leader>\\ :nohls<cr>:echom 'Suche-Highlight ist weg' <CR> 
+noremap <silent> // :nohls<cr>:echom 'Suche-Highlight ist weg'<CR> 
 "}}}
 
 " Spell Check."{{{
@@ -364,10 +409,11 @@ nnoremap <space> za
 :map <Leader>sp :set spell!<cr>
 "}}}
 
-" Append modeline to file."{{{
+" <Leader>ml - Append Modeline."{{{
 " ==================================================
-" http://vim.wikia.com/wiki/Modeline_magic
-nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
+" https://github.com/godlygeek/vim-files/blob/master/.vimrc#L346
+" Insert a modeline on the last line with <leader>ml
+nnoremap <Leader>ml :$put =ModelineStub()<CR>
 "}}}
 
 " Disabled -- Kill the arrow keys."{{{
@@ -380,9 +426,24 @@ nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
 
 "noremap   <Up>     <NOP> " This helps you save
 "noremap   <Down>   <NOP> " time by making you
-"noremap   <Left>   <NOP> " type 20j instead of
-"noremap   <Right>  <NOP> " scrolling like a moron.
-"}}}
+"noremap   <Left>   <NOP> " type 20j instead of "noremap   <Right>  <NOP> " scrolling like a moron.
+""}}}
+
+" Use \sq to squeeze blank lines with :Squeeze, defined below nnoremap
+nnoremap <leader>sq :Squeeze<CR>
+
+" In visual mode, \box draws a box around the highlighted text.  vnoremap
+nnoremap <leader>box <ESC>:call BoxIn()<CR>gvlolo
+
+" F8 toggles highlighting lines that are too long
+nnoremap <F8> :call LongLineHighlight()<CR>
+
+" F7 toggles line numbers and turns off relative line numbers 
+nnoremap <silent> <F7> :set number! <bar> set number?<CR>:set norelativenumber <CR>
+
+" Q formats paragraphs, instead of entering ex mode
+noremap Q gq
+nnoremap <silent> gqJ :call Exe#ExeWithOpts('norm! gqj', { 'tw' : 2147483647 })<CR>
 
 " Plugin: Tabular. "{{{
 " ==================================================
@@ -391,14 +452,17 @@ nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
 " Automatic"{{{
 nnoremap <silent> <Leader>aa :Tabularize<CR>
 vnoremap <silent> <Leader>aa :Tabularize<CR>
+
+
 "}}}
 " `=` Equals sign"{{{
 nnoremap <silent> <Leader>a= :Tabularize /=<CR>
-vnoremap <silent> <Leader>a= :Tabularize /=<CR>
+vnoremap <silent> <Leader>a= :GTabularize /^[^=]*\zs=\(*[*\)\@!/l1c1l0<CR>
+
 "}}}
 " `#` Hash comments"{{{
 nnoremap <silent> <Leader>a# :Tabularize /"<CR>
-vnoremap <silent> <Leader>a# :Tabularize /"<CR>
+vnoremap <silent> <Leader>a# :GTabularize /^[^#]*\zs=\(*[*\)\@!/l1c1l0<CR>
 nnoremap <silent> <Leader>a3 :Tabularize /"<CR>
 vnoremap <silent> <Leader>a3 :Tabularize /"<CR>
 "}}}
@@ -439,8 +503,15 @@ nnoremap <Leader>v :tabnew $MYVIMRC<CR>
 "}}}
 
 " }}} 
+" }}} 
+
+
 " ==============================================================================
 
-" vim: ts=2:sw=2:tw=78:fdm=marker:et :
+
+
+
+
+
 
 

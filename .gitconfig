@@ -1,73 +1,91 @@
 [filter "media"]
-clean = git-media-clean %f
-smudge = git-media-smudge %f
+  clean          = git-media-clean %f
+  smudge         = git-media-smudge %f
 
 [user]
-name = Guy Hughes
-email = guy@guyhughes.ca
+  name           = Guy Hughes
+  email          = guy@guyhughes.ca
 
 [credential]
-helper = cache
+# osx only
+# helper         = osxkeychain
 
 [alias]
-br = branch
-cb = "!sh -c 'git branch $1 && git ch $1' -"
-ctb = "!sh -c 'git cb topics/$1' -"
-ci = commit
-ch = checkout
-fc = commit -am 'Initial commit.'
-cpush = "!sh -c 'git commit -au -m \"$1\" && git push -u origin' -"
-d = diff
-st = status --short
-graph = log --graph
-last = log -n 10
-whois = "!sh -c 'git log -i -1 --pretty=\"format:%an <%ae>\n\" --author=\"$1\"' -"
+  br             = branch
+  cb             = "!sh -c 'git branch $1 && git ch $1' -"
+  ch             = checkout
+
+  ci             = commit
+
+  c              = commit -am 'Initial commit.'
+  cpush          = "!sh -c 'git commit -au -m \"$1\" && git push -u origin' -"
+
+  discard        = checkout -- .
+
+  d              = diff
+  st             = status --short
+  graph          = log --graph
+  last           = log -n 10
+  whois          = "!sh -c 'git log -i -1 --pretty=\"format:%an <%ae>\n\" --author=\"$1\"' -"
 
 [color]
-ui = auto
+  ui             = auto
 
 [color "diff"]
-whitespace = red reverse
+  whitespace     = red reverse
 
 [core]
-whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
-autocrlf = input
-editor = vim
-excludesfile = ~/.gitignore
+  whitespace     = fix,-indent-with-non-tab,trailing-space,cr-at-eol
+  autocrlf       = input
+  editor         = vim
+  excludesfile   = ~/.gitignore
 
 [github]
-user = guyhughes
+  user           = guyhughes
 
 [branch]
-autosetupmerge = true
+  autosetupmerge = true
+
 [pager]
-color = true
+  color          = true
+
 [merge]
-stat = true
+  stat           = true
+
 [log]
-abbrevCommit = true
+  abbrevCommit   = true
+
 [diff "zip"]
-textconv = unzip -c -a
+  textconv       = unzip -c -a
+
 [format]
-pretty = %Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset
-graph = true
+  pretty         = %Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset
+  graph          = true
+
+
+[url "git@github.com:"]
+  insteadOf      = "gh:"
+  pushInsteadOf  = "gh:"
+  pushInsteadOf  = "git://github.com/"
+
+
 
 [url "git@gist.github.com:"]
-insteadOf = "gist:"
-pushInsteadOf = "gist:"
-pushInsteadOf = "git://gist.github.com/"
+  insteadOf      = "gist:"
+  pushInsteadOf  = "gist:"
+  pushInsteadOf  = "git://gist.github.com/"
 
 [rebase]
-stat = true
+  stat           = true
 
 [help]
-autocorrect = 1
+  autocorrect    = 1
 
 [daemon]
-uploadarch = true
+  uploadarch     = true
 
 [push]
-default = current
+  default        = current
 
 [mergetool]
-keepBackup = true
+  keepBackup     = true
