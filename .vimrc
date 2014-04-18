@@ -27,7 +27,7 @@ endif
 "  OS Settings  {{{
 " ==============================================================================
 
-" Windows... pitiful... "{{{a
+" Windows... pitiful... "{{{
 " ==================================================
 if has("gui_win32") " returns 1 on WOW64  =>[OS-Settings]
   " ... do nonsense.
@@ -43,7 +43,6 @@ if has("gui_win32") " returns 1 on WOW64  =>[OS-Settings]
   set directory^=s:vimbackups " swapfiles
   set noswapfile      
   set backupdir^=s:vimbackups
-  set backup        
   " Disabled - assume %USERPROFILE% is on a network share,
   " this is better for performance.
   if exists("&undodir")
@@ -51,7 +50,7 @@ if has("gui_win32") " returns 1 on WOW64  =>[OS-Settings]
   endif
   "}}}
 
-  " Not Windows... Lucky you!a "{{{
+  " Not Windows... Lucky you! "{{{
   " ==================================================
 else
   " ... we're not on windows, so just be normal.
@@ -60,7 +59,7 @@ else
   if exists("&undodir")
     set undodir^=~/.vim/undo
   endif
-
+  set swapfile
 endif  " [/OS-Settings]<=
 " }}}
 
@@ -281,8 +280,12 @@ endif
 " Files."{{{
 " ==============================================================================
 
+" Keep old backups, write new ones. "{{{
+set nobackup     " Disabled - See above (OS Settings)
+ set writebackup  "
+"}}}
+
 " Disabled - Superseeded by other functionality. {{{
-" set nobackup     " Disabled - See above (OS Settings)
 " set noswapfile   " Disabled - See above (OS Settings)
 " set exrc secure  " Disabled -  Per-directory .vimrc files without unsafe cmds
 " set binary noeol " Disabled - Don’t add empty newlines at the end of files
@@ -322,10 +325,11 @@ endif
 " Keybindings.  "{{{ 
 " ==============================================================================
 
-" Shift + Insert = Paste."{{{
+" (<S-Insert> | <Leaderv): Paste."{{{
 " ==================================================
 map <S-Insert> <MiddleMouse>
 map! <S-Insert> <MiddleMouse>
+noremap <Leader>v <ESC>:set paste<CR>i<C-r>*<Esc>:set nopaste<CR>
 "}}}
 
 " Load gui menus for terminal vim "{{{
@@ -343,8 +347,9 @@ vnoremap : ;
 "}}}
 
 " <Leader>d to _ buffer
-nmap <silent> <leader>d "_d 
+nmap <silent> <leader>dd "_d
 vmap <silent> <leader>d "_d
+
 "normal/insert mode, ar inserts spaces to right align to &tw or 80 chars
 nnoremap <leader>ar :AlignRight<CR>
 
@@ -390,24 +395,18 @@ nnoremap <silent> ,/ :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
 " Folding."{{{
 " ==================================================
 
-" Toggle fold
+" <Space> Toggle fold
 nnoremap <space> za
 
-" <space> in visual mode creates a fold over the marked range
+" <Space> in visual mode creates a fold over the marked range
 vnoremap <space> zf
 
-" Clear hlsearch. Noh!"{{{
+" <Leader>\ Clear hlsearch and redraw screen."{{{
 " ==================================================
-noremap <silent> <Leader>\\ :nohls<cr>:echom 'Suche-Highlight ist weg' <CR> 
-noremap <silent> // :nohls<cr>:echom 'Suche-Highlight ist weg'<CR> 
+noremap <silent> <Leader>\\ :nohls<cr><c-l><CR> 
+noremap <silent> <c-l> :nohls<cr><c-l><CR> 
 "}}}
 
-" Spell Check."{{{
-" ==================================================
-" https://github.com/icco/dotFiles/blob/master/link/vimrc
-" vim: ts=2:sw=2:tw=80:et :
-:map <Leader>sp :set spell!<cr>
-"}}}
 
 " <Leader>ml - Append Modeline."{{{
 " ==================================================
@@ -418,7 +417,7 @@ nnoremap <Leader>ml :$put =ModelineStub()<CR>
 
 " Disabled -- Kill the arrow keys."{{{
 " ==================================================
-" Discipline? Security? Fascism? 1334? scriptkiddie?
+" Discipline? Fascism? 1334? scriptkiddie?
 "inoremap  <Up>     <NOP>  " This protects yourself
 "inoremap  <Down>   <NOP> " from your worst enemy
 "inoremap  <Left>   <NOP> " ... yourself. But only
@@ -429,21 +428,41 @@ nnoremap <Leader>ml :$put =ModelineStub()<CR>
 "noremap   <Left>   <NOP> " type 20j instead of "noremap   <Right>  <NOP> " scrolling like a moron.
 ""}}}
 
-" Use \sq to squeeze blank lines with :Squeeze, defined below nnoremap
+" <Leader>sq to squeeze blank lines with :Squeeze
 nnoremap <leader>sq :Squeeze<CR>
 
-" In visual mode, \box draws a box around the highlighted text.  vnoremap
-nnoremap <leader>box <ESC>:call BoxIn()<CR>gvlolo
+" <Leader>box draws a box around the highlighted text.
+vnoremap <leader>box <ESC>:call BoxIn()<CR>gvlolo
 
-" F8 toggles highlighting lines that are too long
+" <F6> Remove trailing spaces from lines
+" " http://vim.wikia.com/wiki/Remove_unwanted_spaces
+:nnoremap <silent> <F6> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
+
+
+" (<F7> | \sp): Spell Check."{{{
+" ==================================================
+" https://github.com/icco/dotFiles/blob/master/link/vimrc
+:noremap <Leader>sp :set spell!<cr>
+:noremap <F7> :set spell!<cr>
+"}}}
+
+" <F8> toggles LongLineHighlight
 nnoremap <F8> :call LongLineHighlight()<CR>
 
-" F7 toggles line numbers and turns off relative line numbers 
-nnoremap <silent> <F7> :set number! <bar> set number?<CR>:set norelativenumber <CR>
+" <F9> toggles line numbers and turns off relative line numbers 
+nnoremap <silent> <F9> :set invnumber<CR>:set norelativenumber <CR>
+
 
 " Q formats paragraphs, instead of entering ex mode
 noremap Q gq
 nnoremap <silent> gqJ :call Exe#ExeWithOpts('norm! gqj', { 'tw' : 2147483647 })<CR>
+
+" <Leader>w write
+noremap <Leader>w <Esc>:w<CR>
+
+" <Leader>q quit
+noremap <Leader>q <Esc>:q<CR> 
+
 
 " Plugin: Tabular. "{{{
 " ==================================================
@@ -484,7 +503,7 @@ vnoremap <silent> <Leader>a\\ :Tabularize /\|<CR>
 "}}}
 "}}}
 
-" Plugin: guys-laundry."{{{
+" Plugin: nerdy-laundry."{{{
 " ==================================================
 " Enable LAUNDRY keybinds
 " let g:laundry_defaultkeys = 1
@@ -499,13 +518,10 @@ vnoremap <silent> <Leader>a\\ :Tabularize /\|<CR>
 
 " Edit vimrc. {{{
 " ==================================================
-nnoremap <Leader>v :tabnew $MYVIMRC<CR>
+nnoremap <Leader>rc :tabnew $MYVIMRC<CR>
 "}}}
 
 " }}} 
-" }}} 
-
-
 " ==============================================================================
 
 

@@ -15,8 +15,8 @@
 " -----------------------------------------------------------------------------
 
 " no bottom or right scrollbar
-"set guioptions-=br            
-set guioptions=Cs
+set guioptions-=br            
+set guioptions+=Cs
 
 " hi all search matches, not just the first.
 set hlfind
@@ -26,7 +26,7 @@ set defsearch=g
 
 " popup windows
 " expected behaviour: open target=_blank in new tab, but resized popups in a new window
-" actual: ?
+" actual with i3wm: ?
 set popups=resized
 
 " Shut up.
@@ -37,22 +37,20 @@ set popups=resized
 " Status line {{{
 " -----------------------------------------------------------------------------
 
-"hi CmdLine padding: 1px !important; font: normal 11pt 'Cousine' !important;
-"hi CmdOutput font: normal 11pt 'Cousine' !important;
-"hi CompItem font: normal 11pt 'Cousine' !important;
+colorscheme kolor
 
 " w0ng statusline
 " https://github.com/w0ng/dotfiles/blob/master/.pentadactylrc
-hi -a StatusLine font-weight: normal;
-hi -a StatusLineNormal color:#C5C8C6 !important; background:#282A2E !important;
+"hi -a StatusLine font-weight: normal;
+"hi -a StatusLineNormal color:#C5C8C6 !important; background:#282A2E !important;
 
 " alternative statusline
 "hi StatusLine -moz-appearance: none !important; font-weight: bold; background: transparent !important; border: 0px !important; min-height: 22px !important; text-shadow: none !important; font: normal 14px/1 'Cousine' !important; padding: 3px 0px 3px 5px !important;
 
 " hints
-hi Hint font-size: 9pt; background: rgba(210,1,133,0.8) !important; border: 2px solid rgb(165,1,105); padding: 4px; border-radius: 3px; font-weight: bold; margin-left: -25px; color: white; font-family: Cousine; line-height:1em;
-hi HintActive background: rgba(145,197,43,0.8) !important;
-hi HintElem background: rgba(255, 209, 20, 0.7) !important;
+"hi Hint font-size: 9pt; background: rgba(210,1,133,0.8) !important; border: 2px solid rgb(165,1,105); padding: 4px; border-radius: 3px; font-weight: bold; margin-left: -25px; color: white; font-family: Cousine; line-height:1em;
+"hi HintActive background: rgba(145,197,43,0.8) !important;
+"hi HintElem background: rgba(255, 209, 20, 0.7) !important;
 "}}}
 " Font {{{
 " -----------------------------------------------------------------------------
@@ -62,13 +60,12 @@ hi HintElem background: rgba(255, 209, 20, 0.7) !important;
 " Cousine font: http://www.fontsquirrel.com/fonts/cousine
 " Inspired to use cousine by w0ng: https://github.com/w0ng/dotfiles/blob/master/.pentadactylrc
 
-hi FontCode -a font-family: Cousine important; font-size: 11pt !important;
-hi FontFixed -a font-family: Cousine !important; font-size:11pt !important;
-hi Normal -a font-family: Cousine !important; font-size: 11pt !important;
+hi FontCode -a font-family: Liberation Sans important; font-size: 9pt !important;
+hi FontFixed -a font-family: Liberation Sans !important; font-size:9pt !important;
+hi Normal -a font-family: Liberation Sans  !important; font-size: 9ptt !important;
 "}}}
 
 set passkeys+=mail.google.com:#jkaec?<CR><DOWN><UP>,gi
-set passkeys+=cloud.digitalocean.com:[a-z]pamqwertyuiiop@#$%^*(&^)_(jr<CR><DOWN><UP>,gi
 
 " Mappings {{{
 " -----------------------------------------------------------------------------
@@ -116,20 +113,19 @@ nmap -builtin .. :buffers<CR>f
 
 " Go Dark
 map -builtin <F4> :styletoggle<Space>-name<Space>hybrid<CR>   
-      
-" Disabled -- FF minitab theme 
-" map -builtin <F3> :styletoggle<Space>-name<Space>minitabs<CR>
+map -builtin <F3> :styletoggle<Space>-name<Space>hybridredux<CR>   
+
 
 " }}}
 " }}}
 
 
-" Style: Hybrid Colourscheme {{{
+" Style: Hybrid Colours {{{
 " -----------------------------------------------------------------------------
 " https://github.com/w0ng/dotfiles/blob/master/.pentadactylrc
 " TODO: Fix webfonts colouring/antialiasing.
 
-style -name hybrid http://*,https://*,file://*,about:blank <<EOM
+style -name hybrid http://*,https://*,file://*,about:* <<EOM
   * {
     color: #C5C8C6 !important;
     background: #1D1F21 !important;
@@ -152,48 +148,70 @@ EOM
 styledisable -name=hybrid
 
 "}}}
-" Style: Minimalistic Tabs "{{{
-" -----------------------------------------------------------------------------
-" https://github.com/w0ng/dotfiles/blob/master/.pentadactylrc
-" TODO: capatibility for FF australis
-style -name minitabs chrome://* <<EOM
-  #TabsToolbar toolbarbutton {
-    display: none !important;
-  }
-  .tabbrowser-tabs {
-    background: #282A2E !important;
-  }
-  .tabbrowser-tab {
-    -moz-appearance: none !important;
-    -moz-border-radius: 0 !important;
-    background: #282A2E !important;
-    border: none !important;
-    color: #707880 !important;
-    font-family: Cousine;
-    font-size: 9pt !important;
-    height: 18px !important;
-    margin: 0 !important;
-    min-height: 0 !important;
-    padding: 0 0.5ex !important;
-  }
-  .tabbrowser-tab:not([pinned]) {
-    max-width: 125px !important;
-    min-width: 125px !important;
-  }
-  .tabbrowser-tab:not([fadein]) {
-    max-width: 1px !important;
-    min-width: 1px !important;
-  }
-  .tabbrowser-tab:hover {
-    background: #F0C674 !important;
-    color: #282A2E !important;
-  }
-  .tabbrowser-tab[selected] {
-    background: #282A2E !important;
-    color: #F0C674 !important;
-  }
-EOM
 
-styledisable -name=minitabs"}}}
+" Style: Hybrid Redux {{{
+" -----------------------------------------------------------------------------
+
+style -name hybridredux *,http://*,https://*,file://*,about:* <<EOM
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+
+*|*.textbox-input:-moz-placeholder {
+    color:transparent !important;
+}
+
+*|*.textbox-input:-moz-placeholder:hover {
+    color:transparent !important;
+}
+
+#tabbrowser-tabs, #TabsToolbar { 
+    background: #181512 !important; 
+}
+
+.tabbrowser-tab {
+    /* All tabs */
+    font-size: 9pt !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding-left: 5px !important; 
+    padding-right: 5px !important; 
+    font-weight: normal !important; 
+}
+
+.tabbrowser-tab[selected="true"] { 
+    font-family: "PragmataPro for Powerline" !important;
+    /* selected tabs */
+    background: #60899E !important; 
+    color: #181512;
+}
+
+.tabbrowser-tab:not([selected="true"]) { 
+    /* unselected tabs */
+    background: #181512 !important; 
+    color: #e4e4e4 !important; 
+}
+
+.tab-close-button {
+    display: none !important;
+}
+
+.tabs-newtab-button {
+    display: none !important;
+    border: none !important;
+    margin: 0 !important;
+}
+
+ #appmenu-toolbar-button {
+    display: none !important;
+}
+
+
+EOM
+styledisable -name=hybridredux
+
+"}}}
+
+
+
+
 
 " vim:ft=vim:foldmethod=marker: 
