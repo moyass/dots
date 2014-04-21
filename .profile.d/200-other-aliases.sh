@@ -40,6 +40,7 @@ alias p="cd ~/Projects/"
 
 alias bim="vim"
 alias cim="vim"
+alias vom="vim"
 alias vi='vim'
 
 # aes-enc file.zip

@@ -13,8 +13,8 @@ fi
 # Most beautiful set of LS aliases ever.
 # =========================================
 
-alias l='ls -FAh'
-alias ll='l -l'
+alias l='ls -AhF'
+alias ll='l -lh'
 alias la='l -A'
 alias lal='l -lA'
 alias lla='lal'

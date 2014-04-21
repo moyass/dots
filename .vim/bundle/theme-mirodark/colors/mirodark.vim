@@ -355,122 +355,127 @@ let colors_name="mirodark"
 
 " color scheme variables {{{
 if has("gui_running") ||
-            \ ((&t_Co == 88 || &t_Co == 256) && !exists("g:mirodark_disable_color_approximation"))
-    if !exists("g:mirodark_enable_higher_contrast_mode")
-        let s:conf_bclr_hex="121212" " configuration-based background color hexadecimal
-        let s:conf_dblk_hex="3d3d3d" " configuration-based dark black hexadecimal
-        let s:conf_lblk_hex="5e5e5e" " configuration-based light black hexadecimal
-    else
-        let s:conf_bclr_hex="000000"
-        let s:conf_dblk_hex="121212"
-        let s:conf_lblk_hex="3d3d3d"
-    endif
+      \ ((&t_Co == 88 || &t_Co == 256) && !exists("g:mirodark_disable_color_approximation"))
 
-    let s:bclr_hex=s:conf_bclr_hex " background color hexadecimal
-    let s:fclr_hex="999999"        " foreground color hexadecimal
-    let s:dblk_hex=s:conf_dblk_hex " dark black hexadecimal    (color 0)
-    let s:lblk_hex=s:conf_lblk_hex " light black hexadecimal   (color 8)
-    let s:dred_hex="8a2f58"        " dark red hexadecimal      (color 1)
-    let s:lred_hex="cf4f88"        " light red hexadecimal     (color 9)
-    let s:dgrn_hex="287373"        " dark green hexadecimal    (color 2)
-    let s:lgrn_hex="53a6a6"        " light green hexadecimal   (color 10)
-    let s:dylw_hex="914e89"        " dark yellow hexadecimal   (color 3)
-    let s:lylw_hex="bf85cc"        " light yellow hexadecimal  (color 11)
-    let s:dblu_hex="395573"        " dark blue hexadecimal     (color 4)
-    let s:lblu_hex="4779b3"        " light blue hexadecimal    (color 12)
-    let s:dmag_hex="5e468c"        " dark magentahexadecimal   (color 5)
-    let s:lmag_hex="7f62b3"        " light magenta hexadecimal (color 13)
-    let s:dcyn_hex="2b7694"        " dark cyan hexadecimal     (color 6)
-    let s:lcyn_hex="47959e"        " light cyan hexadecimal    (color 14)
-    let s:dwht_hex="899ca1"        " dark white hexadecimal    (color 7)
-    let s:lwht_hex="c0c0c0"        " light white hexadecimal   (color 15)
-    let s:culc_hex="272727"        " cursor line/column hexadecimal
-
+  if !exists("g:mirodark_enable_higher_contrast_mode")
     if has("gui_running")
-        let s:venv="gui" " vim environment (term, cterm, gui)
-        let s:bclr="#".s:bclr_hex
-        let s:fclr="#".s:fclr_hex
-        let s:dblk="#".s:dblk_hex
-        let s:lblk="#".s:lblk_hex
-        let s:dred="#".s:dred_hex
-        let s:lred="#".s:lred_hex
-        let s:dgrn="#".s:dgrn_hex
-        let s:lgrn="#".s:lgrn_hex
-        let s:dylw="#".s:dylw_hex
-        let s:lylw="#".s:lylw_hex
-        let s:dblu="#".s:dblu_hex
-        let s:lblu="#".s:lblu_hex
-        let s:dmag="#".s:dmag_hex
-        let s:lmag="#".s:lmag_hex
-        let s:dcyn="#".s:dcyn_hex
-        let s:lcyn="#".s:lcyn_hex
-        let s:dwht="#".s:dwht_hex
-        let s:lwht="#".s:lwht_hex
-        let s:culc="#".s:culc_hex
+      let s:conf_bclr_hex="090C19" " configuration-based background color hexadecimal
     else
-        let s:venv="cterm"
-        let s:bclr=s:rgb(s:bclr_hex)
-        let s:fclr=s:rgb(s:fclr_hex)
-        let s:dblk=s:rgb(s:dblk_hex)
-        let s:lblk=s:rgb(s:lblk_hex)
-        let s:dred=s:rgb(s:dred_hex)
-        let s:lred=s:rgb(s:lred_hex)
-        let s:dgrn=s:rgb(s:dgrn_hex)
-        let s:lgrn=s:rgb(s:lgrn_hex)
-        let s:dylw=s:rgb(s:dylw_hex)
-        let s:lylw=s:rgb(s:lylw_hex)
-        let s:dblu=s:rgb(s:dblu_hex)
-        let s:lblu=s:rgb(s:lblu_hex)
-        let s:dmag=s:rgb(s:dmag_hex)
-        let s:lmag=s:rgb(s:lmag_hex)
-        let s:dcyn=s:rgb(s:dcyn_hex)
-        let s:lcyn=s:rgb(s:lcyn_hex)
-        let s:dwht=s:rgb(s:dwht_hex)
-        let s:lwht=s:rgb(s:lwht_hex)
-        let s:culc=s:rgb(s:culc_hex)
+      let s:conf_bclr_hex="" " configuration-based background color hexadecimal
     endif
+    let s:conf_dblk_hex="3d3d3d" " configuration-based dark black hexadecimal
+    let s:conf_lblk_hex="5e5e5e" " configuration-based light black hexadecimal
+  else
+    let s:conf_bclr_hex="000000"
+    let s:conf_dblk_hex="121212"
+    let s:conf_lblk_hex="3d3d3d"
+  endif
+
+  let s:bclr_hex=s:conf_bclr_hex " background color hexadecimal
+  let s:fclr_hex="999999"        " foreground color hexadecimal
+  let s:dblk_hex=s:conf_dblk_hex " dark black hexadecimal    (color 0)
+  let s:lblk_hex=s:conf_lblk_hex " light black hexadecimal   (color 8)
+  let s:dred_hex="8a2f58"        " dark red hexadecimal      (color 1)
+  let s:lred_hex="cf4f88"        " light red hexadecimal     (color 9)
+  let s:dgrn_hex="287373"        " dark green hexadecimal    (color 2)
+  let s:lgrn_hex="53a6a6"        " light green hexadecimal   (color 10)
+  let s:dylw_hex="914e89"        " dark yellow hexadecimal   (color 3)
+  let s:lylw_hex="bf85cc"        " light yellow hexadecimal  (color 11)
+  let s:dblu_hex="395573"        " dark blue hexadecimal     (color 4)
+  let s:lblu_hex="4779b3"        " light blue hexadecimal    (color 12)
+  let s:dmag_hex="5e468c"        " dark magentahexadecimal   (color 5)
+  let s:lmag_hex="7f62b3"        " light magenta hexadecimal (color 13)
+  let s:dcyn_hex="2b7694"        " dark cyan hexadecimal     (color 6)
+  let s:lcyn_hex="47959e"        " light cyan hexadecimal    (color 14)
+  let s:dwht_hex="899ca1"        " dark white hexadecimal    (color 7)
+  let s:lwht_hex="c0c0c0"        " light white hexadecimal   (color 15)
+  let s:culc_hex="040500"        " cursor line/column hexadecimal
+
+  if has("gui_running")
+    let s:venv="gui" " vim environment (term, cterm, gui)
+    let s:bclr="#".s:bclr_hex
+    let s:fclr="#".s:fclr_hex
+    let s:dblk="#".s:dblk_hex
+    let s:lblk="#".s:lblk_hex
+    let s:dred="#".s:dred_hex
+    let s:lred="#".s:lred_hex
+    let s:dgrn="#".s:dgrn_hex
+    let s:lgrn="#".s:lgrn_hex
+    let s:dylw="#".s:dylw_hex
+    let s:lylw="#".s:lylw_hex
+    let s:dblu="#".s:dblu_hex
+    let s:lblu="#".s:lblu_hex
+    let s:dmag="#".s:dmag_hex
+    let s:lmag="#".s:lmag_hex
+    let s:dcyn="#".s:dcyn_hex
+    let s:lcyn="#".s:lcyn_hex
+    let s:dwht="#".s:dwht_hex
+    let s:lwht="#".s:lwht_hex
+    let s:culc="#".s:culc_hex
+  else
+    let s:venv="cterm"
+    let s:bclr=s:rgb(s:bclr_hex)
+    let s:fclr=s:rgb(s:fclr_hex)
+    let s:dblk=s:rgb(s:dblk_hex)
+    let s:lblk=s:rgb(s:lblk_hex)
+    let s:dred=s:rgb(s:dred_hex)
+    let s:lred=s:rgb(s:lred_hex)
+    let s:dgrn=s:rgb(s:dgrn_hex)
+    let s:lgrn=s:rgb(s:lgrn_hex)
+    let s:dylw=s:rgb(s:dylw_hex)
+    let s:lylw=s:rgb(s:lylw_hex)
+    let s:dblu=s:rgb(s:dblu_hex)
+    let s:lblu=s:rgb(s:lblu_hex)
+    let s:dmag=s:rgb(s:dmag_hex)
+    let s:lmag=s:rgb(s:lmag_hex)
+    let s:dcyn=s:rgb(s:dcyn_hex)
+    let s:lcyn=s:rgb(s:lcyn_hex)
+    let s:dwht=s:rgb(s:dwht_hex)
+    let s:lwht=s:rgb(s:lwht_hex)
+    let s:culc=s:rgb(s:culc_hex)
+  endif
 elseif $TERM == "linux"
-    let s:venv="cterm"
-    let s:bclr=""
-    let s:fclr=""
-    let s:dblk="Black"
-    let s:lblk="DarkGray"
-    let s:dred="DarkRed"
-    let s:lred="LightRed"
-    let s:dgrn="DarkGreen"
-    let s:lgrn="LightGreen"
-    let s:dylw="DarkYellow"
-    let s:lylw="LightYellow"
-    let s:dblu="DarkBlue"
-    let s:lblu="LightBlue"
-    let s:dmag="DarkMagenta"
-    let s:lmag="LightMagenta"
-    let s:dcyn="DarkCyan"
-    let s:lcyn="LightCyan"
-    let s:dwht="LightGray"
-    let s:lwht="White"
-    let s:culc=s:dblk
+  let s:venv="cterm"
+  let s:bclr=""
+  let s:fclr=""
+  let s:dblk="Black"
+  let s:lblk="DarkGray"
+  let s:dred="DarkRed"
+  let s:lred="LightRed"
+  let s:dgrn="DarkGreen"
+  let s:lgrn="LightGreen"
+  let s:dylw="DarkYellow"
+  let s:lylw="LightYellow"
+  let s:dblu="DarkBlue"
+  let s:lblu="LightBlue"
+  let s:dmag="DarkMagenta"
+  let s:lmag="LightMagenta"
+  let s:dcyn="DarkCyan"
+  let s:lcyn="LightCyan"
+  let s:dwht="LightGray"
+  let s:lwht="White"
+  let s:culc=s:dblk
 else
-    let s:venv="cterm"
-    let s:bclr=""
-    let s:fclr=""
-    let s:dblk="0"
-    let s:lblk="8"
-    let s:dred="1"
-    let s:lred="9"
-    let s:dgrn="2"
-    let s:lgrn="10"
-    let s:dylw="3"
-    let s:lylw="11"
-    let s:dblu="4"
-    let s:lblu="12"
-    let s:dmag="5"
-    let s:lmag="13"
-    let s:dcyn="6"
-    let s:lcyn="14"
-    let s:dwht="7"
-    let s:lwht="15"
-    let s:culc=s:dblk
+  let s:venv="cterm"
+  let s:bclr=""
+  let s:fclr=""
+  let s:dblk="0"
+  let s:lblk="8"
+  let s:dred="1"
+  let s:lred="9"
+  let s:dgrn="2"
+  let s:lgrn="10"
+  let s:dylw="3"
+  let s:lylw="11"
+  let s:dblu="4"
+  let s:lblu="12"
+  let s:dmag="5"
+  let s:lmag="13"
+  let s:dcyn="6"
+  let s:lcyn="14"
+  let s:dwht="7"
+  let s:lwht="15"
+  let s:culc=s:dblk
 endif
 " }}}
 
@@ -484,7 +489,11 @@ endfun
 " }}}
 
 " normal colors {{{
-call s:HI(         "Normal", s:bclr, s:lwht,     "" )
+if has("gui_running") ||  s:conf_bclr_hex != "" 
+  call s:HI(         "Normal", s:bclr, s:lwht,     "" )
+else
+  call s:HI(         "Normal","", s:lwht,     "" )
+endif
 call s:HI(         "Ignore",     "", s:lblk,     "" )
 call s:HI(        "Comment",     "", s:dwht,     "" )
 call s:HI(         "LineNr",     "", s:lblk,     "" )

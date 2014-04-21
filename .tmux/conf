@@ -18,19 +18,22 @@ set-option -g repeat-time 0
 
 # dynamic window title
 set-option -g set-titles on
+set-option -g set-titles-string "#T"
+set-option -g automatic-rename off
 
 # Set window notifications
 setw -g monitor-activity on
 set -g visual-activity on
 
+
 # config reload
-bind-key R source-file ~/.tmux.conf \; display-message "tmux.conf reloaded."
+bind-key R source-file ~/.tmux/conf \; display-message "tmux.conf reloaded."
 bind-key r refresh-client
 
 bind-key L clear-history
 
 # you know me, I like my shiftless colons (pun? oops)
-bind-key ; command-prompt
+bind-key \; command-prompt
 bind-key : command-prompt
 
 # scrollback buffer n lines
@@ -38,6 +41,8 @@ set -g history-limit 5000
 
 # listen for activity on all windows
 set -g bell-action any
+set -g visual-bell on
+set -g bell-on-alert on
 
 # on-screen time for display-panes in ms
 set -g display-panes-time 2000
@@ -45,6 +50,14 @@ set -g display-panes-time 2000
 
 # correct term for 256 colours
 set-option -g default-terminal "screen-256color"
+
+# initialize sessions
+bind S source-file ~/.tmux/standard
+bind I source-file ~/.tmux/irssi
+
+# environment
+set -g update-environment "DISPLAY SSH_ASKPASS SSH_AUTH_SOCK SSH_AGENT_PID SSH_CONNECTION WINDOWID XAUTHORITY"
+
 # }}}
 
 # MOUSE {{{1
@@ -100,7 +113,7 @@ set-window-option -g display-panes-time 1500
 # }}}
 
 # KEYS: ****  OSXopy / paste solution (PARTIAL) TODO: FINISH# {{{
-if [[ $IS_OSX = true ]]; then
+#if '[ $IS_OSX = true ]' 'set-option -g default-command "/bin/bash -c 'which reattach-to-user-namespace >/dev/null && exec reattach-to-user-namespace $SHELL -l || exec $SHELL -l'"'
 
   # TODO: reintegrate github.com awesome for OSX tmux copy... 
   # I spend wayy too much time in xdg environments to care about OSX right now
@@ -108,9 +121,7 @@ if [[ $IS_OSX = true ]]; then
   # TODO: Test andriod SSH copy/paste.
   
   # Enable native Mac OS X copy/paste
-  set-option -g default-command "/bin/bash -c 'which reattach-to-user-namespace >/dev/null && exec reattach-to-user-namespace $SHELL -l || exec $SHELL -l'"
 
-fi
  # }}}
 
 # KEYS: Fluff   # {{{
@@ -124,9 +135,14 @@ bind-key K confirm kill-server
 
 # }}}
 
+# PRETTY: Panes # {{{
+set -g pane-border-fg blue
+set -g pane-border-bg default
+set -g pane-active-border-fg blue
+set -g pane-active-border-bg default
+# }}}
 
-
-# PRETTY: Status Bar# {{{
+# P RETTY: Status Bar# {{{
 set-option -g status-interval 1
 set-option -g status-left ''
 set-option -g status-right '%l:%M%p'
@@ -136,12 +152,12 @@ set-option -g status-fg default
 # default statusbar colors
 set -g status-fg white
 set -g status-bg default
-# }}}
 
-# PRETTY: Panes # {{{
-set -g pane-border-fg blue
-set -g pane-border-bg default
-set -g pane-active-border-fg blue
-set -g pane-active-border-bg default
-# }}}
+# Statusbar starting in X or not
+if '[ -n "$DISPLAY" ]' 'source-file ~/.tmux/inx'
+if '[ -z "$DISPLAY" ]' 'source-file ~/.tmux/xless'
+ 
+ 
+ # }}}
+
 

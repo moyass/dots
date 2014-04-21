@@ -33,11 +33,8 @@ if has("gui_win32") " returns 1 on WOW64  =>[OS-Settings]
   " ... do nonsense.
 
   " Stupid hack to prevent Win7-gvim window unsapping when vimrc autoreloads
-  let myguifont="Consolas:h11"
+  let s:myguifont="Consolas:h11"
 
-  if (&guifont != myguifont)
-    execute "set guifont=".myguifont
-  endif
 
   let s:vimbackups='$MYVIMRC/../vimtmp' 
   set directory^=s:vimbackups " swapfiles
@@ -56,19 +53,32 @@ else
   " ... we're not on windows, so just be normal.
   set directory^=/tmp " put swapfiles in /tmp instead of current directory.
   set backupdir^=~/.vim/backups
+  let s:myguifont="Droid\ Sans\ Mono\ 10"
   if exists("&undodir")
     set undodir^=~/.vim/undo
   endif
-  set swapfile
+  set noswapfile
 endif  " [/OS-Settings]<=
-" }}}
+"  }}}
 
 if has('gui_running') 
-  set guioptions+=aceg " [+c text dialogues instead of popups]
+
+  if (&guifont != s:myguifont)
+    :let &guifont=s:myguifont
+  endif
+  
+  set go=aceg
+  " [+c text dialogues instead of popups]
   " http://vimdoc.sourceforge.net/htmldoc/options.html#%27guioptions%27
-  set guioptions-=m   " menubar
-  set guioptions-=r   " scrollbar
-  set guioptions-=Tt  " toolbar
+  
+  set guioptions-=m
+  " menubar
+  
+  set guioptions-=r
+  " scrollbar
+  
+  set go-=Tt
+ " toolbar
 endif
 
 " }}}
@@ -77,9 +87,13 @@ endif
 " Vim Plugins.  "{{{
 " ==============================================================================
 
+" INDENTLINE plugin
+let g:indentLine_color_term = 233
+let g:indentLine_color_gui = '#121212'
+let g:indentLine_char = '|'
+
 if has("autocmd")
-  
-  " Resize splits with window
+    " Resize splits with window
   au VimResized * :wincmd = 
 
   " automatically leave insert mode after 'updatetime' ms of inacction
@@ -209,21 +223,21 @@ set splitright " place new splits right & below
 "}}}
 
 " Listchars: show spaces, tab, eol trailing"{{{
-set listchars=trail:·,precedes:«,extends:»,eol:↲,tab:▸\
+set listchars=trail:·,precedes:«,extends:»,eol:↲,tab:▸\ 
 "}}}
 
 " Colorscheme."{{{
 " ==================================================
-if has("gui_running")
-  colorscheme ir_black
-else
+"if has("gui_running")
+ " colorscheme ir_black
+"else
   "if exists('$WINDOWID') && &term =~ "rxvt"
-  colorscheme mirodark
+colorscheme mirodark
   "else
   "  colorscheme miro8
   "endif
   " Disabled - 8-color vim ... only useful for lazy/braindead ssh.
-endif
+"endif
 
 "}}}
 
@@ -299,7 +313,6 @@ set noautowriteall " NEVER.
 set ffs=unix,dos,mac " Try recognizing dos, unix, and mac line endings.
  
 
-" ==================================================
 " Filetype misc."{{{
 " ==================================================
 if has("autocmd")

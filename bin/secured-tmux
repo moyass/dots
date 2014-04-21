@@ -3,7 +3,7 @@
 # Persistent SSH keys in tmux
 
 PID=$(pgrep tmux)
-new="tmux -f $HOME/.tmux/conf new -s secured"
+new="tmux -f $HOME/.tmux/conf new-session -s secured"
 old="tmux attach -t secured -d"
 
 if [[ -z "$SSH_AUTH_SOCK" ]]; then
@@ -12,9 +12,9 @@ if [[ -z "$SSH_AUTH_SOCK" ]]; then
 fi
 
 if [[ -z "$PID" ]]; then
-    roxterm -title "tmux" -e sh -c "${new}"
+    urxvtc -e sh -c "${new}"
 else
-    roxterm -title "tmux" -e sh -c "${old}"
+    urxvtc -e sh -c "${old}"
 fi
 
 ssh-add

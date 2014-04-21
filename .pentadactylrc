@@ -113,7 +113,7 @@ nmap -builtin .. :buffers<CR>f
 
 " Go Dark
 map -builtin <F4> :styletoggle<Space>-name<Space>hybrid<CR>   
-map -builtin <F3> :styletoggle<Space>-name<Space>hybridredux<CR>   
+" map -builtin <F3> :styletoggle<Space>-name<Space>hybridredux<CR>   
 
 
 " }}}
