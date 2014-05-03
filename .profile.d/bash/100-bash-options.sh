@@ -12,5 +12,4 @@ shopt -s extglob            # enable extended pattern-matching features
 shopt -s globstar           # recursive globbing…
 shopt -s progcomp           # programmable completion
 shopt -s hostcomplete       # attempt hostname expansion when @ is at the beginning of a word
-set bell-style visible
 
