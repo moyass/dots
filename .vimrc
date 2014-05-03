@@ -196,7 +196,8 @@ set linebreak       " wrap long lines at a character in &breakat
 " ==============================================================================
 let mapleader="\\"
 set backspace=2 " full backspacing capabilities (indent,eol,start)
-set mouse=nv " enable mouse in normal, visual
+"set mouse=nv " enable mouse in normal, visual
+set mouse=a
 set mousehide     " Hide the mouse when typing text
 set nostartofline " Avoid moving cursor to BOL when jumping around
 set ttyfast
@@ -508,10 +509,10 @@ vnoremap <silent> <Leader>a= :GTabularize /^[^=]*\zs=\(*[*\)\@!/l1c1l0<CR>
 
 "}}}
 " `#` Hash comments"{{{
-nnoremap <silent> <Leader>a# :Tabularize /"<CR>
+nnoremap <silent> <Leader>a# :Tabularize /#<CR>
 vnoremap <silent> <Leader>a# :GTabularize /^[^#]*\zs=\(*[*\)\@!/l1c1l0<CR>
-nnoremap <silent> <Leader>a3 :Tabularize /"<CR>
-vnoremap <silent> <Leader>a3 :Tabularize /"<CR>
+nnoremap <silent> <Leader>a3 :Tabularize /#<CR>
+vnoremap <silent> <Leader>a3 :GTabularize /^[^#]*\zs=\(*[*\)\@!/l1c1l0<CR>
 "}}}
 " `"` Double-quotes for vim comments"{{{
 nnoremap <silent> <Leader>a' :Tabularize /"<CR>
