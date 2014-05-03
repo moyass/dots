@@ -28,6 +28,10 @@ fi
 adjunct_path_with "/sbin" true
 adjunct_path_with "/usr/sbin" true
 
+# Npm!
+# ===================
+adjunct_path_with "${HOME}/.npm/bin" true
+
 # User's bin.
 # ===================
 adjunct_path_with "${HOME}/bin"  true

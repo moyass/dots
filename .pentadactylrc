@@ -9,7 +9,25 @@
 
 
 "loadplugins '\.(js|penta)$'
-" group user
+group user
+
+" Things that should have been defaults... sighi {{{
+" -----------------------------------------------------------------------------
+
+" Open help in new tab
+set newtab='help'
+
+" Only show tab line when there are multiple tabs
+set showtabline='multitab'
+
+
+" }}}
+
+" Passkeys "{{{
+" -----------------------------------------------------------------------------
+set passkeys+=mail.google.com:#jkroae<CR><DOWN><UP>,gi
+set passkeys+=github.com:<Return>
+"}}}
 
 " Options {{{
 " -----------------------------------------------------------------------------
@@ -21,19 +39,20 @@ set guioptions+=Cs
 " hi all search matches, not just the first.
 set hlfind
 
-" google
+" google or duckduckgo, but sigh...
 set defsearch=g       
 
 " popup windows
 " expected behaviour: open target=_blank in new tab, but resized popups in a new window
 " actual with i3wm: ?
-set popups=resized
+set popups='resized'
 
 " Shut up.
 "javascript dactyl.beep = function() { return false; }
 
 
 "}}}
+
 " Status line {{{
 " -----------------------------------------------------------------------------
 
@@ -41,8 +60,8 @@ colorscheme kolor
 
 " w0ng statusline
 " https://github.com/w0ng/dotfiles/blob/master/.pentadactylrc
-"hi -a StatusLine font-weight: normal;
-"hi -a StatusLineNormal color:#C5C8C6 !important; background:#282A2E !important;
+hi -a StatusLine font-weight: normal;
+hi -a StatusLineNormal color:#C5C8C6 !important; background:#282A2E !important;
 
 " alternative statusline
 "hi StatusLine -moz-appearance: none !important; font-weight: bold; background: transparent !important; border: 0px !important; min-height: 22px !important; text-shadow: none !important; font: normal 14px/1 'Cousine' !important; padding: 3px 0px 3px 5px !important;
@@ -52,20 +71,17 @@ colorscheme kolor
 "hi HintActive background: rgba(145,197,43,0.8) !important;
 "hi HintElem background: rgba(255, 209, 20, 0.7) !important;
 "}}}
+
 " Font {{{
 " -----------------------------------------------------------------------------
 
 " Linux fonts :%s/Cousine/Cousine/
-" Windows fonts :%s/Cousine/Cousine/
 " Cousine font: http://www.fontsquirrel.com/fonts/cousine
-" Inspired to use cousine by w0ng: https://github.com/w0ng/dotfiles/blob/master/.pentadactylrc
 
-hi FontCode -a font-family: Liberation Sans important; font-size: 9pt !important;
-hi FontFixed -a font-family: Liberation Sans !important; font-size:9pt !important;
-hi Normal -a font-family: Liberation Sans  !important; font-size: 9ptt !important;
+hi FontCode -a font-family: Cousine important; font-size: 9pt !important;
+hi FontFixed -a font-family: Cousine !important; font-size:9pt !important;
+hi Normal -a font-family: Cousine  !important; font-size: 9ptt !important;
 "}}}
-
-set passkeys+=mail.google.com:#jkaec?<CR><DOWN><UP>,gi
 
 " Mappings {{{
 " -----------------------------------------------------------------------------
@@ -90,22 +106,21 @@ nmap -builtin <C-S-p> :tabmove! -1<CR>
 
 " Noscript plugin
 " https://github.com/w0ng/dotfiles/blob/master/.pentadactylrc
-nmap -builtin ss :set script!<CR>
-nmap -builtin sa :set noscript-sites!=<A-Tab>
-nmap -builtin st :set noscript-tempsites!=<A-Tab>
-nmap -builtin su :set noscript-untrusted!=<A-Tab>
+"nmap -builtin ss :set script!<CR>
+"nmap -builtin sa :set noscript-sites!=<A-Tab>
+"nmap -builtin st :set noscript-tempsites!=<A-Tab>
+"nmap -builtin su :set noscript-untrusted!=<A-Tab>
 
-" FASTER
-nmap -builtin -silent j 3j
-nmap -builtin -silent k 3k
+" FASTER scroll
+nmap -builtin -silent j 5j
+nmap -builtin -silent k 5k
 
 
 " Switch tabs 
-nmap -builtin .e :tn<CR>
-nmap -builtin .q :tp<CR>
-
-" use .. instead of b for buffers list (b is so far)
-nmap -builtin .. :buffers<CR>f
+map -count -modes=n,v <A-Left> -builtin <count>:tabNext<CR>
+map -count -modes=n,v <A-Right> -builtin <count>:tabnext<CR>
+map -count -modes=n,v <A-h> -builtin <count>:tabNext<CR>
+map -count -modes=n,v <A-l> -builtin <count>:tabnext<CR>
 
 
 " Toggle Styles {{{
@@ -116,7 +131,6 @@ map -builtin <F4> :styletoggle<Space>-name<Space>hybrid<CR>
 " map -builtin <F3> :styletoggle<Space>-name<Space>hybridredux<CR>   
 
 
-" }}}
 " }}}
 
 
@@ -214,4 +228,4 @@ styledisable -name=hybridredux
 
 
 
-" vim:ft=vim:foldmethod=marker: 
+" vim: set ts=2 sts=2 ft=pentadactyl fdm=marker sw=2 et: 

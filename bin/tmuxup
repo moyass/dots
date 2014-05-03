@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# https://bitbucket.org/jasonwryan/centurion/src/120ca5085493f49e6ed0c3d42ef7992d8010e086/Scripts/tmuxup?at=default 
+
+awk -F"[, ]" '{
+    if (NF==17)
+        print $4
+    else
+        print $4,$5
+    }' <(uptime)

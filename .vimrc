@@ -53,7 +53,7 @@ else
   " ... we're not on windows, so just be normal.
   set directory^=/tmp " put swapfiles in /tmp instead of current directory.
   set backupdir^=~/.vim/backups
-  let s:myguifont="Droid\ Sans\ Mono\ 10"
+  let s:myguifont="Source\ Code\ Pro\ for\ Powerline\ 11"
   if exists("&undodir")
     set undodir^=~/.vim/undo
   endif
@@ -83,6 +83,7 @@ endif
 
 " }}}
 " ==============================================================================
+
 " ==============================================================================
 " Vim Plugins.  "{{{
 " ==============================================================================
@@ -109,6 +110,28 @@ if has("autocmd")
       au BufWritePost $MYVIMRC source $MYVIMRC
     augroup END " }
   endif
+
+" Statusline < Powerline with Airline."{{{
+" ==================================================
+set cmdheight=1
+set showcmd               " show partial commands in the status line
+set showmode              " show current mode
+set laststatus=2 " turns status line always on and configures it
+
+"if exists('$WINDOWID') && &term =~ "rxvt"
+if exists('$WINDOWID') && &term =~ "256"
+  let g:airline_powerline_fonts = 1
+  "let g:airline#extensions#tabline#enabled = 1
+  let g:airline_theme = "kolor"
+  if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+  endif
+  let g:airline_symbols.space = "\ua0"
+else
+  set statusline=%<%f\ %m\ %h%r%=%b\ 0x%B\ \ %l,%c%V\ %P\ of\ %L
+endif
+
+" }}}
 
 " Increment-Activator {{{
 " ==================================================
@@ -270,23 +293,6 @@ set smartcase " uppercase causes case-sensitive search
 set nogdefault " Disabled - See http://j.mp/1mZvnrt  (no `g` on `:s`)
 "}}}
 
-" Statusline < Powerline with Airline."{{{
-" ==================================================
-set cmdheight=1
-set showcmd               " show partial commands in the status line
-set showmode              " show current mode
-set laststatus=2 " turns status line always on and configures it
-
-if exists('$WINDOWID') && &term =~ "rxvt"
-  let g:airline_powerline_fonts = 1
-  let g:airline#extensions#tabline#enabled = 1
-  let g:airline_theme = "powerlineish"
-else
-  set statusline=%<%f\ %m\ %h%r%=%b\ 0x%B\ \ %l,%c%V\ %P\ of\ %L
-endif
-
-" }}}
-
 " }}}
 " ==============================================================================
 
@@ -363,19 +369,28 @@ vnoremap : ;
 nmap <silent> <leader>dd "_d
 vmap <silent> <leader>d "_d
 
+
+" TODO: Fix :AlignRight
+" Disabled -- AlignRight is broken
 "normal/insert mode, ar inserts spaces to right align to &tw or 80 chars
-nnoremap <leader>ar :AlignRight<CR>
+"nnoremap <leader>ar :AlignRight<CR>
 
 " In normal/insert mode, ac center aligns the text after it to &tw or 80 chars
 nnoremap <leader>ac :center<CR>
 
 " Pressing an 'enter visual mode' key while in visual mode changes mode.
-vmap <C-V> <ESC>`<<C-v>`>
-vmap V <ESC>`<V`>
-vmap v <ESC>`<v`>
+"vmap <C-V> <ESC>`<<C-v>`>
+"vmap V <ESC>`<V`>
+"vmap v <ESC>`<v`>
+" (Disabled... confused about why I wanted this in the first place?)
 
 "Open a Quickfix window for the last search. 
 nnoremap <silent> ,/ :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
+
+" Center the cursor on the search word when using 'n'
+" http://git.z3bra.org/cgit.cgi/dotfiles/tree/vimrc
+nmap n nzz
+nmap N Nzz
 
 " Tabs."{{{
 " ==================================================
@@ -534,6 +549,7 @@ vnoremap <silent> <Leader>a\\ :Tabularize /\|<CR>
 nnoremap <Leader>rc :tabnew $MYVIMRC<CR>
 "}}}
 
+" }}} 
 " }}} 
 " ==============================================================================
 
