@@ -64,10 +64,10 @@ hi -a StatusLine font-weight: normal;
 hi -a StatusLineNormal color:#C5C8C6 !important; background:#282A2E !important;
 
 " alternative statusline
-"hi StatusLine -moz-appearance: none !important; font-weight: bold; background: transparent !important; border: 0px !important; min-height: 22px !important; text-shadow: none !important; font: normal 14px/1 'Cousine' !important; padding: 3px 0px 3px 5px !important;
+"hi StatusLine -moz-appearance: none !important; font-weight: bold; background: transparent !important; border: 0px !important; min-height: 22px !important; text-shadow: none !important; font: normal 14px/1 'Source Code Pro' !important; padding: 3px 0px 3px 5px !important;
 
 " hints
-"hi Hint font-size: 9pt; background: rgba(210,1,133,0.8) !important; border: 2px solid rgb(165,1,105); padding: 4px; border-radius: 3px; font-weight: bold; margin-left: -25px; color: white; font-family: Cousine; line-height:1em;
+"hi Hint font-size: 9pt; background: rgba(210,1,133,0.8) !important; border: 2px solid rgb(165,1,105); padding: 4px; border-radius: 3px; font-weight: bold; margin-left: -25px; color: white; font-family: Source Code Pro; line-height:1em;
 "hi HintActive background: rgba(145,197,43,0.8) !important;
 "hi HintElem background: rgba(255, 209, 20, 0.7) !important;
 "}}}
@@ -75,12 +75,12 @@ hi -a StatusLineNormal color:#C5C8C6 !important; background:#282A2E !important;
 " Font {{{
 " -----------------------------------------------------------------------------
 
-" Linux fonts :%s/Cousine/Cousine/
-" Cousine font: http://www.fontsquirrel.com/fonts/cousine
+" Linux fonts :%s/Source Code Pro/Source Code Pro/
+" Source Code Pro font: http://www.fontsquirrel.com/fonts/cousine
 
-hi FontCode -a font-family: Cousine important; font-size: 9pt !important;
-hi FontFixed -a font-family: Cousine !important; font-size:9pt !important;
-hi Normal -a font-family: Cousine  !important; font-size: 9ptt !important;
+hi FontCode -a font-family: Source Code Pro !important; font-size: 9pt !important;
+hi FontFixed -a font-family: Source Code Pro !important; font-size:9pt !important;
+hi Normal -a font-family: Source Code Pro  !important; font-size: 9ptt !important;
 "}}}
 
 " Mappings {{{
