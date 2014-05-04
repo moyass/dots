@@ -11,8 +11,9 @@ Icon?
 .hg
 .svn
 
-/node_modules
-/npm-debug.log
+.npm
+node_modules
+npm-debug.log
 
 *.pyc
 /tmp
