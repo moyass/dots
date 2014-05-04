@@ -1,0 +1,158 @@
+#!/usr/bin/env bash
+
+# MIT Licence
+# Guy Hughes (c) 2007
+
+KEYPATH="$HOME/.keychain" # path to keys (no trailers)
+KEYPREFIX='id_'           # usually 'id_'
+DEFAULTKEY='git'          # default if called without params
+DEFAULTRING='greek'       # default if called with shortcode but no ring
+
+PARAMETERCOUNT="$#"
+
+usage() {
+  echo "USAGE: $0 (ring=~${ring_ex})? shortcode=~${shortcode_ex}"
+  case "$PARAMETERCOUNT" in
+    1) echo "shortcode=${shortcode}" ;;
+    2) echo "ring=${ring} shortcode=${shortcode}" ;;
+    0) echo "zero parameters received" ;;
+    *) "WARNING: ${PARAMETERCOUNT} parameters detected; 0-2 allowed." ;;
+  esac
+}
+
+keyup() {
+  keyfile="${KEYPATH}/${KEYPREFIX}$1"
+  echo "Loading ${keyfile}"
+  if [[ -r $keyfile ]]; then
+    /usr/bin/keychain --agents ssh --timeout 15 ${keyfile}
+  else
+    echo "404: ${keyfile}"
+  fi
+}
+
+
+# PARAMETER CHECKING
+
+shortcode_ex="^[a-z]{0,2}$"
+ring_ex="^([ng]{1})|(nato|greek)$"
+
+# load parameters
+case "$PARAMETERCOUNT" in
+  0)
+    keyup $DEFAULTKEY ;;
+  1)
+    shortcode="$1"
+    ring=$DEFAULTRING
+    echo "Using default ring ${ring}."
+    ;;
+  2)
+    shortcode="$2"
+    ring="$1"
+    ;;
+  *) usage && return 1 
+    ;;
+esac
+
+# validate loaded parameters
+case "$PARAMETERCOUNT" in
+  0)
+    # do nothing
+    ;; 
+  2)
+    [[ $ring =~ $ring_ex  ]] || ( usage && return 1 ) ;&  
+  1) 
+    [[ $shortcode =~ $shortcode_ex  ]] || ( usage && return 1 )
+
+    # PARAMETER VALIDATION SUCCESS
+
+    # Determine ring
+    if [[ $ring =~ ^([n]|nato)$ ]]; then
+      $ring='nato'
+    elif [[ $ring =~ ^([g]|greek)$ ]]; then
+      $ring='greek'
+    else
+      echo "FAIL: invalid ring ${ring}."
+      return 1 
+    fi
+    echo "Received ring ${ring}."
+    
+    
+    # HEAVY LIFTING
+    declare -A array
+    case $ring in
+      nato)
+        array['a']="alpha"
+        array['b']="bravo"
+        array['c']="charlie"
+        array['d']="delta"
+        array['e']="echo"
+        array['f']="foxtrot"
+        array['g']="golf"
+        array['h']="hotel"
+        array['i']="india"
+        array['j']="juliet"
+        array['k']="kilo"
+        array['l']="lima"
+        array['m']="mike"
+        array['n']="nancy"
+        array['o']="oscar"
+        array['p']="papa"
+        array['q']="quebec"
+        array['r']="romeo"
+        array['s']="sierra"
+        array['t']="tango"
+        array['u']="uniform"
+        array['v']="victor"
+        array['w']="window"
+        array['x']="xray"
+        array['y']="yankee"
+        array['z']="zulu"
+        ;;
+
+      greek)
+        array['a']="alfa"
+        array['v']="beta"
+        array['g']="gamma"
+        array['d']="delta"
+        array['e']="epsilon"
+        array['z']="zeta"
+        array['i']="eta"
+        array["th"]="theta"
+        array['io']="iota"
+        array['k']="kappa"
+        array['l']="lambda"
+        array['m']="mu"
+        array['n']="nu"
+        array['x']="xi"
+        array['o']="omicron"
+        array['p']="pi"
+        array['r']="rho"
+        array['s']="sigma"
+        array['t']="tau"
+        array['y']="upsilon"
+        array['ph']="phi"
+        array['c']="chi"
+        array['ps']="psi"
+        array['w']="omega"
+        ;;
+    esac
+
+    # Try keyup, catch invalid shortcode & gotofail i
+    if [[ -n "${array[$shortcode]}" ]]; then
+      keyup "${array[$shortcode]}"
+    else
+      echo "FAIL: invalid shortcode $shortcode for ring ${ring}."
+      return 1
+    fi
+  ;;
+esac
+
+unset -f keyup usage
+unset -f shortcode shortcode_ex ring ring_ex
+
+# Run the keychain ssh-agent adding result
+source "${HOME}/.keychain/${HOSTNAME}-sh"
+#/usr/bin/keychain -Q -q --eval --agents ssh
+#$HOME/bin/reagent
+
+###[[ -f $HOME/.keychain/${HOSTNAME}-sh-gpg ]] && source $HOME/.keychain/${HOSTNAME}-sh-gpg
