@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # MIT Licence
-# Guy Hughes (c) 2007
+# Guy Hughes (c) 2007, 2014
 
 KEYPATH="$HOME/.keychain" # path to keys (no trailers)
 KEYPREFIX='id_'           # usually 'id_'
@@ -33,7 +33,7 @@ keyup() {
 
 # PARAMETER CHECKING
 
-shortcode_ex="^[a-z]{0,2}$"
+shortcode_ex="^[a-z]{1,2}$"
 ring_ex="^([ng]{1})|(nato|greek)$"
 
 # load parameters
@@ -59,12 +59,7 @@ case "$PARAMETERCOUNT" in
     # do nothing
     ;; 
   2)
-    [[ $ring =~ $ring_ex  ]] || ( usage && return 1 ) ;&  
-  1) 
-    [[ $shortcode =~ $shortcode_ex  ]] || ( usage && return 1 )
-
-    # PARAMETER VALIDATION SUCCESS
-
+    [[ $ring =~ $ring_ex  ]] || ( usage && return 1 )   
     # Determine ring
     if [[ $ring =~ ^([n]|nato)$ ]]; then
       $ring='nato'
@@ -74,6 +69,12 @@ case "$PARAMETERCOUNT" in
       echo "FAIL: invalid ring ${ring}."
       return 1 
     fi
+    ;&
+  1) 
+    [[ $shortcode =~ $shortcode_ex ]] || ( usage && return 1 )
+
+    # PARAMETER VALIDATION SUCCESS
+
     echo "Received ring ${ring}."
     
     
@@ -137,7 +138,7 @@ case "$PARAMETERCOUNT" in
         ;;
     esac
 
-    # Try keyup, catch invalid shortcode & gotofail i
+    # Try keyup, catch invalid shortcode & gotofail (lulz) 
     if [[ -n "${array[$shortcode]}" ]]; then
       keyup "${array[$shortcode]}"
     else
