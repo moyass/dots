@@ -9,7 +9,7 @@ filetype plugin on
 filetype indent on
 set nocompatible          " leave the old ways behind
 set encoding=utf-8 nobomb " UTF-8 encoding for all new files
-set clipboard+=unnamed    " yank and copy to the OS clipboard
+set clipboard=unnamed    " yank and copy to the OS clipboard
 set shortmess=atI
 set notimeout             " fix timeouts in terminal vim
 set ttimeout
