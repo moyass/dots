@@ -102,33 +102,41 @@ nmap -builtin : ;
 vmap -builtin ; :
 vmap -builtin : ;
 
-
 " https://github.com/w0ng/dotfiles/blob/master/.pentadactylrc
-nmap -builtin <C-S-n> :tabmove! +1<CR>
-nmap -builtin <C-S-p> :tabmove! -1<CR>
+nmap -builtin <M-S-l> :tabmove! +1<CR>
+nmap -builtin <M-S-h> :tabmove! -1<CR>
 
-" Noscript plugin
-" https://github.com/w0ng/dotfiles/blob/master/.pentadactylrc
-"nmap -builtin ss :set script!<CR>
-"nmap -builtin sa :set noscript-sites!=<A-Tab>
-"nmap -builtin st :set noscript-tempsites!=<A-Tab>
-"nmap -builtin su :set noscript-untrusted!=<A-Tab>
 
 " FASTER scroll
 nmap -builtin -silent j 5j
 nmap -builtin -silent k 5k
 
-
 " Switch tabs 
-map -count -modes=n,v <A-Left> -builtin <count>:tabNext<CR>
-map -count -modes=n,v <A-Right> -builtin <count>:tabnext<CR>
 map -count -modes=n,v <A-h> -builtin <count>:tabNext<CR>
+map -count -modes=n,v <A-j> -builtin <count>:tabNext<CR>
 map -count -modes=n,v <A-l> -builtin <count>:tabnext<CR>
+map -count -modes=n,v <A-k> -builtin <count>:tabnext<CR>
 
-" Text-to-Speech with festival or espeak for Pentadactyl
-" Author: Guy Hughes https://github.com/guyhughes/dotfiles/.pentadactylrc
-map <A-s> -builtin -js dactyl.execute(":!espeak -s140 -g1 -v mb-en1 <<'EOF'\n" + content.getSelection().toString() + "\nEOF" )
-map <A-f> -builtin -js dactyl.execute(":!festival --tts <<'EOF'\n" + content.getSelection().toString() + "\nEOF" )
+
+" SPEAK! or sprichen, sprach, gesprochen"{{{
+
+" Text-to-Speech with festival and espeak for Pentadactyl
+map <A-S-s> -builtin -js dactyl.execute(":!espeak -s140 -g1 -v mb-en1 <<'EOF'\n" + content.getSelection().toString() + "\nEOF" )
+map <A-s> -builtin -js dactyl.execute(":! festival --tts <<'EOF'\n" + content.getSelection().toString() + "\nEOF" )
+
+" Google Translated Text-to-Speech with festival and espeak for Pentadactyl
+map <A-r> -builtin -js dactyl.execute(":!translate \"" + encodeURI(content.getSelection()) + "\" | festival --tts" )
+
+"}}}
+
+" Noscript plugin"{{{
+" https://github.com/w0ng/dotfiles/blob/master/.pentadactylrc
+
+"nmap -builtin ss :set script!<CR>
+"nmap -builtin sa :set noscript-sites!=<A-Tab>
+"nmap -builtin st :set noscript-tempsites!=<A-Tab>
+"nmap -builtin su :set noscript-untrusted!=<A-Tab>
+"}}}
 
 " Toggle Styles {{{
 " -----------------------------------------------------------------------------
