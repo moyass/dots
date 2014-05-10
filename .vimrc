@@ -93,6 +93,7 @@ let g:indentLine_color_term = 233
 let g:indentLine_color_gui = '#121212'
 let g:indentLine_char = '|'
 
+
 if has("autocmd")
     " Resize splits with window
   au VimResized * :wincmd = 
@@ -118,6 +119,19 @@ set showcmd               " show partial commands in the status line
 set showmode              " show current mode
 set laststatus=2 " turns status line always on and configures it
 
+  let g:airline_mode_map = {
+      \ '__' : '-',
+      \ 'n'  : 'N',
+      \ 'i'  : 'I',
+      \ 'R'  : 'R',
+      \ 'c'  : 'C',
+      \ 'v'  : 'V',
+      \ 'V'  : 'V-LINE',
+      \ '' : 'V-BLOCK',
+      \ 's'  : 'S',
+      \ 'S'  : 'S',
+      \ '' : 'S',
+      \ }
 "if exists('$WINDOWID') && &term =~ "rxvt"
 if exists('$WINDOWID') && &term =~ "256"
   let g:airline_powerline_fonts = 1

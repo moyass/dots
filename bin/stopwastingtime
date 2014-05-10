@@ -1,0 +1,1 @@
+while true; do espeak -v mb-en1 "The time is now, `date +%l,%M` and `date +%S` seconds. Are you ready to waste another minute of your short life?" -a 200 -s 100; sleep 1m; done

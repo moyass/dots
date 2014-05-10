@@ -29,16 +29,16 @@ export ARCHFLAGS="-arch x86_64"
 export GREP_COLOR="1;33"
 alias grep='grep --color=auto'
 
-VLESS=$(find /usr/share/vim -name 'less.sh')
-if [ ! -z $VLESS ]; then
-  alias vless=$vless
-  alias vls=$VLESS
-  export PAGER="/bin/sh -c \"unset PAGER;col -b -x | \
-        vim -R -c 'set ft=man nomod nolist' -c 'map q :q<CR>' \
-        -c 'map <SPACE> <C-D>' -c 'map b <C-U>' \
-        -c 'nmap K :Man <C-R>=expand(\\\"<cword>\\\")<CR><CR>' -\""
-  export SYSTEMD_PAGER=$PAGER
-else
+#VLESS=$(find /usr/share/vim -name 'less.sh')
+#if [ ! -z $VLESS ]; then
+  #alias vless=$vless
+  #alias vls=$VLESS
+  #export PAGER="/bin/sh -c \"unset PAGER;col -b -x | \
+        #vim -R -c 'set ft=man nomod nolist' -c 'map q :q<CR>' \
+        #-c 'map <SPACE> <C-D>' -c 'map b <C-U>' \
+        #-c 'nmap K :Man <C-R>=expand(\\\"<cword>\\\")<CR><CR>' -\""
+  #export SYSTEMD_PAGER=$PAGER
+#else
   export PAGER="/usr/bin/less"
 	export SYSTEMD_PAGER="/usr/bin/less -R"
 
@@ -52,7 +52,7 @@ else
   export LESS_TERMCAP_ue=$'\E[0m'
   export LESS_TERMCAP_us=$'\E[01;35m'
 
-fi
+#fi
 
 # Set the default Less options.
 # Mouse-wheel scroll can be disabled by -X (disable screen clearing).

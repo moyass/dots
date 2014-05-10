@@ -78,10 +78,13 @@ hi -a StatusLineNormal color:#C5C8C6 !important; background:#282A2E !important;
 " Linux fonts :%s/Source Code Pro/Source Code Pro/
 " Source Code Pro font: http://www.fontsquirrel.com/fonts/cousine
 
-hi FontCode -a font-family: Source Code Pro !important; font-size: 9pt !important;
-hi FontFixed -a font-family: Source Code Pro !important; font-size:9pt !important;
-hi Normal -a font-family: Source Code Pro  !important; font-size: 9ptt !important;
+hi FontCode -a font-family: Cousine !important; font-size: 8pt !important;
+hi FontFixed -a font-family: Cousine !important; font-size:8pt !important;
+hi Normal -a font-family: Cousine  !important; font-size: 8ptt !important;
 "}}}
+
+
+
 
 " Mappings {{{
 " -----------------------------------------------------------------------------
@@ -122,6 +125,10 @@ map -count -modes=n,v <A-Right> -builtin <count>:tabnext<CR>
 map -count -modes=n,v <A-h> -builtin <count>:tabNext<CR>
 map -count -modes=n,v <A-l> -builtin <count>:tabnext<CR>
 
+" Text-to-Speech with festival or espeak for Pentadactyl
+" Author: Guy Hughes https://github.com/guyhughes/dotfiles/.pentadactylrc
+map <A-s> -builtin -js dactyl.execute(":!espeak -s140 -g1 -v mb-en1 <<'EOF'\n" + content.getSelection().toString() + "\nEOF" )
+map <A-f> -builtin -js dactyl.execute(":!festival --tts <<'EOF'\n" + content.getSelection().toString() + "\nEOF" )
 
 " Toggle Styles {{{
 " -----------------------------------------------------------------------------
