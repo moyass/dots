@@ -118,7 +118,7 @@ map -count -modes=n,v <A-l> -builtin <count>:tabnext<CR>
 map -count -modes=n,v <A-k> -builtin <count>:tabnext<CR>
 
 
-" SPEAK! or sprichen, sprach, gesprochen"{{{
+" SPEAK!  sprechen, sprach, gesprochen"{{{
 
 " Text-to-Speech with festival and espeak for Pentadactyl
 map <A-S-s> -builtin -js dactyl.execute(":!espeak -s140 -g1 -v mb-en1 <<'EOF'\n" + content.getSelection().toString() + "\nEOF" )
