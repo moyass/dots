@@ -27,7 +27,7 @@ set -g visual-activity on
 
 
 # config reload
-bind-key R source-file ~/.tmux/conf \; display-message "tmux.conf reloaded."
+bind-key R source-file ~/.config/tmux/conf \; display-message "tmux.conf reloaded."
 bind-key r refresh-client
 
 bind-key L clear-history
@@ -52,8 +52,8 @@ set -g display-panes-time 2000
 set-option -g default-terminal "screen-256color"
 
 # initialize sessions
-bind S source-file ~/.tmux/standard
-bind I source-file ~/.tmux/irssi
+bind S source-file ~/.config/tmux/standard
+bind I source-file ~/.config/tmux/irssi
 
 # environment
 set -g update-environment "DISPLAY SSH_ASKPASS SSH_AUTH_SOCK SSH_AGENT_PID SSH_CONNECTION WINDOWID XAUTHORITY"
@@ -124,7 +124,7 @@ set-window-option -g display-panes-time 1500
 
  # }}}
 
-# KEYS: Fluff   # {{{
+# KEYS: Fluff   # {{{1
 # quick view of processes
 bind '~' split-window -v -p 50 "htop"
 
@@ -133,9 +133,9 @@ bind-key k confirm kill-window
 bind-key K confirm kill-server
 
 
-# }}}
+# }}} 
 
-# PRETTY: Panes # {{{
+# PRETTY: Panes # {{{1
 set -g pane-border-fg blue
 set -g pane-border-bg default
 set -g pane-active-border-fg blue
@@ -154,8 +154,8 @@ set -g status-fg white
 set -g status-bg default
 
 # Statusbar starting in X or not
-if '[ -n "$DISPLAY" ]' 'source-file ~/.tmux/inx'
-if '[ -z "$DISPLAY" ]' 'source-file ~/.tmux/xless'
+if '[ -n "$DISPLAY" ]' 'source-file ~/.config/tmux/inx'
+if '[ -z "$DISPLAY" ]' 'source-file ~/.config/tmux/xless'
  
  
  # }}}
