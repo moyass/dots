@@ -1,0 +1,19 @@
+
+  
+prompt_hugg_line(){
+local huggy=""
+  if [[ -n $RANGER_LEVEL ]]; then
+    huggy+=" %F{black}ranger"
+  fi
+  if [[ -n $VCSH_REPO_NAME ]]; then
+    huggy+=" %F{black}vcsh%b%F{black}[%F{green}$VCSH_REPO_NAME%b%F{black}]"
+  fi
+ if [[ -n $huggy ]]; then
+  print -Pn '\n%B%F{black}(%f%b'$huggy '%B%F{black})%f%b'
+  fi
+}
+add-zsh-hook precmd prompt_hugg_line
+
+source "${HOME}/.profile.d/zsh/pure/pure.zsh"
+
+# vim: set ts=2 sts=2 ft=zsh fdm=marker sw=2 et:
