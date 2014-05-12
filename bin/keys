@@ -152,7 +152,7 @@ unset keyup usage
 unset shortcode shortcode_ex ring ring_ex
 
 # Run the keychain ssh-agent adding result
-source "${HOME}/.keychain/`hostname`-sh"
+#source "${HOME}/.keychain/`hostname`-sh"
 #/usr/bin/keychain -Q -q --eval --agents ssh
 #$HOME/bin/reagent
 
