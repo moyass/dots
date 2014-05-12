@@ -148,12 +148,12 @@ case "$PARAMETERCOUNT" in
   ;;
 esac
 
-unset -f keyup usage
-unset -f shortcode shortcode_ex ring ring_ex
+unset keyup usage
+unset shortcode shortcode_ex ring ring_ex
 
 # Run the keychain ssh-agent adding result
-source "${HOME}/.keychain/${HOSTNAME}-sh"
+source "${HOME}/.keychain/`hostname`-sh"
 #/usr/bin/keychain -Q -q --eval --agents ssh
 #$HOME/bin/reagent
 
-###[[ -f $HOME/.keychain/${HOSTNAME}-sh-gpg ]] && source $HOME/.keychain/${HOSTNAME}-sh-gpg
+###[[ -f $HOME/.keychain/`hostname`-sh-gpg ]] && source $HOME/.keychain/${HOSTNAME}-sh-gpg
