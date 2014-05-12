@@ -1,3 +1,84 @@
 [submodule ".profile.d/zsh/pure"]
 	path = .profile.d/zsh/pure
 	url = https://github.com/sindresorhus/pure
+[submodule ".vim/bundle/editorconfig-vim"]
+	path = .vim/bundle/editorconfig-vim
+	url = github.com:guyhughes/dotfiles
+[submodule ".vim/bundle/gist-vim"]
+	path = .vim/bundle/gist-vim
+	url = github.com:guyhughes/dotfiles
+[submodule ".vim/bundle/nerdy-laundry"]
+	path = .vim/bundle/nerdy-laundry
+	url = github.com:guyhughes/dotfiles
+[submodule ".vim/bundle/syntax-coffeescript"]
+	path = .vim/bundle/syntax-coffeescript
+	url = github.com:guyhughes/dotfiles
+[submodule ".vim/bundle/syntax-conky"]
+	path = .vim/bundle/syntax-conky
+	url = github.com:guyhughes/dotfiles
+[submodule ".vim/bundle/syntax-i3wm"]
+	path = .vim/bundle/syntax-i3wm
+	url = github.com:guyhughes/dotfiles
+[submodule ".vim/bundle/syntax-jade"]
+	path = .vim/bundle/syntax-jade
+	url = github.com:guyhughes/dotfiles
+[submodule ".vim/bundle/syntax-puppet"]
+	path = .vim/bundle/syntax-puppet
+	url = github.com:guyhughes/dotfiles
+[submodule ".vim/bundle/theme-w0ng-hybrid"]
+	path = .vim/bundle/theme-w0ng-hybrid
+	url = github.com:guyhughes/dotfiles
+[submodule ".vim/bundle/webapi-vim"]
+	path = .vim/bundle/webapi-vim
+	url = github.com:guyhughes/dotfiles
+[submodule ".vim/bundle/airline"]
+	path = .vim/bundle/airline
+	url = github.com:guyhughes/dotfiles
+[submodule ".vim/bundle/ctrlp"]
+	path = .vim/bundle/ctrlp
+	url = github.com:guyhughes/dotfiles
+[submodule ".vim/bundle/eunuch"]
+	path = .vim/bundle/eunuch
+	url = github.com:guyhughes/dotfiles
+[submodule ".vim/bundle/fugitive"]
+	path = .vim/bundle/fugitive
+	url = github.com:guyhughes/dotfiles
+[submodule ".vim/bundle/guys-functions"]
+	path = .vim/bundle/guys-functions
+	url = github.com:guyhughes/dotfiles
+[submodule ".vim/bundle/increment-activator"]
+	path = .vim/bundle/increment-activator
+	url = github.com:guyhughes/dotfiles
+[submodule ".vim/bundle/nerdcommenter"]
+	path = .vim/bundle/nerdcommenter
+	url = github.com:guyhughes/dotfiles
+[submodule ".vim/bundle/salt-vim"]
+	path = .vim/bundle/salt-vim
+	url = github.com:guyhughes/dotfiles
+[submodule ".vim/bundle/securemodelines"]
+	path = .vim/bundle/securemodelines
+	url = github.com:guyhughes/dotfiles
+[submodule ".vim/bundle/signify"]
+	path = .vim/bundle/signify
+	url = github.com:guyhughes/dotfiles
+[submodule ".vim/bundle/supertab"]
+	path = .vim/bundle/supertab
+	url = github.com:guyhughes/dotfiles
+[submodule ".vim/bundle/syntastic"]
+	path = .vim/bundle/syntastic
+	url = github.com:guyhughes/dotfiles
+[submodule ".vim/bundle/tabular"]
+	path = .vim/bundle/tabular
+	url = github.com:guyhughes/dotfiles
+[submodule ".vim/bundle/theme-distinguished"]
+	path = .vim/bundle/theme-distinguished
+	url = github.com:guyhughes/dotfiles
+[submodule ".vim/bundle/theme-solarized"]
+	path = .vim/bundle/theme-solarized
+	url = github.com:guyhughes/dotfiles
+[submodule ".vim/bundle/vcscommand"]
+	path = .vim/bundle/vcscommand
+	url = github.com:guyhughes/dotfiles
+[submodule ".vim/bundle/wildfire"]
+	path = .vim/bundle/wildfire
+	url = github.com:guyhughes/dotfiles
