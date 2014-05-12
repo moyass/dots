@@ -3,10 +3,10 @@
 
 
 # Set the key mapping style to 'emacs' or 'vi'.
-# zstyle ':prezto:module:editor' keymap 'emacs'
+zstyle ':prezto:module:editor' key-bindings 'vi'
 
 # Auto convert .... to ../..
-# zstyle ':prezto:module:editor' dot-expansion 'no'
+zstyle ':prezto:module:editor' dot-expansion 'yes'
 
 # Set case-sensitivity for completion, history lookup, etc.
 zstyle ':prezto:*:*' case-sensitive 'no'
@@ -27,23 +27,22 @@ zstyle ':prezto:load' zfunction 'zargs' 'zmv'
 # The order matters.
 zstyle ':prezto:load' pmodule \
   'environment' \
-  'completion' \
+  'editor' \
   'directory' \
   'history' \
   'node' \
   'spectrum' \
   'syntax-highlighting' \
   'terminal' \
+  'history-substring-search' \
+  'completion' \
   'prompt'
 
+# 'utility' \  -- replaces ls aliases!!
 
-# 'utility' \
-
-# Auto convert .... to ../..
-zstyle ':prezto:module:editor' dot-expansion 'yes'
 
 zstyle ':prezto:module:prompt' theme 'hugg'
 
 #  ZPREZTO LOADER
 # ============================
-source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+source "${HOME}/.zprezto/init.zsh"

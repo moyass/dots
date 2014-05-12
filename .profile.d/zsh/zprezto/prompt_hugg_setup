@@ -1,6 +1,5 @@
 
-  
-prompt_hugg_line(){
+function prompt_hugg_precmd {
 local huggy=""
   if [[ -n $RANGER_LEVEL ]]; then
     huggy+=" %F{black}ranger"
@@ -12,8 +11,23 @@ local huggy=""
   print -Pn '\n%B%F{black}(%f%b'$huggy '%B%F{black})%f%b'
   fi
 }
-add-zsh-hook precmd prompt_hugg_line
+add-zsh-hook precmd prompt_hugg_precmd
 
 source "${HOME}/.profile.d/zsh/pure/pure.zsh"
 
+function prompt_hugg_setup {
+  autoload -Uz add-zsh-hook
+
+  zstyle ':prezto:module:editor:info:completing' format '%B%F{red}...%f%b'
+  zstyle ':prezto:module:editor:info:keymap:primary' format '❯'
+  zstyle ':prezto:module:editor:info:keymap:primary:overwrite' format ' %F{red}♺%f'
+  zstyle ':prezto:module:editor:info:keymap:alternate' format '%B%F{yellow}❮%f%b' 
+
+  SPROMPT='zsh: correct %F{red}%R%f to %F{green}%r%f [nyae]? '
+  RPROMPT='${VIM:+" %B%F{green}V%f%b"}${editor_info[overwrite]}'
+  PROMPT='%(?.%F{magenta}.%F{red})${editor_info[keymap]} '
+}
+
+
+prompt_hugg_setup "@"
 # vim: set ts=2 sts=2 ft=zsh fdm=marker sw=2 et:
