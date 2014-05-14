@@ -7,6 +7,13 @@ if [[ -z "$DISPLAY" ]] && [[ $(tty) = /dev/tty1 ]]; then
     tmux -f $HOME/.tmux/conf new-session -t `hostname` 
 fi
 
-#if not inside a tmux session, and if no session is started, start a new session
-test -z "$TMUX" && (tmux new-session -t 0)
-#test -z "$TMUX" && (tmux new-session -t 0 || tmux new-session -s 0)
+if [[ -n "$SSH_CLIENT" ]]; then
+  #ssh
+  # if not inside a tmux session, and if no session is started, start a new session
+  #for headless
+  test -z "$TMUX" && (tmux new-session -t 0 || tmux new-session -s 0 )
+else
+  #locally
+  # join the session group started by systemd --user
+  test -z "$TMUX" && (tmux new-session -t 0)
+fi
