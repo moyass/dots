@@ -1,6 +1,6 @@
 [submodule ".profile.d/zsh/pure"]
 	path = .profile.d/zsh/pure
-	url = https://github.com/sindresorhus/pure
+	url = git://github.com/sindresorhus/pure
 [submodule ".vim/bundle/editorconfig-vim"]
 	path = .vim/bundle/editorconfig-vim
 	url = github.com:guyhughes/dotfiles
