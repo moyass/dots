@@ -1,0 +1,21 @@
+# https://github.com/zoqaeski/systemd-user-units/blob/master/user/tmux.service
+
+[Unit]
+Description=tmux default session (detached)
+Documentation=man:tmux(1)
+
+[Service]
+Environment=DISPLAY=:0
+Type=forking
+WorkingDirectory=%h
+ExecStart=/usr/bin/tmux new-session -d -s 0
+ExecStartPost=/usr/bin/tmux source-file /home/%u/.config/tmux/conf
+ExecStop=/usr/bin/tmux kill-session -t 0
+Restart=always
+KillMode=none
+
+[Install]
+WantedBy=default.target
+
+
+

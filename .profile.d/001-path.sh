@@ -21,6 +21,10 @@ if [[ "$OSTYPE" =~ darwin* ]]; then
   adjunct_path_with "/usr/local/bin" true
   adjunct_path_with "/usr/local/sbin" true
 
+elif [[ "$OSTYPE" =~ linux* ]]; then
+  # so i can play pacman 
+  adjunct_path_with "/usr/games" true
+  
 fi
 
 # sbins.

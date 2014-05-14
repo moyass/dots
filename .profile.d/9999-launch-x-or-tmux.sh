@@ -8,4 +8,5 @@ if [[ -z "$DISPLAY" ]] && [[ $(tty) = /dev/tty1 ]]; then
 fi
 
 #if not inside a tmux session, and if no session is started, start a new session
-test -z "$TMUX" && (tmux new-session -t `hostname` || tmux new-session -s `hostname`)
+test -z "$TMUX" && (tmux new-session -t 0)
+#test -z "$TMUX" && (tmux new-session -t 0 || tmux new-session -s 0)

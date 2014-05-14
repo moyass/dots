@@ -1,0 +1,13 @@
+[Unit]
+Description=Dropbox
+
+[Service]
+Type=simple
+ExecStart=/opt/dropbox/dropboxd
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=process
+Restart=on-failure
+Environment=DISPLAY=:0
+
+[Install]
+WantedBy=default.target
