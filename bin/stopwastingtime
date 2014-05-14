@@ -1,1 +1,1 @@
-while true; do espeak -v mb-en1 "The time is now, `date +%l,%M` and `date +%S` seconds. Are you ready to waste another minute of your short life?" -a 200 -s 100; sleep 1m; done
+while true; do echo "The time is now, `date +%l,%M`. Move your ass bitch."  | festival --tts; sleep 1m; done

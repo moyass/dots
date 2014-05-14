@@ -82,3 +82,6 @@
 [submodule ".vim/bundle/wildfire"]
 	path = .vim/bundle/wildfire
 	url = github.com:guyhughes/dotfiles
+[submodule ".vim/bundle/syntax-wwoods-systemd"]
+	path = .vim/bundle/syntax-wwoods-systemd
+	url = git://fedorapeople.org/home/fedora/wwoods/public_git/vim-scripts.git
