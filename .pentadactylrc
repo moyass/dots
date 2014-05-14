@@ -11,22 +11,24 @@
 "loadplugins '\.(js|penta)$'
 group user
 
-" Things that should have been defaults... sighi {{{
+" Things that should have been defaults... sigh {{{
 " -----------------------------------------------------------------------------
 
-" Open help in new tab
+" Open help in new zab
 set newtab='help'
 
 " Only show tab line when there are multiple tabs
-set showtabline='multitab'
+"set showtabline='always' "" seems unstable(?)/unusable with :rehash (bug) TODO
+set showtabline='never'
 
 
 " }}}
 
 " Passkeys "{{{
 " -----------------------------------------------------------------------------
-set passkeys+=mail.google.com:#jkroae<CR><DOWN><UP>,gi
-set passkeys+=github.com:<Return>
+" I'm more into using pass through now
+"set passkeys+=mail.google.com
+"set passkeys+=github.com:<Return>
 "}}}
 
 " Options {{{
@@ -44,7 +46,6 @@ set defsearch=g
 
 " popup windows
 " expected behaviour: open target=_blank in new tab, but resized popups in a new window
-" actual with i3wm: ?
 set popups='resized'
 
 " Shut up.
@@ -93,7 +94,41 @@ map \\ <Leader>
 
 nmap -builtin <Leader>p :private winopen<CR>
 
+" tabline
+nmap -builtin <F9> :set showtabline=always<CR>
+nmap -builtin <S-F9> :set showtabline=never<CR>
+nmap -builtin <leader>t :set showtabline=always<CR>
+nmap -builtin <leader>T :set showtabline=never<CR>
+
+" Prevent butterfingers
+" defaults: q=recmacro, m=quickmark, d=tabclose, ZZ=saveanquit, zQ=trashandquit
+map -builtin q <nop>
+map -builtin m <nop>
+map -builtin d <nop>
+map -builtin D <nop>
+map -builtin ZZ <nop>
+map -builtin zQ <nop>
+
+
+" Tab closing
+map -builtin dd :tabclose<CR> 
+
+" Passthrough
+map -builtin <C-z> <nop>
+map -builtin <C-v> <nop>
+map -builtin <A-b> <nop>
+map -builtin <A-b> <pass-next-builtin>
+map -builtin zz <pass-all-keys>
+map -builtin ZZ <pass-next-key>
+ 
+" Zoom > ZXooom 
+" default: <count>zz 
+map -builtin zx <text-zoom>
+map -builtin ZX <text-zoom>
+
+" Turn off search highlight
 nmap -builtin <Leader>\\ :noh<CR>
+nmap -builtin /// :noh<CR>
 
 " Swap semicolon and colon, as in vim.
 " https://github.com/w0ng/dotfiles/blob/master/.pentadactylr
