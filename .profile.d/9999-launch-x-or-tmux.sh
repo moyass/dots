@@ -11,9 +11,9 @@ if [[ -n "$SSH_CLIENT" ]]; then
   #ssh
   # if not inside a tmux session, and if no session is started, start a new session
   #for headless
-  test -z "$TMUX" && (tmux new-session -t 0 || tmux new-session -s 0 )
+  test -z "$TMUX" && (tmux new-session -t 1 || tmux new-session -s 1 )
 else
   #locally
   # join the session group started by systemd --user
-  test -z "$TMUX" && (tmux new-session -t 0)
+  test -z "$TMUX" && (tmux new-session -t 1)
 fi
