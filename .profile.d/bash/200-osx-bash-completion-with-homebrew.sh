@@ -1,7 +1,7 @@
 # For OSX
 # ============================
 
-if   [[ "$IS_OSX" = true ]]; then
+if   [[ "$OSTYPE" =~ darwin* ]]; then
   # bash completion in osx, thanks to homebrew
   if [ -f `brew --prefix`/etc/bash_completion ]; then
     . `brew --prefix`/etc/bash_completion

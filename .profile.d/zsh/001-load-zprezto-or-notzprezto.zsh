@@ -1,4 +1,3 @@
-#!/usr/bin/env zsh
 
 # To ZPREZTO or NOTZPREZTO that is the question!
 # ================================================

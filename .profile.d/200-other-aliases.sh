@@ -1,7 +1,7 @@
 # OSX
 # ============================
 
-if  [[ "$IS_OSX" = true ]]; then
+if  [[ "$OSTYPE" =~ darwin* ]]; then
 
   # rm with trash (`brew install trash`).
   if [ -f `brew --prefix`/bin/trash ]; then

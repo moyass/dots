@@ -16,7 +16,7 @@ adjunct_path_with () {
 
 # OSX.
 # ===================
-if [[ "$IS_OSX" = true ]]; then
+if [[ "$OSTYPE" =~ darwin* ]]; then
   # Add localbins  to path, esp for homebrew
   adjunct_path_with "/usr/local/bin" true
   adjunct_path_with "/usr/local/sbin" true

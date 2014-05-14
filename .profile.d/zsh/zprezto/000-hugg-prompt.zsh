@@ -1,4 +1,3 @@
-#!/usr/bin/env zsh
 
 #  pure prompt for zsh
 # ============================

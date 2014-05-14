@@ -1,4 +1,3 @@
-#!/usr/bin/env zsh
 
 #  Usually in ~/.zshrc
 # ============================

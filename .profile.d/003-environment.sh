@@ -1,11 +1,11 @@
 
 # ============================
 
-if [[ "$IS_OSX" = true ]]; then
+if [[ "$OSTYPE" =~ darwin* ]]; then
   # Use the open command on OSX
   export BROWSER='open'
 
-elif [[ "$IS_LINUX" = true ]]; then
+elif [[ "$OSTYPE" =~ linux* ]]; then
 
 	[[ -n "$XDG_CACHE_HOME" ]] || export XDG_CACHE_HOME="$HOME/.cache"
 	[[ -n "$XDG_CONFIG_HOME" ]] || export XDG_CONFIG_HOME="$HOME/.config"

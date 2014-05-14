@@ -1,7 +1,7 @@
 
 # Colours for ls.
 # =========================================
-if [[ "$IS_OSX" = true ]]; then
+if [[ "$OSTYPE" =~ darwin* ]]; then
   # Use colours in OSX ls
   export CLICOLOR=1
   export LSCOLORS=ExFxCxDxBxegedabagacad

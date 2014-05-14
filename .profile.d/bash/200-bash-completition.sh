@@ -1,4 +1,3 @@
-#!/usr/bin/env bash
 
 # Bash Completion 
 # ==================================
@@ -29,7 +28,7 @@
 #fi
 
 
-if [[ "$IS_OSX" = true ]]; then
+if [[ "$OSTYPE" =~ darwin* ]]; then
 
 	# http://sigpipe.macromates.com/2012/08/10/path-completion-bash
 	FIGNORE=".o:~:Application Scripts"
