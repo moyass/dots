@@ -105,19 +105,6 @@ bind-key = select-layout main-vertical
 set-window-option -g other-pane-height 25
 set-window-option -g other-pane-width 80
 
-# https://github.com/mydimension/dotfiles/blob/master/tmux.conf
-bind-key -n F1 select-window -t :1
-bind-key -n F2 select-window -t :2
-bind-key -n F3 select-window -t :3
-bind-key -n F4 select-window -t :4
-bind-key -n F5 select-window -t :5
-bind-key -n F6 select-window -t :6
-bind-key -n F7 select-window -t :7
-bind-key -n F8 select-window -t :8
-bind-key -n F9 new-window
-bind-key -n F10 detach-client
-bind-key -n F11 previous-window
-bind-key -n F12 next-window
 # }}}
 
 # KEYS: Copy / Paste# {{{ 
