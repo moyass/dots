@@ -3,7 +3,52 @@
 " 
 
 " ==============================================================================
-" Standard. (syntax, utf8, ft, nocompatible, clipboard, 256 ) "{{{
+" Vundle. "{{{1
+" ==============================================================================
+
+" vundle pre-reqs
+set nocompatible
+filetype off
+set rtp+=~/.vim/bundles/Vundle.vim
+call vundle#begin()
+
+Plugin 'gmarik/Vundle.vim'
+
+Plugin 'tpope/vim-fugitive'
+
+Plugin 'editorconfig/editorconfig-vim'
+
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'scrooloose/syntastic'
+
+Plugin 'kien/ctrlp.vim'
+
+Plugin 'bling/vim-airline'
+
+Plugin 'grep.vim'
+
+Plugin 'airblade/vim-gitgutter'
+Plugin 'tpope/vim-fugitive'
+Plugin 'gcmt/wildfire.vim'
+
+Plugin 'nishigori/increment-activator'
+
+Plugin 'jiangmiao/auto-pairs'
+
+Plugin 'ervandew/supertab'
+
+"Gist
+Plugin 'mattn/webapi'
+Plugin 'mattn/gist-vim'
+
+
+" Colours
+Bundle 'w0ng/vim-hybrid'
+
+
+" ==============================================================================
+" Standard. (syntax, utf8, ft, nocompatible, clipboard, 256 ) "{{{1
 " ==============================================================================
 filetype plugin on
 filetype indent on
@@ -179,10 +224,10 @@ let g:increment_activator_filetype_candidates = {
 
 if has ("win32") " returns 1 on WOW64
   " pathogen: plugins in $VIM/vimfiles/bundle/**
-  call pathogen#infect($VIM.'\vimfiles\bundle\{}')
+  call pathogen#infect($VIM.'\vimfiles\pathogens\{}')
 else
   " pathogen: plugins in $HOME/.vim/bundle/**
-  call pathogen#infect($HOME.'/.vim/bundle/{}')
+  call pathogen#infect($HOME.'/.vim/pathogens/{}')
 endif
 
 call pathogen#helptags()
