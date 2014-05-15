@@ -9,7 +9,7 @@
 " vundle pre-reqs
 set nocompatible
 filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
+set rtp+=~/.vim/vundles/Vundle.vim
 call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 
@@ -45,7 +45,9 @@ Plugin 'mattn/gist-vim', {'name': 'gist'}
 " Colours
 Bundle 'w0ng/vim-hybrid', {'name': 'colours-w0ng-hybrid'}
 
+call vundle#end()
  "}}}
+" ==============================================================================
 
 " ==============================================================================
 " Standard. (syntax, utf8, ft, nocompatible, clipboard, 256 ) "{{{1
