@@ -1,1 +1,1 @@
-alias keyup=". ~/.keychain/`hostname`-sh; ssh-add -l" 
+alias keys=". ~/.keychain/`hostname`-sh; ssh-add -l" 
