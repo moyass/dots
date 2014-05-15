@@ -79,7 +79,7 @@
   stat           = true
 
 [help]
-  autocorrect    = 1
+  autocorrect    = 0
 
 [daemon]
   uploadarch     = true
