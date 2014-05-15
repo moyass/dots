@@ -9,43 +9,43 @@
 " vundle pre-reqs
 set nocompatible
 filetype off
-set rtp+=~/.vim/bundles/Vundle.vim
+set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-
 Plugin 'gmarik/Vundle.vim'
 
-Plugin 'tpope/vim-fugitive'
-
-Plugin 'editorconfig/editorconfig-vim'
-
+" Airline: 'Thanks for flying vim!'
+Plugin 'bling/vim-airline', {'name': 'airline'}
+Plugin 'editorconfig/editorconfig-vim', {'name': 'cfg-editorconfig'}
+Plugin 'ervandew/supertab'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
-Plugin 'scrooloose/syntastic'
+Plugin 'godlygeek/tabular'
+Plugin 'kien/ctrlp.vim', {'name': 'keys-ctrlp'}
+Plugin 'gcmt/wildfire.vim', {'name': 'keys-return-wildfire'}
+Plugin 'nishigori/increment-activator', {'name': 'keys-incrementactivator'}
+Plugin 'jiangmiao/auto-pairs', {'name': 'keys-autopairs'}
+Plugin 'tpope/vim-eunuch', {'name': 'cmds-eunuch'}
+Plugin 'grep.vim', {'name': 'cmds-grep'}
 
-Plugin 'kien/ctrlp.vim'
+" Syntax
+Plugin 'scrooloose/syntastic', {'name': 'syntax-syntastic'}
+Plugin 'sheerun/vim-polyglot', {'name': 'syntax-polyglot'}
+Plugin 'potatoesmaster/i3-vim-syntax', {'name': 'syntax-i3wm'}
+Plugin 'git://fedorapeople.org/home/fedora/wwoods/public_git/vim-scripts.git', {'name': 'syntax-systemd'}
 
-Plugin 'bling/vim-airline'
+" VCS, Git
+Plugin 'airblade/vim-gitgutter', {'name': 'git-gitgutter'}
+Plugin 'tpope/vim-fugitive', {'name': 'git-fugitive'}
 
-Plugin 'grep.vim'
-
-Plugin 'airblade/vim-gitgutter'
-Plugin 'tpope/vim-fugitive'
-Plugin 'gcmt/wildfire.vim'
-
-Plugin 'nishigori/increment-activator'
-
-Plugin 'jiangmiao/auto-pairs'
-
-Plugin 'ervandew/supertab'
-
-"Gist
-Plugin 'mattn/webapi'
-Plugin 'mattn/gist-vim'
+" Gist
+Plugin 'mattn/webapi-vim', {'name': 'gist-webapi'}
+Plugin 'mattn/gist-vim', {'name': 'gist'}
 
 
 " Colours
-Bundle 'w0ng/vim-hybrid'
+Bundle 'w0ng/vim-hybrid', {'name': 'colours-w0ng-hybrid'}
 
+ "}}}
 
 " ==============================================================================
 " Standard. (syntax, utf8, ft, nocompatible, clipboard, 256 ) "{{{1
