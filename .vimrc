@@ -3,15 +3,26 @@
 " 
 
 " ==============================================================================
-" Vundle. "{{{1
+" Vundle. "{{{1"{{{
 " ==============================================================================
 
 " vundle pre-reqs
 set nocompatible
 filetype off
-set rtp+=~/.vim/vundles/Vundle.vim
+
+let iCanHazVundle=1
+let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
+if !filereadable(vundle_readme)
+    " https://github.com/fisadev/fisa-vim-config/blob/master/.vimrc
+    echo "Installing Vundle..."
+    echo ""
+    silent !mkdir -p ~/.vim/bundle
+    silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
+    let iCanHazVundle=0
+endif
+set rtp+=~/.vim/bundle/vundle
 call vundle#begin()
-Plugin 'gmarik/Vundle.vim'
+Plugin 'gmarik/vundle'
 
 " Airline: 'Thanks for flying vim!'
 Plugin 'bling/vim-airline', {'name': 'airline'}
@@ -45,8 +56,24 @@ Plugin 'mattn/gist-vim', {'name': 'gist'}
 " Colours
 Bundle 'w0ng/vim-hybrid', {'name': 'colours-w0ng-hybrid'}
 
+" Experimental:: 
+" Extension to ctrlp, for fuzzy command finder
+Bundle 'fisadev/vim-ctrlp-cmdpalette'
+" Terminal Vim with 256 colors colorscheme
+Bundle 'fisadev/fisa-vim-colorscheme'
+" Surround
+Bundle 'tpope/vim-surround'
+" Autoclose
+Bundle 'Townk/vim-autoclose'
+
+if iCanHazVundle == 0
+ echo "Installing Bundles, please ignore key map error messages"
+ echo ""
+ :PluginInstall
+endif
+
 call vundle#end()
- "}}}
+"}}}
 " ==============================================================================
 
 " ==============================================================================
