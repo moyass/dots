@@ -60,7 +60,7 @@ set-window-option -g aggressive-resize on
 #bind I source-file ~/.config/tmux/irssi
 
 # environment
-set -g update-environment "DISPLAY SSH_ASKPASS SSH_AUTH_SOCK SSH_AGENT_PID SSH_CONNECTION WINDOWID XAUTHORITY"
+set -g update-environment "DISPLAY SSH_ASKPASS SUDO_ASKPASS SSH_AUTH_SOCK SSH_AGENT_PID  SSH_CONNECTION WINDOWID XAUTHORITY"
 
 # }}}
 
