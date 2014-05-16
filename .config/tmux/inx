@@ -4,5 +4,5 @@ set -g status-attr bright
 set -g status-right-length 40
 set -g status-left-length 40
 
-set -g status-left '#[fg=red]#H #[fg=black,bright]• #[default]#[fg=green]#(uname -r) #[fg=black]•#[default]'
+set -g status-left '#[fg=blue]#H #[fg=black,bright]• #[default]#[fg=green]#(uname -r) #[fg=black]•#[default]'
 set -g status-right '#[fg=black]#(cut -d " " -f1-3 /proc/loadavg)'
