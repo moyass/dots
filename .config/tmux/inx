@@ -1,8 +1,9 @@
 # Statusbar if tmux runs in X
 #
-set -g status-attr bright
-set -g status-right-length 40
-set -g status-left-length 40
+#set -g status-attr bright
+set-option -ga status-style "bright"
+set-option -g status-right-length 40
+set-option -g status-left-length 40
 
-set -g status-left '#[fg=blue]#H #[fg=black,bright]• #[default]#[fg=green]#(uname -r) #[fg=black]•#[default]'
-set -g status-right '#[fg=black]#(cut -d " " -f1-3 /proc/loadavg)'
+set-option -g status-left '#[fg=blue]#H #[fg=black,none]•#[default]#[fg=green] #(uname -r) #[fg=black,none]•#[default]'
+set-option -g status-right "#[fg=black,none]#(awk \'{ print $1,$2,$3 }\' </proc/loadavg)#[default]"

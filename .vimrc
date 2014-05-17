@@ -37,6 +37,7 @@ Plugin 'nishigori/increment-activator', {'name': 'keys-incrementactivator'}
 Plugin 'jiangmiao/auto-pairs', {'name': 'keys-autopairs'}
 Plugin 'tpope/vim-eunuch', {'name': 'cmds-eunuch'}
 Plugin 'grep.vim', {'name': 'cmds-grep'}
+Plugin 'DirDiff.vim', {'name': 'cmds-dirdiff'}
 
 " Syntax
 Plugin 'scrooloose/syntastic', {'name': 'syntax-syntastic'}

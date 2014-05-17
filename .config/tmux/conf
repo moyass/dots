@@ -8,7 +8,7 @@ unbind-key C-a
 bind-key C-a send-prefix
 
 # start windows at 0
-set -g base-index 1
+set-option -g base-index 1
 
 # vi mode
 setw -g mode-keys vi
@@ -38,37 +38,36 @@ bind-key \; command-prompt
 bind-key : command-prompt
 
 # scrollback buffer n lines
-set -g history-limit 5000
+set-option -g history-limit 5000
 
 # listen for activity on all windows
-set -g bell-action any
-set -g visual-bell on
-set -g bell-on-alert on
+set-option -g bell-action any
+set-option -g visual-bell on
+set-option -g bell-on-alert on
 
 # on-screen time for display-panes in ms
-set -g display-panes-time 2000
-
-set -g lock-command vlock
+#set-option -g display-panes-time 2000
+#set-option -g lock-command vlock
 
 # correct term for 256 colours
-set-option -g default-terminal "screen-256color-s"
+set-option -g default-terminal "tmux"
 
 set-window-option -g aggressive-resize on
 
 # initialize sessions
-#bind S source-file ~/.config/tmux/standard
-#bind I source-file ~/.config/tmux/irssi
+#bind-key S source-file ~/.config/tmux/standard
+#bind-key I source-file ~/.config/tmux/irssi
 
 # environment
-set -g update-environment "DISPLAY SSH_ASKPASS SUDO_ASKPASS SSH_AUTH_SOCK SSH_AGENT_PID  SSH_CONNECTION WINDOWID XAUTHORITY"
+set-option -g update-environment "DISPLAY SSH_ASKPASS SUDO_ASKPASS SSH_AUTH_SOCK SSH_AGENT_PID  SSH_CONNECTION WINDOWID XAUTHORITY"
 
 # }}}
 
 # MOUSE {{{1
-setw -g mode-mouse on
-set -g mouse-select-pane on
-set -g mouse-resize-pane on
- 
+set-option -g mode-mouse on
+set-option -g mouse-select-pane on
+set-option -g mouse-resize-pane on
+#set -g mouse-select-window on
 # 1}}}
 
 # KEYS: Panes and Window # {{{
@@ -93,15 +92,15 @@ bind-key k select-pane -U
 bind-key h select-pane -R
 
 # smart pane switching with awareness of vim splits
-bind -n C-h run "(tmux display-message -p '#{pane_current_command}' | grep -iqE '(^|\/)vim$' && tmux send-keys C-h) || tmux select-pane -L"
-bind -n C-j run "(tmux display-message -p '#{pane_current_command}' | grep -iqE '(^|\/)vim$' && tmux send-keys C-j) || tmux select-pane -D"
-bind -n C-k run "(tmux display-message -p '#{pane_current_command}' | grep -iqE '(^|\/)vim$' && tmux send-keys C-k) || tmux select-pane -U"
-bind -n C-l run "(tmux display-message -p '#{pane_current_command}' | grep -iqE '(^|\/)vim$' && tmux send-keys C-l) || tmux select-pane -R"
-bind -n C-\ run "(tmux display-message -p '#{pane_current_command}' | grep -iqE '(^|\/)vim$' && tmux send-keys 'C-\\') || tmux select-pane -l"
-bind C-l send-keys 'C-l'
+bind-key -n C-h run "(tmux display-message -p '#{pane_current_command}' | grep -iqE '(^|\/)vim$' && tmux send-keys C-h) || tmux select-pane -L"
+bind-key -n C-j run "(tmux display-message -p '#{pane_current_command}' | grep -iqE '(^|\/)vim$' && tmux send-keys C-j) || tmux select-pane -D"
+bind-key -n C-k run "(tmux display-message -p '#{pane_current_command}' | grep -iqE '(^|\/)vim$' && tmux send-keys C-k) || tmux select-pane -U"
+bind-key -n C-l run "(tmux display-message -p '#{pane_current_command}' | grep -iqE '(^|\/)vim$' && tmux send-keys C-l) || tmux select-pane -R"
+bind-key -n C-\ run "(tmux display-message -p '#{pane_current_command}' | grep -iqE '(^|\/)vim$' && tmux send-keys 'C-\\') || tmux select-pane -l"
+bind-key C-l send-keys 'C-l'
 
-bind-key + select-layout main-horizontal
-bind-key = select-layout main-vertical
+#bind-key + select-layout main-horizontal
+#bind-key = select-layout main-vertical
 set-window-option -g other-pane-height 25
 set-window-option -g other-pane-width 80
 
@@ -109,11 +108,12 @@ set-window-option -g other-pane-width 80
 
 # KEYS: Copy / Paste# {{{ 
 bind-key [ copy-mode
-bind Escape copy-mode
+bind-key Escape copy-mode
 bind-key ] paste-buffer
-bind-key -t vi-copy v begin-selection
-bind y run "tmux show-buffer | xclip"
-bind p run "tmux set-buffer \"$(xsel -o)\"; tmux paste-buffer"
+#bind-key -t vi-copy v begin-selection
+#bind-key y run "tmux show-buffer | xclip"
+#bind-key y -t vi-copy y copy-pipe "xclip" 
+#bind-key p run "tmux set-buffer \"$(xsel -o)\"; tmux paste-buffer"
 set-window-option -g display-panes-time 1500
 # }}}
 
@@ -131,47 +131,62 @@ set-window-option -g display-panes-time 1500
 
 # KEYS: Fluff   # {{{1
 # quick view of processes
-bind '~' split-window -v -p 50 "htop"
+bind-key '~' split-window -v -p 50 "htop"
 
 # killing things... windows & servers
 bind-key k confirm kill-window
 bind-key K confirm kill-session
 
-set-window-option -g window-status-bell-fg white
-set-window-option -g window-status-bell-bg red
-set-window-option -g window-status-bell-attr bright
+#pre 1.9a
+#set-window-option -g window-status-bell-fg white
+#set-window-option -g window-status-bell-bg red
+#set-window-option -g window-status-bell-attr bright
+set-window-option -g window-status-bell-style "fg=white,bg=red,bright"
 
-set-window-option -g window-status-content-fg white
-set-window-option -g window-status-content-bg magenta
-set-window-option -g window-status-content-attr bright
+#pre 1.9a
+#set-window-option -g window-status-content-fg white
+#set-window-option -g window-status-content-bg magenta
+#set-window-option -g window-status-content-attr bright
+set-window-option -g window-status-content-style "fg=white,bg=magenta,bright"
 
-set-window-option -g window-status-activity-fg white
-set-window-option -g window-status-activity-bg green
-set-window-option -g window-status-activity-attr bright
+#pre1.9a
+#set-window-option -g window-status-activity-fg white
+#set-window-option -g window-status-activity-bg green
+#set-window-option -g window-status-activity-attr bright
+set-window-option -ga window-status-activity-style "fg=white,bg=green,bright"
 
 # }}} 
 
 # PRETTY: Panes # {{{1
-set -g pane-border-fg blue
-set -g pane-border-bg default
-set -g pane-active-border-fg blue
-set -g pane-active-border-bg default
+#set -g pane-border-fg blue
+#set -g pane-border-bg default
+set-option -ga pane-border-style "fg=blue,bg=default"
+#set -g pane-active-border-fg blue
+#set -g pane-active-border-bg default
+set-option -ga pane-active-border-style "fg=blue,bg=default"
 # }}}
 
-# P RETTY: Status Bar# {{{
-set-option -g status-interval 1
-set-option -g status-left ''
-set-option -g status-right '%l:%M%p'
-set-window-option -g window-status-current-fg magenta
-set-option -g status-fg default
+# PRETTY: Status Bar# {{{
+set-option -g status-interval 2
+#set-option -g status-left ''
+#set-option -g status-right '%l:%M%p'
+
+#set-window-option -g window-status-current-fg magenta
+set-window-option -ga window-status-current-style "fg=magenta"
+#set-option -g status-fg default
+#set-option -ga status-style "fg=default"
 
 # default statusbar colors
-set -g status-fg white
-set -g status-bg default
+#set -g status-fg white
+#set -g status-bg default
+set-option -ga status-style 'fg=white,bg=default'
 
 # Statusbar starting in X or not
-if '[ -n "$DISPLAY" ]' 'source-file ~/.config/tmux/inx'
-if '[ -z "$DISPLAY" ]' 'source-file ~/.config/tmux/xless'
+set-option -g status-utf8 on
+#if-shell '[ -n "$DISPLAY" ]' 
+source-file ~/.config/tmux/inx
+    
+  #'source-file ~/.config/tmux/xless'
  
  
  # }}}

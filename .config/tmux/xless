@@ -1,19 +1,22 @@
 # Statusbar if tmux run in console
 # information normally in dwm bar
-set -g status-attr bright
-set -g status-right-length 50
-set -g status-left-length 50
+#set -g status-attr bright
+set-option -ga status-style "bright"
+set-option -g status-right-length 54
+set-option -g status-left-length 50
 
 # default window title colors
-set-window-option -g window-status-fg black
-set-window-option -g window-status-bg default
-set-window-option -g window-status-attr bright
+#set-window-option -g window-status-fg black
+#set-window-option -g window-status-bg default
+#set-window-option -g window-status-attr bright
+set-window-option -ga window-status-style "fg=black,bg=default,bright"
 
 # message colours
-set -g message-fg black
-set -g message-bg green
-set -g message-attr bright
+#set -g message-fg black
+#set -g message-bg green
+#set -g message-attr bright
+set-option -ga message-style "fg=black,bg=green,bright"
 
-set -g status-left "#[fg=red,bright]#H #[fg=black]• #[fg=green]#(uname -r) #[fg=black]•#[default]"
-set -g status-right "#[fg=black]#(awk \'{ print $1,$2,$3 }\' </proc/loadavg)#[default]"
+set-option -g status-left "#[fg=red,bright]#H #[fg=black]• #[fg=green] #(uname -r) #[fg=black]•#[default]"
+set-option -g status-right "#[fg=black]#(awk \'{ print $1,$2,$3 }\' </proc/loadavg)#[default]"
 
