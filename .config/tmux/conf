@@ -67,7 +67,7 @@ set-option -g update-environment "DISPLAY SSH_ASKPASS SUDO_ASKPASS SSH_AUTH_SOCK
 set-option -g mode-mouse on
 set-option -g mouse-select-pane on
 set-option -g mouse-resize-pane on
-#set -g mouse-select-window on
+set -g mouse-select-window on
 # 1}}}
 
 # KEYS: Panes and Window # {{{
@@ -110,7 +110,9 @@ set-window-option -g other-pane-width 80
 bind-key [ copy-mode
 bind-key Escape copy-mode
 bind-key ] paste-buffer
-#bind-key -t vi-copy v begin-selection
+bind-key -t vi-copy v begin-selection
+bind-key -t vi-copy y copy-selection
+
 #bind-key y run "tmux show-buffer | xclip"
 #bind-key y -t vi-copy y copy-pipe "xclip" 
 #bind-key p run "tmux set-buffer \"$(xsel -o)\"; tmux paste-buffer"
@@ -183,10 +185,7 @@ set-option -ga status-style 'fg=white,bg=default'
 
 # Statusbar starting in X or not
 set-option -g status-utf8 on
-#if-shell '[ -n "$DISPLAY" ]' 
-source-file ~/.config/tmux/inx
-    
-  #'source-file ~/.config/tmux/xless'
+if-shell '[ -n "$DISPLAY" ]' 'source-file ~/.config/tmux/inx' 'source-file ~/.config/tmux/xless'
  
  
  # }}}
