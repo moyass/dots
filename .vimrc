@@ -5,79 +5,6 @@ if has('autocmd')
   autocmd!
 endif
 
-" Vundle.                                                 "{{{1
-
-" vundle pre-reqs
-set nocompatible
-filetype off
-
-let iCanHazVundle=1
-let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
-if !filereadable(vundle_readme)
-    " https://github.com/fisadev/fisa-vim-config/blob/master/.vimrc
-    echo "Installing Vundle..."
-    echo ""
-    silent !mkdir -p ~/.vim/bundle
-    silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
-    let iCanHazVundle=0
-endif
-set rtp+=~/.vim/bundle/vundle
-call vundle#begin()
-Plugin 'gmarik/vundle'
-
-" Airline: 'Thanks for flying vim!'
-Plugin 'bling/vim-airline', {'name': 'airline'}
-Plugin 'editorconfig/editorconfig-vim', {'name': 'cfg-editorconfig'}
-Plugin 'ervandew/supertab'
-Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'godlygeek/tabular'
-Plugin 'kien/ctrlp.vim', {'name': 'keys-ctrlp'}
-Plugin 'gcmt/wildfire.vim', {'name': 'keys-return-wildfire'}
-Plugin 'nishigori/increment-activator', {'name': 'keys-incrementactivator'}
-Plugin 'jiangmiao/auto-pairs', {'name': 'keys-autopairs'}
-Plugin 'tpope/vim-eunuch', {'name': 'cmds-eunuch'}
-Plugin 'grep.vim', {'name': 'cmds-grep'}
-Plugin 'DirDiff.vim', {'name': 'cmds-dirdiff'}
-
-" Syntax
-Plugin 'scrooloose/syntastic', {'name': 'syntax-syntastic'}
-Plugin 'sheerun/vim-polyglot', {'name': 'syntax-polyglot'}
-Plugin 'potatoesmaster/i3-vim-syntax', {'name': 'syntax-i3wm'}
-Plugin 'git://fedorapeople.org/home/fedora/wwoods/public_git/vim-scripts.git', {'name': 'syntax-systemd'}
-
-" VCS, Git
-Plugin 'airblade/vim-gitgutter', {'name': 'git-gitgutter'}
-Plugin 'tpope/vim-fugitive', {'name': 'git-fugitive'}
-
-" Gist
-Plugin 'mattn/webapi-vim', {'name': 'gist-webapi'}
-Plugin 'mattn/gist-vim', {'name': 'gist'}
-
-
-" Colours
-Bundle 'w0ng/vim-hybrid', {'name': 'colours-w0ng-hybrid'}
-Bundle 'guns/jellyx.vim', {'name': 'colors-guns-jellyx'}
-
-" Experimental::
-" Extension to ctrlp, for fuzzy command finder
-Bundle 'fisadev/vim-ctrlp-cmdpalette'
-" Terminal Vim with 256 colors colorscheme
-Bundle 'fisadev/fisa-vim-colorscheme'
-" Surround
-Bundle 'tpope/vim-surround'
-" Autoclose
-Bundle 'Townk/vim-autoclose'
-
-if iCanHazVundle == 0
- echo "Installing Bundles, please ignore key map error messages"
- echo ""
- :PluginInstall
-endif
-
-call vundle#end()
-"}}}
-
 " Standard. (syntax, utf8, ft, nocompatible, clipboard, 256 ) "{{{1
 filetype plugin on
 filetype indent on
@@ -351,7 +278,7 @@ set fillchars=fold:\ ,diff:╳,vert:│
 " Colorscheme."{{{
 set synmaxcol=300 "Avoids editor lockup on extremely long lines
 
-if has("gui_running") || &t_Co == 256
+if has("gui_running")
   let g:jellyx_show_whitespace = 1
   colorscheme jellyx
   "colorscheme mirodark
