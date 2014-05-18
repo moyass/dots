@@ -1,0 +1,47 @@
+pathogens:
+  git: vcsh run dotfiles git
+  gitroot: ~/
+  target: ~/.vim/pathogens
+  repos:
+    # Core
+    https://github.com/bling/vim-airline: core-airline
+    https://github.com/scrooloose/nerdtree: core-nerdtree
+    https://github.com/scrooloose/nerdcommenter: core-nerdcommenter
+    https://github.com/godlygeek/tabular: core-tabular
+    https://github.com/editorconfig/editorconfig-vim: core-editorconfig
+    https://github.com/ciaranm/securemodelines: core-securemodelines
+
+    # Commands
+    https://github.com/tpope/vim-eunuch: cmd-eunuch
+    https://github.com/vim-scripts/grep.vim: cmds-grep
+    https://github.com/vim-scripts/DirDiff.vim: cmds-dirdiff
+    https://github.com/ervandew/supertab: cmd-supertab
+
+    # Keys
+    https://github.com/kien/ctrlp.vim: keys-ctrlp
+    https://github.com/gcmt/wildfire.vim: keys-return-wildfire
+    https://github.com/nishigori/increment-activator: keys-incrementactivator
+    https://github.com/jiangmiao/auto-pairs: keys-autopairs
+    https://github.com/fisadev/vim-ctrlp-cmdpalette: keys-ctrlp-fisa
+    https://github.com/tpope/vim-surround: keys-surround
+    https://github.com/Townk/vim-autoclose: keys-autoclose
+
+    # Syntax
+    https://github.com/scrooloose/syntastic: syntax-syntastic
+    https://github.com/sheerun/vim-polyglot: syntax-polyglot
+    https://github.com/potatoesmaster/i3-vim-syntax: syntax-i3wm
+    git://fedorapeople.org/home/fedora/wwoods/public_git/vim-scripts.git: syntax-systemd
+
+    # VCS, Git
+    https://github.com/airblade/vim-gitgutter: git-gitgutter
+    https://github.com/tpope/vim-fugitive: git-fugitive
+
+    # Gist
+    https://github.com/mattn/webapi-vim: gist-webapi
+    https://github.com/mattn/gist-vim: gist
+
+    # Colours
+    https://github.com/w0ng/vim-hybrid: colour-w0ng-hybrid
+    https://github.com/guns/jellyx.vim: colour-guns-jellyx
+    https://github.com/fisadev/fisa-vim-colorscheme: colour-fisa
+
