@@ -31,8 +31,15 @@ class Vimmy < Thor
     end
 
     @log.debug("initalize: selecting config file")
-    config_files = Array.new 
-    config_files.push(options[:config]) if options[:config]
+    config_files = Array.new
+    config_try = Proc.new do | file |
+        config_files.push(file) if File::file?(file) and File::readable?(file)
+    end
+    if options[:config] =~ /\\/
+      config_try.call(options[:config])
+    else
+      config_try.call("#{ENV['XDG_CONFIG_HOME'] || ENV['HOME'] + '/.config' || '~/.config'}/vimmy/#{options['config']}.yaml")
+    end
     config_files.push("#{ENV['HOME'] || '~'}/.vim/vimmy.yaml")
     config_files.push("#{ENV['XDG_CONFIG_HOME']}/vimmy/vimmy.yaml") if ENV['XDG_CONFIG_HOME']
     config_files.each { |file|
@@ -55,6 +62,7 @@ class Vimmy < Thor
   end
 
   no_tasks do
+
   def loadFamily(family)
 
     # Git
@@ -126,8 +134,8 @@ class Vimmy < Thor
 
   method_option :squash, :default => false, :type => :boolean, :desc => "Squash each added subtree repo history"
   method_option :'dry-run', :type => :boolean, :desc => "Show what would be done, without doing it."
-  desc 'addsubtrees FAMILY', "Add all subtrees under FAMILY in YAML config"
-  def addsubtrees(family="pathogens")
+  desc 'add FAMILY', "Add subtrees under FAMILY in YAML config"
+  def add(family="pathogens")
     @log.debug("addsubtrees: got options=#{options.inspect}")
     @log.debug("addsubtrees: got dry-run") if options['dry-run']
     @log.debug("addsubtrees: got squash") if options['squash']
