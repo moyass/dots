@@ -1,0 +1,164 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'thor'
+require 'yaml'
+require 'logger'
+require 'pathname'
+
+
+
+class Vimmy < Thor
+
+  class_option :verbose, :type => :boolean, :aliases => "-v"
+  class_option :debug, :type => :boolean, :aliases => "-d"
+  class_option :config, :type => :string, :aliases => "-c", :desc => "Use an alternative YAML config file."
+  def initialize(*args)
+    super
+    raise 'Dont\'t be an idiot. Excess privilege use violation.' unless Process.uid != 0
+
+    @log = Logger.new(STDOUT)
+    @log.datetime_format=("%Y%m%dT%H%M%S%Z")
+    if options[:debug]
+      @log.level = Logger::DEBUG
+      @log.info("Logger level set to DEBUG")
+    elsif options[:verbose]
+      @log.level = Logger::INFO
+      @log.info("Logger level set to INFO")
+    else
+      @log.level = Logger::WARN
+      @log.info("Logger level defaulting to WARN")
+    end
+
+    @log.debug("initalize: selecting config file")
+    config_files = Array.new 
+    config_files.push(options[:config]) if options[:config]
+    config_files.push("#{ENV['HOME'] || '~'}/.vim/vimmy.yaml")
+    config_files.push("#{ENV['XDG_CONFIG_HOME']}/vimmy/vimmy.yaml") if ENV['XDG_CONFIG_HOME']
+    config_files.each { |file|
+      if File::file?(file) and File::readable?(file)
+        if not File::stat(file).mode =~ /.*744/
+          File::chmod(0744,file)
+        end
+        @config_file = file
+        break
+      end
+    }
+    raise "No configuration file found, tried #{config_files.inspect}" unless defined? @config_file
+
+    @log.debug("initialize: loading YAML config file #{@config_file}")
+    @config = YAML.load_file(@config_file)
+    raise "Configuration empty. YAML file corrupt. Available data is #{@config.inspect}" if @config.empty?
+
+    self.crosscheck
+
+  end
+
+  no_tasks do
+  def loadFamily(family)
+
+    # Git
+    if defined? @config[family]['git'] 
+      if @config[family]['git'] =~ /^(git|vcsh.*)/
+        @git = @config[family]['git']
+        @log.debug("initalize: config specified git command replacement #{@git}")
+      else
+        @log.info("initialize: config specified invalid git command replacement #{@config[family][:git]}, which does not match my regex.")
+        @log.error("The configuration file has an error on the node 'git' under the family #{@family}; it should be set to git or vcsh <reponame>.")
+      end
+    else
+      @log.debug("initalize: config does not specify git command replacement, using default 'git'. OK.")
+      @git = "git"
+    end
+
+    # gitroot
+    if defined? @config[family]['gitroot']
+      @log.debug("initialize: config specified gitroot.")
+      @gitroot = Pathname.new(@config[family]['gitroot']).expand_path
+    else
+      @log.debug("initialize: config does not specify gitroot; using $HOME.")
+      @gitroot = Pathname.new(ENV['HOME'] || '~').expand_path
+    end
+
+    # Target
+    if defined? @config[family]['target']
+      @log.debug("initialize: config specified target.")
+      @target = Pathname.new(@config[family]['target']).expand_path.relative_path_from(@gitroot)
+    else
+      @log.debug("initialize: config does not specify target.")
+      @log.error("The configuration file is missing the 'target' element under #{family}. Cannot continue.")
+    end
+
+    # Repos
+    if defined? @config[family]['repos']
+      if @config[family]['repos'].is_a?(::Hash)
+        @log.debug("initialize: repos is a valid hash")
+        @repos = @config[family]['repos']
+      else
+        @log.error("The configuration file has an error under the 'repos' element of '#{family}'. This element must be a hash (repourl: reponame).")
+      end
+    else
+      @log.error("The configuration file is missing a hash of repos under #{family}.")
+    end
+
+  end
+
+  desc 'crosscheck', "Perform sanity crosschecks of environment and YAML configuration."
+  def crosscheck()
+    # ruby > 2.1
+    @log.debug("crosscheck: ruby > 2.1")
+    if not RUBY_VERSION >= "2.1.0"
+      @log.error("I need ruby >= 2.1.0 but you're running me on #{RUBY_VERSION}. #sadface ")
+      Kernel.exit(-1) 
+    end
+
+    # git > 2
+    @log.debug("crosscheck: git > 2")
+    if not system("command -v git > /dev/null 2>&1") 
+      @log.error("I need git >= 2.0, but I couldn't find any git at all. #tragedy")
+
+    elsif %x{git --version}.match(/[0-9\.]{3}/).to_s < "2.0"
+      @log.error("I need git >= 2.0, but I found " + %x{git --version}.match(/[0-9prcb\.]{3,11}/))
+    end
+
+  end
+  end
+
+  method_option :squash, :default => false, :type => :boolean, :desc => "Squash each added subtree repo history"
+  method_option :'dry-run', :type => :boolean, :desc => "Show what would be done, without doing it."
+  desc 'addsubtrees FAMILY', "Add all subtrees under FAMILY in YAML config"
+  def addsubtrees(family="pathogens")
+    @log.debug("addsubtrees: got options=#{options.inspect}")
+    @log.debug("addsubtrees: got dry-run") if options['dry-run']
+    @log.debug("addsubtrees: got squash") if options['squash']
+
+    self.loadFamily(family)
+
+    # execute in @gitroot
+    Dir.chdir(@gitroot)
+
+    # command="git subtree add --squash --prefix .vim/pathogens/#{name} #{repo} master"
+    addcmd = "#{@git} subtree add"
+    addcmd << " --squash" if options['squash']
+    addcmd << " -d" if options['debug']
+  
+    @repos.each do | repourl, reponame |
+      unit_command = addcmd.clone
+      unit_command << " --prefix #{@target}/#{reponame} #{repourl} master"
+      
+      #check if the repo is already a subtree or exists
+      if File::exists?(@gitroot + "/" + @target + "/" + reponame)
+        @log.info(reponame + " exists, skipping.")
+      elsif options[:'dry-run']
+        @log.info("$ " + unit_command)
+      else
+        system(unit_command)
+      end
+
+    end
+
+  end
+
+end
+Vimmy.start
+# vim: set ts=2 sts=2 ft=ruby fdm=marker sw=2 et:
