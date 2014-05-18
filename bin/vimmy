@@ -31,31 +31,20 @@ class Vimmy < Thor
     end
 
     @log.debug("initalize: selecting config file")
-    config_files = Array.new
-    config_try = Proc.new do | file |
-        config_files.push(file) if File::file?(file) and File::readable?(file)
-    end
-    if options[:config] =~ /\\/
+    config_try = Proc.new { |file| @config_file=file if (not defined? @config_file) and File::file?(file) and File::readable?(file) }
+    if options[:config] =~ /\//
       config_try.call(options[:config])
-    else
+    elsif options[:config] == "vim"
       config_try.call("#{ENV['XDG_CONFIG_HOME'] || ENV['HOME'] + '/.config' || '~/.config'}/vimmy/#{options['config']}.yaml")
     end
-    config_files.push("#{ENV['HOME'] || '~'}/.vim/vimmy.yaml")
-    config_files.push("#{ENV['XDG_CONFIG_HOME']}/vimmy/vimmy.yaml") if ENV['XDG_CONFIG_HOME']
-    config_files.each { |file|
-      if File::file?(file) and File::readable?(file)
-        if not File::stat(file).mode =~ /.*744/
-          File::chmod(0744,file)
-        end
-        @config_file = file
-        break
-      end
-    }
+    config_try.call("#{ENV['HOME'] || '~'}/.vim/vimmy.yaml")
+    config_try.call("#{ENV['XDG_CONFIG_HOME'] || ENV['HOME'] + '/.config' || '~/.config'}/vimmy/vimmy.yaml")
     raise "No configuration file found, tried #{config_files.inspect}" unless defined? @config_file
+    File::chmod(0744,@config_file) if not File::stat(@config_file).mode =~ /.*744/
 
     @log.debug("initialize: loading YAML config file #{@config_file}")
     @config = YAML.load_file(@config_file)
-    raise "Configuration empty. YAML file corrupt. Available data is #{@config.inspect}" if @config.empty?
+    raise "Configuration empty or YAML file corrupt. Available data is:\n #{@config.inspect}" if @config.empty?
 
     self.crosscheck
 
