@@ -1,10 +1,11 @@
-# Based on other's efforts:
+#
+# .zshrc
+#
+
+# Benefitting from other's efforts:
 # Marks H. Nichols: http://zanshin.net/2013/02/02/zsh-configuration-from-the-ground-up/
 # Jason W. Ryan: https://bitbucket.org/jasonwryan/shiv/t 
-
-#  Usually in ~/.zshrc
-# ============================
-ZDOTDIR="${ZDOTDIR:-$HOME/.profile.d/zsh}"
+# Jorge Israel Peña: https://github.com/blaenk/dots/tree/master/zsh/zsh
 
 ### MODULES {{{1
 autoload -U colors promptinit bashcompinit edit-command-line

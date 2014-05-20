@@ -13,7 +13,9 @@ set encoding=utf-8 nobomb " UTF-8 encoding for all new files
 set shortmess=aoOstTAI   "shorten all messages except written
 "set notimeout ttimeout  " Wait for mappings, timeout on keycodes
 set timeout ttimeout
-"set ttimeoutlen=0
+"set timeoutlen=1000
+"set ttimeoutlen=1000
+
 
 if &t_Co > 2 || has("gui_running" )
   set t_Co=256 " 256 colors please
@@ -52,7 +54,7 @@ else
   if has('gui_running')
     let &guifont="Cousine\ 11,dejavu\ sans\ mono\ for\ powerline\ 11"
   endif
- 
+
   set clipboard=unnamed    " yank and copy to the X11 PRIMARY clipboard (selection)
 endif  " [/OS-Settings]<=
 "  }}}
@@ -128,10 +130,11 @@ if has("autocmd")
   endif
 
 " Statusline < Powerline with Airline."{{{
+" TODO: add check if airline plugin present
 set report=0              " report back on all change
 set cmdheight=1
 set showcmd               " show partial commands in the status line
-set showmode              " show current mode
+set noshowmode              " show current mode
 set laststatus=2 " turns status line always on and configures it
 
   let g:airline_mode_map = {
@@ -214,7 +217,7 @@ set formatoptions=q  " Format text with gq, but don't format as I type.
 set formatoptions+=n " gq recognizes numbered lists, and will try to
 set formatoptions+=1 " break before, not after, a 1 letter word
 set nowrap
-set linebreak        " wrap long lines at a character in &breakat'  
+set linebreak        " wrap long lines at a character in &breakat'
 
 
 " }}}
@@ -271,7 +274,7 @@ set splitright " place new splits right & below
 "}}}
 
 " Listchars: show spaces, tab, eol trailing"{{{
-set listchars=trail:·,precedes:«,extends:»,eol:↲,tab:▸\
+set listchars=trail:·,precedes:«,extends:»,tab:▸\ ,eol:↲
 set fillchars=fold:\ ,diff:╳,vert:│
 "}}}
 
@@ -383,14 +386,29 @@ endif
 
 " Keybindings.  "{{{
 
+" Modifier Normalization {{{1
+
+let g:__NAMED_KEYCODES__ = {
+    \ ' ': 'Space',
+    \ '\': 'Bslash',
+    \ '|': 'Bar',
+    \ '<': 'lt'
+\ }
+
+
+"source ~/.vim/local/modifiers.vim
+
 " Since our mappings never timeout, a single ESC will hang indefinitely,
 " waiting for a Meta/Mod4 sequence.
 noremap! <Esc><Esc> <Esc>
+inoremap jj <Esc>
 
 " (<S-Insert> | <Leaderv): Paste."{{{
 map <S-Insert> <MiddleMouse>
 map! <S-Insert> <MiddleMouse>
 noremap <Leader>v <ESC>:set paste<CR>i<C-r>*<Esc>:set nopaste<CR>
+noremap <Leader>b <ESC>:set paste<CR>i<C-r>"<Esc>:set nopaste<CR>
+noremap <Leader>+p <ESC>:set paste<CR>i<C-r>"<Esc>:set nopaste<CR>
 "}}}
 
 " Load gui menus for terminal vim "{{{
@@ -439,41 +457,51 @@ nmap n nzz
 nmap N Nzz
 
 " Tabs."{{{
-" https://github.com/icco/dotFiles/blob/master/link/vimrc
-" @author David Patierno
-:nnoremap ,. :tabnew<CR>
-:nnoremap ., :tabclose<CR>
-:nnoremap .q :tabp<CR>
-:nnoremap .e :tabn<CR>
-:nnoremap .1 :tabn 1<CR>
-:nnoremap .2 :tabn 2<CR>
-:nnoremap .3 :tabn 3<CR>
-:nnoremap .4 :tabn 4<CR>
-:nnoremap .5 :tabn 5<CR>
-:nnoremap .6 :tabn 6<CR>
-:nnoremap .7 :tabn 7<CR>
-:nnoremap .8 :tabn 8<CR>
-:nnoremap .9 :tabn 9<CR>"}}}
+:nnoremap <M-t> :tabnew<CR>
+:nnoremap <M-d> :tabclose<CR>
+:nnoremap <M-h> :tabp<CR>
+:nnoremap <M-j> :tabp<CR>
+:nnoremap <M-k> :tabn<CR>
+:nnoremap <M-l> :tabn<CR>
 
-" Splits."{{{
-" https://github.com/icco/dotFiles/blob/master/link/vimrc
-:nnoremap .w <c-w><Up><CR>
-:nnoremap .s <c-w><Down><CR>
-" don't use <C-a> or <C-x>
-:nnoremap .a <c-w><Left><CR>
-:nnoremap .d <c-w><Right><CR>
-" don't use <C-a> or <C-x>"}}}
+:nnoremap <M-1> :tabn 1<CR>
+:nnoremap <M-2> :tabn 2<cr>
+:nnoremap <M-3> :tabn 3<cr>
+:nnoremap <M-4> :tabn 4<cr>
+:nnoremap <M-5> :tabn 5<cr>
+:nnoremap <M-6> :tabn 6<cr>
+:nnoremap <M-7> :tabn 7<cr>
+:nnoremap <M-8> :tabn 8<cr>
+:nnoremap <M-9> :tabn 9<cr>
+"}}}
 
-" Folding."{{{
+" splits."{{{
+" this works beautifully with tmux: awareness of vim splits"
+:nnoremap <c-h> <c-w><left><cr>
+:nnoremap <c-j> <c-w><down><cr>
+:nnoremap <c-k> <c-w><up><cr>
+:nnoremap <c-l <c-w><right><cr>
 
-" <Space> Toggle fold
+" https://github.com/icco/dotfiles/blob/master/link/vimrc
+" (i never liked this. it feels like i'm playing pacman.)
+":nnoremap .w <c-w><up><cr>
+":nnoremap .s <c-w><down><cr>
+":nnoremap .a <c-w><left><cr>
+":nnoremap .d <c-w><right><cr>
+
+"}}}
+
+" Folds. "{{{
+
+" <space> toggle fold
 nnoremap <space> za
 
-" <Space> in visual mode creates a fold over the marked range
+" <space> in visual mode creates a fold over the marked range
 vnoremap <space> zf
 
-" <Leader>\ Clear hlsearch and redraw screen."{{{
+" <leader>\ clear hlsearch and redraw screen."{{{
 noremap <silent> <Leader>\\ :nohls<cr><c-l><CR>
+noremap <silent> /// :nohls<cr><c-l><CR>
 noremap <silent> <c-l> :nohls<cr><c-l><CR>
 "}}}
 
@@ -493,14 +521,17 @@ nnoremap <Leader>ml :$put =ModelineStub()<CR>
 
 "noremap   <Up>     <NOP> " This helps you save
 "noremap   <Down>   <NOP> " time by making you
-"noremap   <Left>   <NOP> " type 20j instead of "noremap   <Right>  <NOP> " scrolling like a moron.
+"noremap   <Left>   <NOP> " type 20j instead of
+"noremap   <Right>  <NOP> " scrolling like a moron.
 ""}}}
 
 " <Leader>sq to squeeze blank lines with :Squeeze
-nnoremap <leader>sq :Squeeze<CR>
+"nnoremap <leader>sq :Squeeze<CR>
+" TODO: Fix :Squeeze
 
 " <Leader>box draws a box around the highlighted text.
-vnoremap <leader>box <ESC>:call BoxIn()<CR>gvlolo
+" vnoremap <leader>box <ESC>:call BoxIn()<CR>gvlolo
+" TODO: Fix :call BoxIn()
 
 " <F6> Remove trailing spaces from lines
 " " http://vim.wikia.com/wiki/Remove_unwanted_spaces
@@ -514,7 +545,8 @@ vnoremap <leader>box <ESC>:call BoxIn()<CR>gvlolo
 "}}}
 
 " <F8> toggles LongLineHighlight
-nnoremap <F8> :call LongLineHighlight()<CR>
+" nnoremap <F8> :call LongLineHighlight()<CR>
+" TODO: Fix :call LongLineHighlight()
 
 " <F9> toggles line numbers and turns off relative line numbers
 nnoremap <silent> <F9> :set invnumber<CR>
@@ -588,16 +620,6 @@ nnoremap <Leader>rc :tabnew $MYVIMRC<CR>
 " }}}
 
 
-" Modifier Normalization {{{1
-
-let g:__NAMED_KEYCODES__ = {
-    \ ' ': 'Space',
-    \ '\': 'Bslash',
-    \ '|': 'Bar',
-    \ '<': 'lt'
-\ }
-
-source ~/.vim/local/modifiers.vim
 
 "}}}
 
