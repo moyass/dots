@@ -457,30 +457,30 @@ nmap n nzz
 nmap N Nzz
 
 " Tabs."{{{
-:nnoremap <M-t> :tabnew<CR>
-:nnoremap <M-d> :tabclose<CR>
-:nnoremap <M-h> :tabp<CR>
-:nnoremap <M-j> :tabp<CR>
-:nnoremap <M-k> :tabn<CR>
-:nnoremap <M-l> :tabn<CR>
+" :nnoremap <M-t> :tabnew<CR>
+" :nnoremap <M-d> :tabclose<CR>
+" :nnoremap <M-h> :tabp<CR>
+" :nnoremap <M-j> :tabp<CR>
+" :nnoremap <M-k> :tabn<CR>
+" :nnoremap <M-l> :tabn<CR>
 
-:nnoremap <M-1> :tabn 1<CR>
-:nnoremap <M-2> :tabn 2<cr>
-:nnoremap <M-3> :tabn 3<cr>
-:nnoremap <M-4> :tabn 4<cr>
-:nnoremap <M-5> :tabn 5<cr>
-:nnoremap <M-6> :tabn 6<cr>
-:nnoremap <M-7> :tabn 7<cr>
-:nnoremap <M-8> :tabn 8<cr>
-:nnoremap <M-9> :tabn 9<cr>
+" :nnoremap <M-1> :tabn 1<CR>
+" :nnoremap <M-2> :tabn 2<cr>
+" :nnoremap <M-3> :tabn 3<cr>
+" :nnoremap <M-4> :tabn 4<cr>
+" :nnoremap <M-5> :tabn 5<cr>
+" :nnoremap <M-6> :tabn 6<cr>
+" :nnoremap <M-7> :tabn 7<cr>
+" :nnoremap <M-8> :tabn 8<cr>
+" :nnoremap <M-9> :tabn 9<cr>
 "}}}
 
 " splits."{{{
 " this works beautifully with tmux: awareness of vim splits"
-:nnoremap <c-h> <c-w><left><cr>
-:nnoremap <c-j> <c-w><down><cr>
-:nnoremap <c-k> <c-w><up><cr>
-:nnoremap <c-l <c-w><right><cr>
+:noremap <C-h> <C-w>h
+:noremap <C-j> <C-w>j
+:noremap <C-k> <C-w>k
+:noremap <C-l> <C-w>l
 
 " https://github.com/icco/dotfiles/blob/master/link/vimrc
 " (i never liked this. it feels like i'm playing pacman.)
@@ -502,7 +502,7 @@ vnoremap <space> zf
 " <leader>\ clear hlsearch and redraw screen."{{{
 noremap <silent> <Leader>\\ :nohls<cr><c-l><CR>
 noremap <silent> /// :nohls<cr><c-l><CR>
-noremap <silent> <c-l> :nohls<cr><c-l><CR>
+"noremap <silent> <C-l> :nohls<cr><c-l><CR>
 "}}}
 
 

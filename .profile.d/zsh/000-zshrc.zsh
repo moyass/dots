@@ -8,7 +8,7 @@
 # Jorge Israel Peña: https://github.com/blaenk/dots/tree/master/zsh/zsh
 
 ### MODULES {{{1
-autoload -U colors promptinit bashcompinit edit-command-line
+autoload -U colors promptinit bashcompinit edit-command-line zmv
 autoload -Uz compinit vcs_info
 colors && compinit -i && promptinit && bashcompinit
 zmodload zsh/complist
@@ -18,6 +18,7 @@ zle -N edit-command-line
 
 
 ### OPTIONS {{{1
+ZDOTDIR="$HOME/.profile.d/zsh/"
 # ===== Basics {{{2
 setopt no_beep              # don't beep on error
 setopt interactive_comments # Allow comments even in interactive shells (especially for Muness)
@@ -290,7 +291,7 @@ function zle-line-init zle-keymap-select
     PROMPT=$'$(canihasprompt)\n❯ '
   fi
 
-  RPS1="%{$fg[magenta]%}${${KEYMAP/vicmd/%B Command Mode %b}/(main|viins)/ }%{$fg[orange]$sshinfo%}"
+  RPS1="%{$fg[yellow]%}${${KEYMAP/vicmd/[%B Command Mode %b$fg[yellow]] }/(main|viins)/}%{$fg[black]$sshinfo%f%}"
   RPS2=$RPS1
   zle reset-prompt
 }
