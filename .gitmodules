@@ -1,3 +1,0 @@
-[submodule ".profile.d/zsh/pure"]
-	path = .profile.d/zsh/pure
-	url = https://github.com/sindresorhus/pure.git  
