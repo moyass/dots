@@ -65,7 +65,6 @@ class Vimmy < Thor
       else
         gitmeta = Hash::new
       end
-      puts gitmeta
       @git = Git.open(@gitroot.to_s, gitmeta)
     end
 
@@ -212,7 +211,7 @@ class Vimmy < Thor
 
     # command = git subtree pull -P #{@target}/#{reponame} #{repourl} master"
     @repos.each do | remoteurl , remotename |
-      system("#{@gitcmd} subtree pull -P #{@target}/#{remotename} #{remotename} master ")
+      system("#{@gitcmd} subtree pull --message='[#{remotename}] pull HEAD' --prefix=#{@target}/#{remotename} #{remotename} master ")
     end
   end
 end
