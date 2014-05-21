@@ -5,7 +5,7 @@ require 'thor'
 require 'yaml'
 require 'logger'
 require 'pathname'
-
+require 'git'
 
 
 class Vimmy < Thor
@@ -13,9 +13,10 @@ class Vimmy < Thor
   class_option :verbose, :type => :boolean, :aliases => "-v"
   class_option :debug, :type => :boolean, :aliases => "-d"
   class_option :config, :type => :string, :aliases => "-c", :desc => "Use an alternative YAML config file."
+  class_option :family, :default => "pathogens", :type => "string"
   def initialize(*args)
     super
-    raise 'Dont\'t be an idiot. Excess privilege use violation.' unless Process.uid != 0
+    raise 'Dont\'t be an idiot. Excess privilege use violation.' if Process.uid == 0
 
     @log = Logger.new(STDOUT)
     @log.datetime_format=("%Y%m%dT%H%M%S%Z")
@@ -48,6 +49,25 @@ class Vimmy < Thor
 
     self.crosscheck
 
+    if options[:family] then
+      self.loadFamily(options[:family])
+      ### Two methods of manipulating git repos follow:
+      ## 1. USE SHELL COMMANDS
+      # execute in @gitroot
+      Dir.chdir(@gitroot)
+
+      
+      ## 2. USE GIT GEM
+      # determine gitmeta
+      if @gitcmd=~ /vcsh/ then
+        gitmeta = { git_dir:"#{ENV['HOME']}/.config/vcsh/repo.d/" + @gitcmd[/(vcsh\s*)(.*)/i, 1]  + ".git" }
+      else
+        gitmeta = Hash::new
+      end
+
+      @git = Git.init(@gitroot.to_s, gitmeta)
+    end
+
   end
 
   no_tasks do
@@ -57,15 +77,15 @@ class Vimmy < Thor
     # Git
     if defined? @config[family]['git'] 
       if @config[family]['git'] =~ /^(git|vcsh.*)/
-        @git = @config[family]['git']
-        @log.debug("initalize: config specified git command replacement #{@git}")
+        @gitcmd= @config[family]['git']
+        @log.debug("initalize: config specified git command replacement #{@gitcmd}")
       else
         @log.info("initialize: config specified invalid git command replacement #{@config[family][:git]}, which does not match my regex.")
         @log.error("The configuration file has an error on the node 'git' under the family #{@family}; it should be set to git or vcsh <reponame>.")
       end
     else
       @log.debug("initalize: config does not specify git command replacement, using default 'git'. OK.")
-      @git = "git"
+      @gitcmd= "git"
     end
 
     # gitroot
@@ -123,19 +143,16 @@ class Vimmy < Thor
 
   method_option :squash, :default => false, :type => :boolean, :desc => "Squash each added subtree repo history"
   method_option :'dry-run', :type => :boolean, :desc => "Show what would be done, without doing it."
-  desc 'add FAMILY', "Add subtrees under FAMILY in YAML config"
-  def add(family="pathogens")
+  desc 'add', "Add subtrees under FAMILY in YAML config"
+  def add()
     @log.debug("addsubtrees: got options=#{options.inspect}")
     @log.debug("addsubtrees: got dry-run") if options['dry-run']
     @log.debug("addsubtrees: got squash") if options['squash']
 
-    self.loadFamily(family)
 
-    # execute in @gitroot
-    Dir.chdir(@gitroot)
 
     # command="git subtree add --squash --prefix .vim/pathogens/#{name} #{repo} master"
-    addcmd = "#{@git} subtree add"
+    addcmd = "#{@gitcmd} subtree add"
     addcmd << " --squash" if options['squash']
     addcmd << " -d" if options['debug']
   
@@ -156,6 +173,47 @@ class Vimmy < Thor
 
   end
 
+
+  desc "remotes", "Update remotes to comply with a FAMILY in YAML config."
+  def remotes()
+
+    # remove remotes that are noncompliant with family
+    compliantremotes = Hash::new
+    g.remotes.each do | remotename, remoteurl |
+      if (not remotename    == 'origin') and             # leave origin alone
+         (not remotename     = ~ /manual/i)   &&           # leave anything with 'manual' alone
+        ( (@repos.has_value?(remotename) and            # for remotes whose names are in this family
+          remoteurl != @repos.key(remotename)) ||          # for remotes whose urls do not match the family
+         (@repos.has_key?(remoteurl) and                # for remotes whose urls are in this family
+          @repos[remoteurl] != remotename) )              # for remotes whose names do not match the family
+      then
+        g.remote(remotename).remove                      # remove the remote
+      else
+        compliantremotes[remotename]=true               # otherwise do not touch this remote
+      end
+    end
+
+    @repos.each do | remoteurl, remotename |
+
+      unless compliantremotes[remotename] then
+        # command = " git remote add subtreename repourl"
+
+        g.add_remote(remotename,remoteurl)
+
+      end
+    end
+
+  end
+
+
+  desc "pull", "Update the subtrees of FAMILY in YAML config."
+  def pull()
+
+    # command = git subtree pull -P #{@target}/#{reponame} #{repourl} master"
+    @repos.each do | remoteurl , remotename |
+      system("#{@gitcmd} subtree pull -P #{@target}/#{remotename} #{remotename} master ")
+    end
+  end
 end
 Vimmy.start
 # vim: set ts=2 sts=2 ft=ruby fdm=marker sw=2 et:

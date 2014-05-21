@@ -17,6 +17,6 @@ set-window-option -ga window-status-style "fg=black,bg=default,bright"
 #set -g message-attr bright
 set-option -ga message-style "fg=black,bg=green,bright"
 
-set-option -g status-left "#[fg=red,bright]#H #[fg=black]• #[fg=green] #(uname -r) #[fg=black]•#[default]"
+set-option -g status-left "#[fg=red,bright]#H #[fg=black]• #[default]"
 set-option -g status-right "#[fg=black]#(awk \'{ print $1,$2,$3 }\' </proc/loadavg)#[default]"
 

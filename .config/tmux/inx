@@ -5,5 +5,5 @@ set-option -ga status-style "bright"
 set-option -g status-right-length 40
 set-option -g status-left-length 40
 
-set-option -g status-left '#[fg=blue]#H #[fg=black,none]•#[default]#[fg=green] #(uname -r) #[fg=black,none]•#[default]'
+set-option -g status-left '#[fg=blue]#H #[fg=black,none]•#[default]'
 set-option -g status-right "#[fg=black,none]#(awk \'{ print $1,$2,$3 }\' </proc/loadavg)#[default]"
