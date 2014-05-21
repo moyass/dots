@@ -1,1 +1,2 @@
-while true; do echo "The time is now, `date +%l,%M`. Move your ass bitch."  | festival --tts; sleep 1m; done
+#!/bin/sh
+while true; do echo "The time is now, `date +%l,%M`. Move your arse bitch!"  | festival --tts; sleep 1m; done
