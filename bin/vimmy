@@ -60,12 +60,13 @@ class Vimmy < Thor
       ## 2. USE GIT GEM
       # determine gitmeta
       if @gitcmd=~ /vcsh/ then
-        gitmeta = { git_dir:"#{ENV['HOME']}/.config/vcsh/repo.d/" + @gitcmd[/(vcsh\s*)(.*)/i, 1]  + ".git" }
+        gitdir="#{ENV['HOME']}/.config/vcsh/repo.d/" + @gitcmd[/(vcsh\s)(run\s)?(\S*)(\sgit)?/i, 3] + ".git"
+        gitmeta = { repository: gitdir, index: gitdir + "/index" }
       else
         gitmeta = Hash::new
       end
-
-      @git = Git.init(@gitroot.to_s, gitmeta)
+      puts gitmeta
+      @git = Git.open(@gitroot.to_s, gitmeta)
     end
 
   end
@@ -174,12 +175,12 @@ class Vimmy < Thor
   end
 
 
-  desc "remotes", "Update remotes to comply with a FAMILY in YAML config."
+  desc :remotes, "Update remotes to comply with a FAMILY in YAML config."
   def remotes()
 
     # remove remotes that are noncompliant with family
     compliantremotes = Hash::new
-    g.remotes.each do | remotename, remoteurl |
+    @git.remotes.each do | remotename, remoteurl |
       if (not remotename    == 'origin') and             # leave origin alone
          (not remotename     = ~ /manual/i)   &&           # leave anything with 'manual' alone
         ( (@repos.has_value?(remotename) and            # for remotes whose names are in this family
@@ -187,7 +188,7 @@ class Vimmy < Thor
          (@repos.has_key?(remoteurl) and                # for remotes whose urls are in this family
           @repos[remoteurl] != remotename) )              # for remotes whose names do not match the family
       then
-        g.remote(remotename).remove                      # remove the remote
+        @git.remote(remotename).remove                      # remove the remote
       else
         compliantremotes[remotename]=true               # otherwise do not touch this remote
       end
@@ -198,7 +199,7 @@ class Vimmy < Thor
       unless compliantremotes[remotename] then
         # command = " git remote add subtreename repourl"
 
-        g.add_remote(remotename,remoteurl)
+        @git.add_remote(remotename,remoteurl)
 
       end
     end
