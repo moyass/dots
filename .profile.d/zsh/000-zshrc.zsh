@@ -291,7 +291,7 @@ function zle-line-init zle-keymap-select
     PROMPT=$'$(canihasprompt)\n❯ '
   fi
 
-  RPS1="%{$fg[yellow]%}${${KEYMAP/vicmd/[%B Command Mode %b$fg[yellow]] }/(main|viins)/}%{$fg[black]$sshinfo%f%}"
+  RPS1="%{$fg[yellow]%}${${KEYMAP/vicmd/[%B Command Mode %b$fg[yellow]]}/(main|viins)/} %{$fg[black]%}$sshinfo%{%f%}"
   RPS2=$RPS1
   zle reset-prompt
 }
