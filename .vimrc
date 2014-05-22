@@ -406,9 +406,9 @@ inoremap jj <Esc>
 " (<S-Insert> | <Leaderv): Paste."{{{
 map <S-Insert> <MiddleMouse>
 map! <S-Insert> <MiddleMouse>
-noremap <Leader>v <ESC>:set paste<CR>i<C-r>*<Esc>:set nopaste<CR>
+noremap <Leader>v <ESC>:set paste<CR>i<C-r>+<Esc>:set nopaste<CR>
 noremap <Leader>b <ESC>:set paste<CR>i<C-r>"<Esc>:set nopaste<CR>
-noremap <Leader>+p <ESC>:set paste<CR>i<C-r>"<Esc>:set nopaste<CR>
+"noremap <Leader>+p <ESC>:set paste<CR>i<C-r>"<Esc>:set nopaste<CR>
 "}}}
 
 " Load gui menus for terminal vim "{{{
@@ -457,22 +457,22 @@ nmap n nzz
 nmap N Nzz
 
 " Tabs."{{{
-" :nnoremap <M-t> :tabnew<CR>
-" :nnoremap <M-d> :tabclose<CR>
-" :nnoremap <M-h> :tabp<CR>
-" :nnoremap <M-j> :tabp<CR>
-" :nnoremap <M-k> :tabn<CR>
-" :nnoremap <M-l> :tabn<CR>
+noremap <M-t> :tabnew<CR>
+noremap <M-d> :tabclose<CR>
+noremap <M-h> :tabp<CR>
+noremap <M-j> :tabp<CR>
+noremap <M-k> :tabn<CR>
+noremap <M-l> :tabn<CR>
 
-" :nnoremap <M-1> :tabn 1<CR>
-" :nnoremap <M-2> :tabn 2<cr>
-" :nnoremap <M-3> :tabn 3<cr>
-" :nnoremap <M-4> :tabn 4<cr>
-" :nnoremap <M-5> :tabn 5<cr>
-" :nnoremap <M-6> :tabn 6<cr>
-" :nnoremap <M-7> :tabn 7<cr>
-" :nnoremap <M-8> :tabn 8<cr>
-" :nnoremap <M-9> :tabn 9<cr>
+:nnoremap <M-1> :tabn 1<CR>
+:nnoremap <M-2> :tabn 2<cr>
+:nnoremap <M-3> :tabn 3<cr>
+:nnoremap <M-4> :tabn 4<cr>
+:nnoremap <M-5> :tabn 5<cr>
+:nnoremap <M-6> :tabn 6<cr>
+:nnoremap <M-7> :tabn 7<cr>
+:nnoremap <M-8> :tabn 8<cr>
+:nnoremap <M-9> :tabn 9<cr>
 "}}}
 
 " splits."{{{

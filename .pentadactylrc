@@ -18,8 +18,16 @@ group user
 set newtab='help'
 
 " Only show tab line when there are multiple tabs
-"set showtabline='always' "" seems unstable(?)/unusable with :rehash (bug) TODO
-set showtabline='never'
+"set showtabline='multitab' "" seems unstable(?)/unusable with :rehash (bug) TODO
+set showtabline='always'
+
+" Don't leak browser's name visited sites
+set titlestring=''
+
+" Immediately timeout on keycode sequences
+" (¼ second)
+set timeout
+set timeoutlen=250
 
 
 " }}}
@@ -35,7 +43,7 @@ set showtabline='never'
 " -----------------------------------------------------------------------------
 
 " no bottom or right scrollbar
-set guioptions-=br            
+set guioptions-=br 
 set guioptions+=Cs
 
 " hi all search matches, not just the first.
@@ -57,7 +65,7 @@ set popups='resized'
 " Status line {{{
 " -----------------------------------------------------------------------------
 
-colorscheme kolor
+""colorscheme kolor
 
 " w0ng statusline
 " https://github.com/w0ng/dotfiles/blob/master/.pentadactylrc
@@ -79,9 +87,9 @@ hi -a StatusLineNormal color:#C5C8C6 !important; background:#282A2E !important;
 " Linux fonts :%s/Source Code Pro/Source Code Pro/
 " Source Code Pro font: http://www.fontsquirrel.com/fonts/cousine
 
-hi FontCode -a font-family: Cousine !important; font-size: 8pt !important;
-hi FontFixed -a font-family: Cousine !important; font-size:8pt !important;
-hi Normal -a font-family: Cousine  !important; font-size: 8ptt !important;
+hi FontCode -a font-family: Cousine !important; font-size: 9pt !important;
+hi FontFixed -a font-family: Cousine !important; font-size: 9pt !important;
+hi Normal -a font-family: Cousine  !important; font-size: 9pt !important;
 "}}}
 
 
@@ -128,7 +136,7 @@ map -builtin ZX <text-zoom>
 
 " Turn off search highlight
 nmap -builtin <Leader>\\ :noh<CR>
-nmap -builtin /// :noh<CR>
+" NO WAY nmap -builtin /// :noh<CR>  <---- causes the annoying sideeffect of searchahead delays
 
 " Swap semicolon and colon, as in vim.
 " https://github.com/w0ng/dotfiles/blob/master/.pentadactylr
@@ -178,7 +186,6 @@ map <A-r> -builtin -js dactyl.execute(":!translate \"" + encodeURI(content.getSe
 
 " Go Dark
 map -builtin <F4> :styletoggle<Space>-name<Space>hybrid<CR>   
-" map -builtin <F3> :styletoggle<Space>-name<Space>hybridredux<CR>   
 
 
 " }}}
@@ -213,67 +220,76 @@ styledisable -name=hybrid
 
 "}}}
 
-" Style: Hybrid Redux {{{
-" -----------------------------------------------------------------------------
+"}}}
+"}}}
+" Style: Minimalistic Tabs {{{
+" ----------------------------------------------------------------------------
+" Based on @w0ng https://github.com/w0ng/dotfiles/blob/master/.pentadactylrc
+" Which was based on http://userstyles.org/styles/99560/square-tab-for-firefox-australis
 
-style -name hybridredux *,http://*,https://*,file://*,about:* <<EOM
-@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
-
-*|*.textbox-input:-moz-placeholder {
-    color:transparent !important;
-}
-
-*|*.textbox-input:-moz-placeholder:hover {
-    color:transparent !important;
-}
-
-#tabbrowser-tabs, #TabsToolbar { 
-    background: #181512 !important; 
-}
-
-.tabbrowser-tab {
-    /* All tabs */
-    font-size: 9pt !important;
-    border: none !important;
-    border-radius: 0 !important;
-    padding-left: 5px !important; 
-    padding-right: 5px !important; 
-    font-weight: normal !important; 
-}
-
-.tabbrowser-tab[selected="true"] { 
-    font-family: "PragmataPro for Powerline" !important;
-    /* selected tabs */
-    background: #60899E !important; 
-    color: #181512;
-}
-
-.tabbrowser-tab:not([selected="true"]) { 
-    /* unselected tabs */
-    background: #181512 !important; 
-    color: #e4e4e4 !important; 
-}
-
-.tab-close-button {
+style -name minitabs chrome://* <<EOM
+#TabsToolbar toolbarbutton {
     display: none !important;
 }
 
-.tabs-newtab-button {
-    display: none !important;
+#TabsToolbar .tabbrowser-tabs {
+    background: #282A2E !important;
+    min-height: 18px !important;
+    padding-bottom: 2px;
+}
+
+#TabsToolbar .tabbrowser-tab {
+    background: #282A2E !important;
     border: none !important;
+    color: #707880 !important;
+    font: 8pt Cousine !important;
     margin: 0 !important;
 }
 
- #appmenu-toolbar-button {
+#TabsToolbar .tabbrowser-tab[selected] {
+    background: #282A2E !important;
+    color: #aaaaaa !important;
+}
+
+#TabsToolbar .tabbrowser-tab:not([pinned]) {
+    max-width: 170px !important;
+    min-width: 100px !important;
+}
+
+#TabsToolbar .tabbrowser-tab:not([fadein]) {
+    max-width: 1px !important;
+    min-width: 1px !important;
+}
+
+#TabsToolbar .tabbrowser-tab:hover:not([selected]) {
+    /*background: #F0C674 !important;
+    color: #282A2E !important;*/
+    background:#282A2E !important;
+    color: #8C93A1 !important;
+}
+
+#TabsToolbar .tab-background {
+    background: transparent !important;
+    margin: 0 !important;
+}
+
+#TabsToolbar .tab-background-start,
+#TabsToolbar .tab-background-end {
     display: none !important;
 }
 
+#TabsToolbar .tab-background-middle {
+    background: transparent !important;
+    margin: -4px -2px !important;
+}
+
+#TabsToolbar .tabbrowser-tab:after,
+#TabsToolbar .tabbrowser-tab:before {
+    display: none !important;
+}
 
 EOM
-styledisable -name=hybridredux
-
 "}}}
-
 
 
 

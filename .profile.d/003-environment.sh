@@ -6,7 +6,7 @@ if [[ "$OSTYPE" =~ darwin* ]]; then
   export BROWSER='open'
 
 elif [[ "$OSTYPE" =~ linux* ]]; then
-
+  stty -ixon
 	[[ -n "$XDG_CACHE_HOME" ]] || export XDG_CACHE_HOME="$HOME/.cache"
 	[[ -n "$XDG_CONFIG_HOME" ]] || export XDG_CONFIG_HOME="$HOME/.config"
 	[[ -n "$XDG_DATA_HOME" ]] || export XDG_DATA_HOME="$HOME/.local/share"

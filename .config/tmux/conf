@@ -37,6 +37,9 @@ bind-key L clear-history
 bind-key \; command-prompt
 bind-key : command-prompt
 
+bind-key M-1 run "tmux new-session -tone || tmux new-session -sone"
+bind-key M-2 run "tmux new-session -tirc || tmux new-session -sirc"
+
 # scrollback buffer n lines
 set-option -g history-limit 5000
 
@@ -50,15 +53,15 @@ set-option -g bell-on-alert on
 #set-option -g lock-command vlock
 
 # correct term for 256 colours
-set-option -g default-terminal "tmux-256color"
-#set-option -g default-terminal "screen-256color-bce"
+#set-option -g default-terminal "tmux-256color"
+set-option -g default-terminal "screen-256color-s"
 #set-option -gw xterm-keys off
-set-option -g terminal-overrides \
-     "*256col*:colors=256, \
+#set-option -g terminal-overrides \
+#     "*256col*:colors=256, \
       # ,xterm*:XT:Ms=\\E]52;%p1%s;%p2%s\\007:Cs=\\E]12;%p1%s\\007:Cr=\\E]112\\007:Ss=\\E[%p1%d q:Se=\\E[2 q, \
        # ,rxvt*:XT:Ms=\\E]52;%p1%s;%p2%s\\007:Cs=\\E]12;%p1%s\\007:Cr=\\E]112\\007:Ss=\\E[%p1%d q:Se=\\E[2 q, \
      # ,screen*:XT, \
-        ,tmux*:XT"
+#        ,tmux*:XT"
 set-window-option -g aggressive-resize on
 
 # initialize sessions

@@ -158,7 +158,8 @@ class Vimmy < Thor
   
     @repos.each do | repourl, reponame |
       unit_command = addcmd.clone
-      unit_command << " --prefix #{@target}/#{reponame} #{repourl} master"
+      unit_command << " --message='[#{reponame}] add, pull master'"
+      unit_command << " --prefix=#{@target}/#{reponame} #{repourl} master"
       
       #check if the repo is already a subtree or exists
       if File::exists?(@gitroot + "/" + @target + "/" + reponame)
@@ -211,7 +212,7 @@ class Vimmy < Thor
 
     # command = git subtree pull -P #{@target}/#{reponame} #{repourl} master"
     @repos.each do | remoteurl , remotename |
-      system("#{@gitcmd} subtree pull --message='[#{remotename}] pull HEAD' --prefix=#{@target}/#{remotename} #{remotename} master ")
+      system("#{@gitcmd} subtree pull --message='[#{remotename}] pull master' --prefix=#{@target}/#{remotename} #{remotename} master ")
     end
   end
 end
