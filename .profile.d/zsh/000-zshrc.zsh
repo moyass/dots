@@ -56,6 +56,7 @@ setopt EXTENDED_HISTORY
 
 
 
+
 # ===== Completion   {{{2
 
 setopt always_to_end    # When completing from the middle of a word, move the cursor to the end of the word
@@ -74,6 +75,7 @@ unsetopt menu_complete # do not autoselect the first completion entry
 # ===== Prompt    {{{2
 
 setopt prompt_subst      # Enable parameter expansion, command substitution, and arithmetic expansion in the prompt
+setopt prompt_percent
 setopt transient_rprompt # only show the rprompt on the current prompt
 
 # ===== Scripts and Functions    {{{2
