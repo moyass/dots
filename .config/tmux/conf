@@ -2,43 +2,44 @@
 
 # BASE OPTIONS # {{{
 
-# PREFIX: C-a # 
+# Prefix key
 set-option -g prefix C-a
 unbind-key C-a
 bind-key C-a send-prefix
 
-# start windows at 0
+# Window Numbering
 set-option -g base-index 1
+set-option -g renumber-windows on
+
+# dont destroy anything
+set-option -g destroy-unattached off
+set-option -g exit-unattached off
+set-option -g detach-on-destroy on
 
 # vi mode
-setw -g mode-keys vi
+set-option -g mode-keys vi
 
 # Allow the arrow key to be used immediately after changing windows
 set-option -g repeat-time 0
 
 # dynamic window title
 set-option -g set-titles on
-set-option -g set-titles-string '#S:#I.#P #W' # window number,program name,active (or not)
-set-window-option -g automatic-rename on # auto name
-
+#set-option -g set-titles-string '#S:#I.#P #W' # window number,program name,active (or not)
+#set-window-option -g automatic-rename on # auto name
 
 # Set window notifications
 set-option -g monitor-activity on
-set-option -g visual-activity on
+set-option -g visual-activity off   #statusline notification
 
 
 # config reload
-bind-key R source-file ~/.config/tmux/conf \; display-message "tmux.conf reloaded."
+bind-key R source-file ~/.config/tmux/conf \; display-message "config reloaded."
 bind-key r refresh-client
+#bind-key L clear-history
 
-bind-key L clear-history
-
-# you know me, I like my shiftless colons (pun? oops)
+# you know me, I like my shiftless colons 
 bind-key \; command-prompt
 bind-key : command-prompt
-
-bind-key M-1 run "tmux new-session -tone || tmux new-session -sone"
-bind-key M-2 run "tmux new-session -tirc || tmux new-session -sirc"
 
 # scrollback buffer n lines
 set-option -g history-limit 5000
@@ -48,25 +49,19 @@ set-option -g bell-action any
 set-option -g visual-bell on
 set-option -g bell-on-alert on
 
-# on-screen time for display-panes in ms
-#set-option -g display-panes-time 2000
-#set-option -g lock-command vlock
 
 # correct term for 256 colours
 #set-option -g default-terminal "tmux-256color"
 set-option -g default-terminal "screen-256color-s"
 #set-option -gw xterm-keys off
-#set-option -g terminal-overrides \
+# set-option -g terminal-overrides \
 #     "*256col*:colors=256, \
-      # ,xterm*:XT:Ms=\\E]52;%p1%s;%p2%s\\007:Cs=\\E]12;%p1%s\\007:Cr=\\E]112\\007:Ss=\\E[%p1%d q:Se=\\E[2 q, \
-       # ,rxvt*:XT:Ms=\\E]52;%p1%s;%p2%s\\007:Cs=\\E]12;%p1%s\\007:Cr=\\E]112\\007:Ss=\\E[%p1%d q:Se=\\E[2 q, \
-     # ,screen*:XT, \
+#       ,xterm*:XT:Ms=\\E]52;%p1%s;%p2%s\\007:Cs=\\E]12;%p1%s\\007:Cr=\\E]112\\007:Ss=\\E[%p1%d q:Se=\\E[2 q, \
+#        ,rxvt*:XT:Ms=\\E]52;%p1%s;%p2%s\\007:Cs=\\E]12;%p1%s\\007:Cr=\\E]112\\007:Ss=\\E[%p1%d q:Se=\\E[2 q, \
+#      ,screen*:XT, \
 #        ,tmux*:XT"
 set-window-option -g aggressive-resize on
 
-# initialize sessions
-#bind-key S source-file ~/.config/tmux/standard
-#bind-key I source-file ~/.config/tmux/irssi
 
 # environment
 set-option -g update-environment "DISPLAY SSH_ASKPASS SUDO_ASKPASS SSH_AUTH_SOCK SSH_AGENT_PID  SSH_CONNECTION WINDOWID XAUTHORITY"
@@ -85,12 +80,6 @@ set -g mouse-select-window on
 # Disabled - orphans... 
 #bind-key space next-window
 #bind-key bspace previous-window
-#bind-key enter next-layout
-#bind-key a last-pane
-#bind-key q display-panes
-#bind-key c new-window
-#bind-key t next-window
-#bind-key T previous-window
 #bind-key C-o rotate-window
 
 # use vim-like keys for splits and windows
@@ -111,8 +100,6 @@ bind-key -n C-k run "(tmux display-message -p '#{pane_current_command}' | grep -
 bind-key -n C-l run "(tmux display-message -p '#{pane_current_command}' | grep -iqE '(^|\/)vim$' && tmux send-keys C-l) || tmux select-pane -R"
 bind-key -n C-\ run "(tmux display-message -p '#{pane_current_command}' | grep -iqE '(^|\/)vim$' && tmux send-keys 'C-\\') || tmux select-pane -l"
 
-#bind-key + select-layout main-horizontal
-#bind-key = select-layout main-vertical
 set-window-option -g other-pane-height 25
 set-window-option -g other-pane-width 80
 
@@ -143,63 +130,42 @@ set-window-option -g display-panes-time 1500
 
  # }}}
 
-# KEYS: Fluff   # {{{1
+# KEYS   # {{{1
 # quick view of processes
 bind-key '~' split-window -v -p 50 "htop"
 
-# killing things... windows & servers
-bind-key k confirm kill-window
-bind-key K confirm kill-session
-
-#pre 1.9a
-#set-window-option -g window-status-bell-fg white
-#set-window-option -g window-status-bell-bg red
-#set-window-option -g window-status-bell-attr bright
-set-window-option -g window-status-bell-style "fg=white,bg=red,bright"
-
-#pre 1.9a
-#set-window-option -g window-status-content-fg white
-#set-window-option -g window-status-content-bg magenta
-#set-window-option -g window-status-content-attr bright
-set-window-option -g window-status-content-style "fg=white,bg=magenta,bright"
-
-#pre1.9a
-#set-window-option -g window-status-activity-fg white
-#set-window-option -g window-status-activity-bg green
-#set-window-option -g window-status-activity-attr bright
-set-window-option -ga window-status-activity-style "fg=white,bg=green,bright"
-
-# }}} 
+# }}}1
 
 # PRETTY: Panes # {{{1
-#set -g pane-border-fg blue
-#set -g pane-border-bg default
-set-option -ga pane-border-style "fg=blue,bg=default"
-#set -g pane-active-border-fg blue
-#set -g pane-active-border-bg default
-set-option -ga pane-active-border-style "fg=blue,bg=default"
+set-option -g window-status-bell-style "bg=red,fg=white,bright"
+set-option -g window-status-content-style "fg=yellow,bright"
+set-option -g window-status-activity-style "fg=green"
+set-option -g window-status-current-style "fg=magenta"
+set-option -g pane-border-style "fg=black"
+set-option -g pane-active-border-style "fg=black"
 # }}}
 
-# PRETTY: Status Bar# {{{
-set-option -g status-interval 2
-#set-option -g status-left ''
-#set-option -g status-right '%l:%M%p'
-
-#set-window-option -g window-status-current-fg magenta
-set-window-option -ga window-status-current-style "fg=magenta"
-#set-option -g status-fg default
-#set-option -ga status-style "fg=default"
-
-# default statusbar colors
-#set -g status-fg white
-#set -g status-bg default
-set-option -ga status-style 'fg=white,bg=default'
-
-# Statusbar starting in X or not
+# PRETTY: Status Bar# {{{1
+set-option -g status-interval 1
+set-option -g status-style 'fg=white,none'
 set-option -g status-utf8 on
-if-shell '[ -n "$DISPLAY" ]' 'source-file ~/.config/tmux/inx' 'source-file ~/.config/tmux/xless'
- 
- 
- # }}}
+set-option -g status-right-length 40
+set-option -g status-left-length 40
+set-option -g status-left '#[fg=black,bold]#{session_name} #[fg=black,none]•#[default]'
+set-option -g status-right ''
+# status right is filled by ~/.profile.d with remote user & host
 
+# DEACTIVATED: IDEAS {{{1
 
+#bind-key + select-layout main-horizontal
+#bind-key = select-layout main-vertical
+# initialize sessions
+#bind-key S source-file ~/.config/tmux/standard
+#bind-key I source-file ~/.config/tmux/irssi
+# Config file if in X or not
+# if-shell '[ -n "$DISPLAY" ]' 'source-file ~/.config/tmux/inx' 'source-file ~/.config/tmux/xless'
+
+# on-screen time for display-panes in ms
+#set-option -g display-panes-time 2000
+#set-option -g lock-command vlock
+# }}}1
