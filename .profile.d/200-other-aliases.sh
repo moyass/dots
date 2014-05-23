@@ -38,7 +38,7 @@ alias h='history'
 alias j="jobs -l"
 alias p="cd ~/Projects/"
 
-alias dir='dirs -v'
+alias d='dirs -v'
 alias dirs='dirs -v'
 
 alias bim="vim"

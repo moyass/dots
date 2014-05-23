@@ -8,10 +8,11 @@
 # Jorge Israel Peña: https://github.com/blaenk/dots/tree/master/zsh/zsh
 
 ### MODULES {{{1
-autoload -U colors promptinit bashcompinit edit-command-line zmv
+autoload -U colors bashcompinit edit-command-line zmv
 autoload -Uz compinit vcs_info
-colors && compinit -i && promptinit && bashcompinit
+colors && compinit -i && bashcompinit
 zmodload zsh/complist
+zmodload zsh/terminfo
 zle -N edit-command-line
 
 #}}}1
@@ -19,18 +20,19 @@ zle -N edit-command-line
 
 ### OPTIONS {{{1
 ZDOTDIR="$HOME/.profile.d/zsh/"
+
 # ===== Basics {{{2
 setopt no_beep              # don't beep on error
 setopt interactive_comments # Allow comments even in interactive shells (especially for Muness)
 
 # ===== Changing Directories  {{{2
-
-setopt auto_cd # If you type foo, and it isn't a command, and it is a directory in your cdpath, go there
-setopt cdablevarS # if argument to cd is the name of a parameter whose value is a valid directory, it will become the current directory
+setopt auto_cd           # If you type foo, and it isn't a command, and it is a directory in your cdpath, go there
+setopt cdablevars        # if argument to cd is the name of a parameter whose value is a valid directory, it will become the current directory
 setopt pushd_ignore_dups # don't push multiple copies of the same directory onto the directory stack
+setopt autopushd pushdminus pushdsilent pushdtohome # http://zsh.sourceforge.net/Intro/intro_6.html
 
 # ===== Expansion and Globbing  {{{2
-setopt extended_glob # treat #, ~, and ^ as part of patterns for filename generation
+setopt extended_glob          # treat #, ~, and ^ as part of patterns for filename generation
 
 # ===== History  {{{2
 setopt append_history         # Allow multiple terminal sessions to all append to one zsh command history
@@ -43,7 +45,6 @@ setopt hist_find_no_dups      # When searching history don't display results alr
 setopt hist_reduce_blanks     # Remove extra blanks from each command line being added to history
 setopt hist_verify            # don't execute, just expand history
 setopt share_history          # imports new commands and appends typed commands to history
-                              # history options
 export HISTFILE="$ZDOTDIR/histfile"
 export HISTSIZE=10000
 export SAVEHIST=$((HISTSIZE/2))
@@ -152,8 +153,8 @@ autoload -U history-search-end
 zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
 
-bindkey "^[[A" history-beginning-search-backward-end
-bindkey "^[[B" history-beginning-search-forward-end
+bindkey "^[OA" history-beginning-search-backward-end
+bindkey "^[OB" history-beginning-search-forward-end
 bindkey "\ep" insert-last-word
 bindkey "\eq" quote-line
 bindkey "\ek" backward-kill-line
@@ -204,101 +205,3 @@ bindkey -M isearch "^N" history-incremental-search-forward
 
 
 
-### PROMPT {{{1
-VCS_PROMPT=" %F{cyan}→ %F{green}%b%F{magenta}%u%F{magenta}%c%f%m"
-AVCS_PROMPT="$VCS_PROMPT %F{cyan}∷%f %F{magenta}%a%f"
-
-zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:*' stagedstr "+"
-zstyle ':vcs_info:*' unstagedstr "#"
-zstyle ':vcs_info:*' formats $VCS_PROMPT
-zstyle ':vcs_info:*' actionformats $AVCS_PROMPT
-zstyle ':vcs_info:*' enable git
-zstyle ':vcs_info:git*+set-message:*' hooks git-aheadbehind git-untracked git-message
-
-### git: Show +N/-N when your local branch is ahead-of or behind remote HEAD.
-# Make sure you have added misc to your 'formats': %m
-function +vi-git-aheadbehind()
-{
-  local ahead behind
-  local -a gitstatus
-
-  behind=$(git rev-list HEAD..${hook_com[branch]}@{upstream} 2>/dev/null | wc -l)
-  (( $behind )) && gitstatus+=( " -%F{red}${behind}%f" )
-
-  ahead=$(git rev-list ${hook_com[branch]}@{upstream}..HEAD 2>/dev/null | wc -l)
-  (( $ahead )) && gitstatus+=( " +%F{blue}${ahead}%f" )
-
-  hook_com[misc]+=${(j::)gitstatus}
-
-  if [[ -n ${hook_com[misc]} ]]; then
-    hook_com[misc]=" %F{cyan}∷%f${hook_com[misc]}"
-  fi
-}
-
-### git: Show marker (T) if there are untracked files in repository
-# Make sure you have added staged to your 'formats': %c
-function +vi-git-untracked()
-{
-  if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == 'true' ]] && \
-    git status --porcelain | grep '??' &> /dev/null ; then
-  # This will show the marker if there are any untracked files in repo.
-  hook_com[branch]="%F{magenta}.%F{green}${hook_com[branch]}%f"
-fi
-}
-
-# proper spacing
-function +vi-git-message()
-{
-  if [[ -n ${hook_com[unstaged]} ]]; then
-    if [[ -n ${hook_com[staged]} ]]; then
-      hook_com[unstaged]="${hook_com[unstaged]} "
-    else
-      hook_com[unstaged]="${hook_com[unstaged]}"
-    fi
-  else
-    if [[ -n ${hook_com[staged]} ]]; then
-      hook_com[staged]=" ${hook_com[staged]}"
-    fi
-  fi
-}
-
-
-
-# prompt with vimode
-function canihasprompt()
-{
-  local line=""
-  local subshell=""
-  vcs_info
-  if [[ "$SHLVL" != 1 ]]; then
-    subshell+="%{$fg[black] [$SHLVL]$reset_color%}"
-    if [[ -n $RANGER_LEVEL ]]; then
-      subshell+=" %{$fg[black]%}ranger%{$reset_color%}"
-    fi
-    line+=$'\n'"%{$fg[black]%B%}(%{%b$reset_color$subshell%} %{%B$fg[black]%})%{%b$reset_color%}"
-  fi
-  if [[ -n $vcs_info_msg_0_ ]]; then
-    line+="$vcs_info_msg_0_"
-  fi
-  echo $line
-}
-
-[[ -n "$SSH_CONNECTION" ]] && sshinfo='%{%n@%m%}'
-function zle-line-init zle-keymap-select
-{
-  if [[ $UID == 0 ]]; then
-    PS1="$(canihasprompt)%{$fg[red]%B%}#%{%b$reset_color%} "
-  else
-    PROMPT=$'$(canihasprompt)\n❯ '
-  fi
-
-  RPS1="%{$fg[yellow]%}${${KEYMAP/vicmd/[%B Command Mode %b$fg[yellow]]}/(main|viins)/} %{$fg[black]%}$sshinfo%{%f%}"
-  RPS2=$RPS1
-  zle reset-prompt
-}
-
-zle -N zle-line-init
-zle -N zle-keymap-select
-
-#}}}1
