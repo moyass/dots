@@ -4,7 +4,8 @@
 
 # Benefitting from other's efforts:
 # Marks H. Nichols: http://zanshin.net/2013/02/02/zsh-configuration-from-the-ground-up/
-# Jason W. Ryan: https://bitbucket.org/jasonwryan/shiv/t 
+# Valodim: https://github.com/Valodim/zshrc
+# Jason W. Ryan: https://bitbucket.org/jasonwryan/shiv/ 
 # Jorge Israel Peña: https://github.com/blaenk/dots/tree/master/zsh/zsh
 
 ### MODULES {{{1
@@ -70,7 +71,7 @@ setopt autocd extendedglob nomatch completealiases
 
 setopt correct         # spelling correction for commands
 setopt no_correctall   # …only for commands, not filenames or parameters
-unsetopt menu_complete # do not autoselect the first completion entry
+setopt menu_complete # autoselect the first completion entry
 
 
 # ===== Prompt    {{{2
@@ -85,62 +86,125 @@ setopt multios          # perform implicit tees or cats when multiple redirectio
 
 #}}}1
 
+# man zshcontrib
+ zstyle ':vcs_info:*' actionformats '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{3}|%F{1}%a%F{5}]%f '
+ zstyle ':vcs_info:*' formats '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{5}]%f '
+ zstyle ':vcs_info:*' enable git #svn cvs 
+
 ### COMPLETION {{{1
 
-# man zshcontrib
-# zstyle ':vcs_info:*' actionformats '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{3}|%F{1}%a%F{5}]%f '
-# zstyle ':vcs_info:*' formats '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{5}]%f '
-# zstyle ':vcs_info:*' enable git #svn cvs 
 
-zstyle ':completion:*' completer _complete _correct _approximate
-zstyle ':completion:*' expand prefix suffix
-zstyle ':completion:*' completer _expand_alias _complete _approximate
-zstyle ':completion:*' menu select
-zstyle ':completion:*' file-sort name
-zstyle ':completion:*' ignore-parents pwd
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-
-# Fallback to built in ls colors
-#zstyle ':completion:*' list-colors ''
-
-# Make the list prompt friendly
-zstyle ':completion:*' list-prompt '%SAt %p: Hit TAB for more, or the character to insert%s'
-
-# Make the selection prompt friendly when there are a lot of choices
-zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
-# Enable completion caching, use rehash to clear
+# completion stuff
 zstyle ':completion::complete:*' use-cache on
-zstyle ':completion::complete:*' cache-path $ZDOTDIR/cache/$HOST
+zstyle ':completion::complete:*' cache-path $ZDOTDIR/cache
 
-# Add simple colors to kill
-zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
+zstyle ':completion:*' list-prompt '%SAt %p: Hit TAB for more, or the character to insert%s'
+zstyle ':completion:*' menu select=1 _complete _ignored _approximate
+zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
+
+# Completion Styles
 
 # list of completers to use
 zstyle ':completion:*::::' completer _expand _complete _ignored _approximate
 
-zstyle ':completion:*' menu select=1 _complete _ignored _approximate
-
-# match uppercase from lowercase
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
- 
-# offer indexes before parameters in subscripts
-zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters
+# allow one error for every three characters typed in approximate completer
+zstyle ':completion:*:approximate:*' max-errors 3
+    
+# insert all expansions for expand completer
+zstyle ':completion:*:expand:*' tag-order all-expansions
 
 # formatting and messages
 zstyle ':completion:*' verbose yes
-zstyle ':completion:*:descriptions' format '%B%d%b'
-zstyle ':completion:*:messages' format '%d'
-zstyle ':completion:*:warnings' format 'No matches for: %d'
+zstyle ':completion:*:matches' group yes
+zstyle ':completion:*:options' description yes
+zstyle ':completion:*:descriptions' format $'\e[01;33m -- %d --\e[0m'
+zstyle ':completion:*:messages' format $'\e[01;35m -- %d --\e[0m'
+zstyle ':completion:*:warnings' format $'\e[01;31m -- No Matches Found --\e[0m'
 zstyle ':completion:*:corrections' format '%B%d (errors: %e)%b'
 zstyle ':completion:*' group-name ''
+zstyle ':completion:*:options' auto-description '%d'
 
-# ignore completion functions (until the _ignored completer)
-zstyle ':completion:*:functions' ignored-patterns '_*'
-zstyle ':completion:*:scp:*' tag-order files users 'hosts:-host hosts:-domain:domain hosts:-ipaddr"IP\ Address *'
-zstyle ':completion:*:scp:*' group-order files all-files users hosts-domain hosts-host hosts-ipaddr
-zstyle ':completion:*:ssh:*' tag-order users 'hosts:-host hosts:-domain:domain hosts:-ipaddr"IP\ Address *'
-zstyle ':completion:*:ssh:*' group-order hosts-domain hosts-host users hosts-ipaddr
-zstyle '*' single-ignored show
+# match uppercase from lowercase, and left-side substrings
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' '+l:|=*'
+
+# command completion: highlight matching part of command, and
+zstyle -e ':completion:*:-command-:*:commands' list-colors 'reply=( '\''=(#b)('\''$words[CURRENT]'\''|)*-- #(*)=0=38;5;45=38;5;136'\'' '\''=(#b)('\''$words[CURRENT]'\''|)*=0=38;5;45'\'' )'
+
+# This is needed to workaround a bug in _setup:12, causing almost 2 seconds delay for bigger LS_COLORS
+# UPDATE: not sure if this is required anymore, with the -command- style above.. keeping it here just to be sure
+#zstyle ':completion:*:*:-command-:*' list-colors ''
+
+# use LS_COLORS for file coloring
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+
+# generic, highlight matched part
+# WACKY behavior with zstyle precedence, not using this for now!
+# zstyle -e ':completion:*' list-colors '[[ -z $words[CURRENT] ]] && return 1; reply=( '\''=(#b)('\''$words[CURRENT]'\'')*=0=38;5;45'\'' )'
+
+# offer indexes before parameters in subscripts
+zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters
+
+# show command short descriptions, too
+zstyle ':completion:*' extra-verbose yes
+# make them a little less short, after all (mostly adds -l option to the whatis calll)
+zstyle ':completion:*:command-descriptions' command '_call_whatis -l -s 1 -r .\*; _call_whatis -l -s 6 -r .\* 2>/dev/null'
+
+# x11 colors
+zstyle ":completion:*:colors" path '/etc/X11/rgb.txt'
+
+# for sudo kill, show all processes except childs of kthreadd (ie, kernel
+# threads), which is assumed to be PID 2. otherwise, show user processes only.
+zstyle -e ':completion:*:*:kill:*:processes' command '[[ $BUFFER == sudo* ]] && reply=( "ps --forest -p 2 --ppid 2 --deselect -o pid,user,cmd" ) || reply=( ps x --forest -o pid,cmd )'
+zstyle ':completion:*:processes-names' command 'ps axho command'
+
+## add colors to processes for kill completion
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
+
+zstyle ':completion:*' completer _complete _correct _approximate
+# zstyle ':completion:*' expand prefix suffix
+# zstyle ':completion:*' completer _expand_alias _complete _approximate
+# zstyle ':completion:*' menu select
+# zstyle ':completion:*' file-sort name
+# zstyle ':completion:*' ignore-parents pwd
+# zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+
+# # Fallback to built in ls colors;
+# #zstyle ':completion:*' list-colors ''
+
+# # Make the list prompt friendly
+# zstyle ':completion:*' list-prompt '%SAt %p: Hit TAB for more, or the character to insert%s'
+
+# # Make the selection prompt friendly when there are a lot of choices
+# zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
+# # Enable completion caching, use rehash to clear
+# zstyle ':completion::complete:*' use-cache on
+# zstyle ':completion::complete:*' cache-path $ZDOTDIR/cache/$HOST
+
+# # Add simple colors to kill
+# zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
+
+# # list of completers to use
+# zstyle ':completion:*::::' completer _expand _complete _ignored _approximate
+
+# zstyle ':completion:*' menu select=1 _complete _ignored _approximate
+
+# # match uppercase from lowercase
+# zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+ 
+# # offer indexes before parameters in subscripts
+# zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters
+
+# # formatting and messages
+
+
+
+# # ignore completion functions (until the _ignored completer)
+# zstyle ':completion:*:functions' ignored-patterns '_*'
+# zstyle ':completion:*:scp:*' tag-order files users 'hosts:-host hosts:-domain:domain hosts:-ipaddr"IP\ Address *'
+# zstyle ':completion:*:scp:*' group-order files all-files users hosts-domain hosts-host hosts-ipaddr
+# zstyle ':completion:*:ssh:*' tag-order users 'hosts:-host hosts:-domain:domain hosts:-ipaddr"IP\ Address *'
+# zstyle ':completion:*:ssh:*' group-order hosts-domain hosts-host users hosts-ipaddr
+# zstyle '*' single-ignored show
 
 #}}}
 

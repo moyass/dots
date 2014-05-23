@@ -6,6 +6,7 @@ if [[ "$OSTYPE" =~ darwin* ]]; then
   export CLICOLOR=1
   export LSCOLORS=ExFxCxDxBxegedabagacad
 else
+  eval $(dircolors -b)
   # Use color in ls
   alias ls='ls --color=auto'
 fi
