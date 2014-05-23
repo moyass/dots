@@ -117,18 +117,18 @@ zstyle ':completion:*:expand:*' tag-order all-expansions
 zstyle ':completion:*' verbose yes
 zstyle ':completion:*:matches' group yes
 zstyle ':completion:*:options' description yes
-zstyle ':completion:*:descriptions' format $'\e[01;33m -- %d --\e[0m'
-zstyle ':completion:*:messages' format $'\e[01;35m -- %d --\e[0m'
-zstyle ':completion:*:warnings' format $'\e[01;31m -- No Matches Found --\e[0m'
+zstyle ':completion:*:descriptions' format $'%F{green}―――――― %d ――――――%b%f'
+zstyle ':completion:*:messages' format $'%F{cyan}―――――― %d ――――――%f'
+zstyle ':completion:*:warnings' format $'%F{red}%B―――――― No Matches Found ――――――%f'
 zstyle ':completion:*:corrections' format '%B%d (errors: %e)%b'
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*:options' auto-description '%d'
 
-# match uppercase from lowercase, and left-side substrings
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' '+l:|=*'
+# match uppercase from lowercase, and left-side substringss()
+zstyle ':completion:*' matcmer-list 'm:{a-z}={A-Z}' '+l:|=*'
 
 # command completion: highlight matching part of command, and
-zstyle -e ':completion:*:-command-:*:commands' list-colors 'reply=( '\''=(#b)('\''$words[CURRENT]'\''|)*-- #(*)=0=38;5;45=38;5;136'\'' '\''=(#b)('\''$words[CURRENT]'\''|)*=0=38;5;45'\'' )'
+#zstyle -e ':completion:*:-command-:*:commands' list-colors 'reply=( '\''=(#b)('\''$words[CURRENT]'\''|)*-- #(*)=0=38;5;45=38;5;136'\'' '\''=(#b)('\''$words[CURRENT]'\''|)*=0=38;5;45'\'' )'
 
 # This is needed to workaround a bug in _setup:12, causing almost 2 seconds delay for bigger LS_COLORS
 # UPDATE: not sure if this is required anymore, with the -command- style above.. keeping it here just to be sure
@@ -136,6 +136,7 @@ zstyle -e ':completion:*:-command-:*:commands' list-colors 'reply=( '\''=(#b)('\
 
 # use LS_COLORS for file coloring
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*:' list-colors ${(s.:.)LS_COLORS}
 
 # generic, highlight matched part
 # WACKY behavior with zstyle precedence, not using this for now!

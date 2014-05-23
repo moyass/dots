@@ -51,8 +51,9 @@ set-option -g bell-on-alert on
 
 
 # correct term for 256 colours
-#set-option -g default-terminal "tmux-256color"
 set-option -g default-terminal "screen-256color-s"
+set-option -g terminal-overrides "rxvt*:sitm@"
+# https://www.mail-archive.com/tmux-users@lists.sourceforge.net/msg01922.html
 #set-option -gw xterm-keys off
 # set-option -g terminal-overrides \
 #     "*256col*:colors=256, \

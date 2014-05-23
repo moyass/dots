@@ -1,15 +1,4 @@
 
-# Colours for ls.
-# =========================================
-if [[ "$OSTYPE" =~ darwin* ]]; then
-  # Use colours in OSX ls
-  export CLICOLOR=1
-  export LSCOLORS=ExFxCxDxBxegedabagacad
-else
-  eval $(dircolors -b)
-  # Use color in ls
-  alias ls='ls --color=auto'
-fi
 
 # Most beautiful set of LS aliases ever.
 # =========================================
