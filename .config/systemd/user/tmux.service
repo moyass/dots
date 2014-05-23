@@ -8,10 +8,9 @@ Documentation=man:tmux(1)
 Environment=DISPLAY=:0
 Type=forking
 WorkingDirectory=%h
-ExecStart=/usr/bin/tmux new-session -d -s one
-ExecStartPost=/usr/bin/tmux source-file %h/.config/tmux/conf
-ExecStop=/usr/bin/tmux kill-sesion -s one
-Restart=always
+ExecStart=/usr/bin/tmux -f %h/.config/tmux/conf new-session -d -sone
+ExecStop=/usr/bin/tmux kill-sesion -sone
+#Restart=always
 KillMode=none
 
 [Install]
