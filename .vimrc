@@ -137,6 +137,9 @@ set showcmd               " show partial commands in the status line
 set noshowmode              " show current mode
 set laststatus=2 " turns status line always on and configures it
 
+  " don't complain about whitespace
+  let g:airline#extensions#whitespace#enabled = 0
+  
   let g:airline_mode_map = {
       \ '__' : '-',
       \ 'n'  : 'N',
@@ -282,7 +285,7 @@ set fillchars=fold:\ ,diff:╳,vert:│
 set synmaxcol=300 "Avoids editor lockup on extremely long lines
 
 if has("gui_running")
-  let g:jellyx_show_whitespace = 1
+  let g:jellyx_show_whitespace = 0
   colorscheme jellyx
   "colorscheme mirodark
 else

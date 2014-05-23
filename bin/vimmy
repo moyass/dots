@@ -207,12 +207,21 @@ class Vimmy < Thor
   end
 
 
-  desc "pull", "Update the subtrees of FAMILY in YAML config."
-  def pull()
-
+  desc :repo, "The name of the repo to pull."
+  desc "pull REPO", "Update the subtrees of FAMILY in YAML config."
+  def pull(repo=ALL)
     # command = git subtree pull -P #{@target}/#{reponame} #{repourl} master"
-    @repos.each do | remoteurl , remotename |
-      system("#{@gitcmd} subtree pull --message='[#{remotename}] pull master' --prefix=#{@target}/#{remotename} #{remotename} master ")
+    action= Proc.new { |remoteurl,remotename| system("#{@gitcmd} subtree pull --message='[#{remotename}] pull master' --prefix=#{@target}/#{remotename} #{remotename} master ") }
+    
+    if repo == 'ALL'
+      @repos.each action
+
+    elsif @repos.has_value?(repo) 
+      repourl=@repos.key(repo)
+      action.call(repourl,repo)
+    
+    else
+      @log.error("No such repo #{repo} found in family #{@options[:family]}")
     end
   end
 end

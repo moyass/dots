@@ -24,7 +24,7 @@ keyup() {
   keyfile="${KEYPATH}/${KEYPREFIX}$1"
   echo "Loading ${keyfile}"
   if [[ -r $keyfile ]]; then
-    /usr/bin/keychain --agents ssh --timeout 15 ${keyfile}
+    /usr/bin/keychain --agents ssh --timeout 30 ${keyfile}
   else
     echo "404: ${keyfile}"
   fi
