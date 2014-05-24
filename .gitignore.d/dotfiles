@@ -48,7 +48,11 @@
 !/.ssh/config
 !/.taskrc
 !/.vimrc
-!/.vim/**/*
+!/.vim/**
+!/.vim/
+!/.vim/pathogens
+!/.vim/pathogens/guys-functions
+!/.vim/pathogens/guys-functions/**
 /.vim/undo/*
 !/.vim/undo/.gitkeep
 /.weechat
