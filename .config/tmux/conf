@@ -24,12 +24,12 @@ set-option -g repeat-time 0
 
 # dynamic window title
 set-option -g set-titles on
-#set-option -g set-titles-string '#S:#I.#P #W' # window number,program name,active (or not)
+set-option -g set-titles-string '#P' # window number,program name,active (or not)
 #set-window-option -g automatic-rename on # auto name
 
 # Set window notifications
-set-option -g monitor-activity on
-set-option -g visual-activity off   #statusline notification
+set-option -g monitor-activity off  # monitor for activity
+set-option -g visual-activity off   # statusline notification
 
 
 # config reload
@@ -37,7 +37,7 @@ bind-key R source-file ~/.config/tmux/conf \; display-message "config reloaded."
 bind-key r refresh-client
 #bind-key L clear-history
 
-# you know me, I like my shiftless colons 
+# you know me, I like my shiftless colons
 bind-key \; command-prompt
 bind-key : command-prompt
 
@@ -137,22 +137,35 @@ bind-key '~' split-window -v -p 50 "htop"
 
 # }}}1
 
-# PRETTY: Panes # {{{1
-set-option -g window-status-bell-style "bg=red,fg=white,bright"
-set-option -g window-status-content-style "fg=yellow,bright"
-set-option -g window-status-activity-style "fg=green"
-set-option -g window-status-current-style "fg=magenta"
-set-option -g pane-border-style "fg=black"
-set-option -g pane-active-border-style "fg=black"
-# }}}
+# PRETTY: Colours # {{{1
+set-option -g status-style "fg=colour244,bg=default,none"
+set-option -g window-status-last-style "fg=colour244,bg=default"
+set-option -g window-status-activity-style "fg=colour244,bg=default"
+set-option -g window-status-current-style "fg=colour244,bg=colour235"
+set-option -g window-status-format "#W#[none]"
+set-option -g window-status-current-format "#W#[none]"
+set-option -g window-status-separator "  •  "
+
+set-option -g window-status-bell-style "fg=colour254,bg=colour160"
+set-option -g window-status-content-style "fg=colour254,bg=colour160"
+
+set-option -g pane-border-style "fg=black,none"
+set-option -g pane-active-border-style "fg=black,none"
+set-option -g message-style "fg=colour196,bg=colour235"
+
+set-option -g display-panes-active-colour colour20 #blue
+set-option -g display-panes-colour colour196 #orange
+set-window-option -g clock-mode-colour colour40 #green# }}}
+
+
 
 # PRETTY: Status Bar# {{{1
 set-option -g status-interval 1
-set-option -g status-style 'fg=white,none'
 set-option -g status-utf8 on
 set-option -g status-right-length 40
 set-option -g status-left-length 40
-set-option -g status-left '#[fg=black,bold]#{session_name} #[fg=black,none]•#[default]'
+set-option -g status-justify left
+set-option -g status-left '#[fg=colour33,bright]#{=3:session_name} #[fg=colour244,none] • #[default]'
 set-option -g status-right ''
 # status right is filled by ~/.profile.d with remote user & host
 

@@ -52,8 +52,9 @@
 /.vim/undo/*
 !/.vim/undo/.gitkeep
 /.weechat
-/.pentadactyl
-/.pentadactylrc
+!/.pentadactyl
+!/.pentadactyl/plugin/*
+!/.pentadactylrc
 !/.zlogin
 !/.zshrc
 !/.gitignore.d

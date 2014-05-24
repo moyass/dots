@@ -139,7 +139,7 @@ set laststatus=2 " turns status line always on and configures it
 
   " don't complain about whitespace
   let g:airline#extensions#whitespace#enabled = 0
-  
+
   let g:airline_mode_map = {
       \ '__' : '-',
       \ 'n'  : 'N',
@@ -156,8 +156,8 @@ set laststatus=2 " turns status line always on and configures it
 "if exists('$WINDOWID') && &term =~ "rxvt"
 if exists('$WINDOWID') && &term =~ "256"
   let g:airline_powerline_fonts = 1
-  "let g:airline#extensions#tabline#enabled = 1
-  let g:airline_theme = "kolor"
+  let g:airline#extensions#tabline#enabled = 0 
+  let g:airline_theme = "solarized"
   if !exists('g:airline_symbols')
     let g:airline_symbols = {}
   endif
@@ -284,14 +284,18 @@ set fillchars=fold:\ ,diff:╳,vert:│
 " Colorscheme."{{{
 set synmaxcol=300 "Avoids editor lockup on extremely long lines
 
-if has("gui_running")
-  let g:jellyx_show_whitespace = 0
-  colorscheme jellyx
-  "colorscheme mirodark
-else
-  set list " fallback on invisibles ofr showing whitespace erros
-  colorscheme ir_black
-endif
+let g:jellyx_show_whitespace = 0
+colorscheme jellyx
+
+" if has("gui_running")
+  " let g:jellyx_show_whitespace = 0
+  " colorscheme jellyx
+  " "colorscheme mirodark
+  " "colorscheme atom
+" else
+  " set list " fallback on invisibles ofr showing whitespace erros
+  " colorscheme ir_black
+" endif
 
 "}}}
 
@@ -512,7 +516,7 @@ noremap <silent> /// :nohls<cr><c-l><CR>
 " <Leader>ml - Append Modeline."{{{
 " https://github.com/godlygeek/vim-files/blob/master/.vimrc#L346
 " Insert a modeline on the last line with <leader>ml
-nnoremap <Leader>ml :$put =ModelineStub()<CR>
+nnoremap <Leader>ml :call ModelineStub()<CR>
 "}}}
 
 " Disabled -- Kill the arrow keys."{{{
