@@ -169,6 +169,7 @@ set-option -g status-left '#[fg=colour33,bright]#{=3:session_name} #[fg=colour24
 set-option -g status-right ''
 # status right is filled by ~/.profile.d with remote user & host
 
+if-shell '[ -n "$SSH_CONNECTION" ]' 'set-option -g status-left "#[default]#(whoami)#[fg=black]@#[fg=colour166]#[bold]#{host}#[fg=colour244,none]:#[default]#[fg=colour33,bright]#{=3:session_name} #[fg=colour244,none] • #[default]"'
 # DEACTIVATED: IDEAS {{{1
 
 #bind-key + select-layout main-horizontal

@@ -1,2 +1,44 @@
-#!/bin/sh
-while true; do echo "The time is now, `date +%l,%M`. Move your arse bitch!"  | festival --tts; sleep 1m; done
+#!/usr/bin/env ruby
+
+require 'thor'
+
+class StopWastingTime < Thor
+  default_task :loop
+
+  argument :interval, :type => :string, :default => "5m"
+  def initialize(*args)
+    super
+    setInterval(interval)
+  end
+
+  desc :loop, "just loop"
+  def loop()
+    %x{zenity --notification --text='You have #{@intervalseconds} to complete your task. \nCarpe diem quom minimum credula postero. > /dev/null 2>&1'}
+
+    forked = fork do
+      sleep @intervalseconds
+      complain
+    end
+    Process.detach(forked)
+  end
+
+
+  no_tasks do
+    # def threading
+      # thread = ::Thread.new { loop { complain; sleep;  } }
+    # end
+    def setInterval(interval)
+      interval =~ /^[1-9][0-9]{0,2}[sm]?$/  or raise "Invalid interval"
+      @intervalseconds = interval.match(/[0-9]+/).to_s.to_i * (interval =~ /[m]$/ ?  60 : 1)
+    end
+    def complain
+      %x{echo "STOP! The time is now, `date +%l,%M`. Stop wasting time! The show must go on!"  | festival --tts > /dev/null 2>&1 }
+      %x{zentity --error --title='Your #{@intervalseconds} are over!' > /dev/null 2>&1 }
+    end
+  end
+
+end
+
+StopWastingTime.start
+
+# vim: set ft=ruby tw=0 ts=2 sw=2 sts=2 fdm=marker fmr={{{,}}} et:
