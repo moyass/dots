@@ -436,6 +436,10 @@ vnoremap : ;
 nmap <silent> <leader>dd "_d
 vmap <silent> <leader>d "_d
 
+noremap <silent> <Leader>zz <ESC>:r!date -u \+\%Y\%m\%dT\%H\%MZ<CR>
+noremap <silent> <Leader>zd <ESC>:r!date -u \+\%d.\%m.\%Y<CR>
+noremap <silent> <Leader>zg <ESC>IGuy Hughes<ESC>
+
 
 " TODO: Fix :AlignRight
 " Disabled -- AlignRight is broken
