@@ -432,14 +432,35 @@ vnoremap ; :
 vnoremap : ;
 "}}}
 
-" <Leader>d to _ buffer
-nmap <silent> <leader>dd "_d
+" <Leader>dd to _ register (i.e. buffer)
+nmap <silent> <leader>dd "_dd
 vmap <silent> <leader>d "_d
 
-noremap <silent> <Leader>zz <ESC>:r!date -u \+\%Y\%m\%dT\%H\%MZ<CR>
-noremap <silent> <Leader>zd <ESC>:r!date -u \+\%d.\%m.\%Y<CR>
-noremap <silent> <Leader>zg <ESC>IGuy Hughes<ESC>
 
+" Timestamps, datestamps
+
+if exists("*strftime")
+  " Local datestamp
+  noremap <silent> <leader>zl m'A<C-R>=strftime("%d.%m.%Y")<CR><ESC>``
+  
+  if has('win_32')
+    " To hell with it... local weak datestamps for Windows
+    " Unless for some unholy reason there's no strftime compiled in vim
+    " ... then the environment is garbage, so who cares about timestamps.
+    map <silent> <leader>zs <leader>zl
+    map <silent> <leader>zd <leader>zl
+  else
+    " Real timestamps, yes. Praise GNU... and Darwin?  
+    noremap <silent> <Leader>zs m'A<C-R>=system('date -u \+\%Y\%m\%dT\%H\%MZ')<CR><ESC>``
+    noremap <silent> <Leader>zd m'A<C-R>=system('date -u \+\%Y\%m\%dZ')<CR><ESC>``
+  endif
+endif
+noremap <silent> <Leader>gh a<C-R>=' Guy Hughes'<CR><ESC>
+
+" Timestamped signatures
+nmap <silent> <leader>zh A<C-R>=' [Guy Hughes // '<CR><ESC><leader>zs<ESC>A<C-R>=']'<CR><ESC>
+nmap <silent> <leader>zg A<C-R>=' [gh//'<CR><ESC><leader>zs<ESC>A<C-R>=']'<CR><ESC>
+nmap <silent> <Leader>zz A<C-R>=' ['.expand("$USER").' // '<CR><ESC><leader>zs<ESC>A<C-R>=']'<CR><ESC>
 
 " TODO: Fix :AlignRight
 " Disabled -- AlignRight is broken

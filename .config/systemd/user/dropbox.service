@@ -3,7 +3,7 @@ Description=Dropbox
 
 [Service]
 Type=simple
-ExecStart=/opt/dropbox/dropboxd
+ExecStart=%h/.dropbox-dist/dropbox
 ExecReload=/bin/kill -HUP $MAINPID
 KillMode=process
 Restart=on-failure
