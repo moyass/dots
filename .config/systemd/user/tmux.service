@@ -9,8 +9,8 @@ Environment=DISPLAY=:0
 Type=forking
 WorkingDirectory=%h
 ExecStart=/usr/bin/tmux -f %h/.config/tmux/conf new-session -d -sone
-ExecStop=/usr/bin/tmux kill-sesion -sone
-#Restart=always
+ExecStop=/usr/bin/tmux kill-session -sone
+Restart=always
 KillMode=none
 
 [Install]
