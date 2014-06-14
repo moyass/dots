@@ -29,6 +29,26 @@ set titlestring=''
 set timeout
 set timeoutlen=250
 
+" Passthrough
+map -builtin -modes=n,v,i,t <C-z> <nop>
+map -builtin -modes=n,v,i,t <C-v> <nop>
+map -builtin -modes=n,v,i,t <A-b> <nop>
+map -builtin -modes=n,v,i,t <A-b> <pass-next-builtin>
+map -builtin -modes=n,v,i,t <C-S-a> <pass-all-keys>
+map -builtin -modes=n,v,i,t <C-a> <pass-next-key>
+
+" Copy & Paste, bold, italics
+" Needed for google docs (sheets: formula copy)
+" Needed for easy compatibilty with client environments
+map -builtin -modes=v,i,t <C-c> <pass-next-key><C-c>
+map -builtin -modes=v,i,t <C-u> <pass-next-key><C-u>
+map -builtin -modes=v,i,t <C-x> <pass-next-key><C-x>
+map -builtin -modes=n,v,i,t,c,o <C-v> <pass-next-key><C-v>
+map -builtin -modes=n,v,i,t,c,o <C-z> <pass-next-key><C-z>
+map -builtin -modes=n,v i <focus-input>
+map -builtin -modes=n,v I <c-i>
+
+" set noinsertmode
 
 " }}}
 
@@ -87,9 +107,9 @@ hi -a StatusLineNormal color:#C5C8C6 !important; background:#282A2E !important;
 " Linux fonts :%s/Source Code Pro/Source Code Pro/
 " Source Code Pro font: http://www.fontsquirrel.com/fonts/cousine
 
-hi FontCode -a font-family: Cousine !important; font-size: 9pt !important;
-hi FontFixed -a font-family: Cousine !important; font-size: 9pt !important;
-hi Normal -a font-family: Cousine  !important; font-size: 9pt !important;
+hi FontCode -a font-family:Cousine,Monaco,Menlo,Consolas,monospace !important; font-size: 9pt !important;
+hi FontFixed -a font-family:Cousine,Monaco,Menlo,Consolas,monospace !important; font-size: 9pt !important;
+hi Normal -a font-family:Cousine,Monaco,Menlo,Consolas,monospace !important; font-size: 9pt !important;
 "}}}
 
 
@@ -101,12 +121,15 @@ hi Normal -a font-family: Cousine  !important; font-size: 9pt !important;
 map \\ <Leader>
 
 nmap -builtin <Leader>p :private winopen<CR>
+nmap -builtin <Leader>w :winopen<CR>
+nmap -builtin <Leader>ad :tabdetach<CR>
+nmap -builtin <Leader>aa :tabattach 
 
 " tabline
 nmap -builtin <F9> :set showtabline=always<CR>
 nmap -builtin <S-F9> :set showtabline=never<CR>
-nmap -builtin <leader>t :set showtabline=always<CR>
-nmap -builtin <leader>T :set showtabline=never<CR>
+nmap -builtin <leader>l :set showtabline=always<CR>
+nmap -builtin <leader>L :set showtabline=never<CR>
 
 " Prevent butterfingers
 " defaults: q=recmacro, m=quickmark, d=tabclose, ZZ=saveanquit, zQ=trashandquit
@@ -121,13 +144,6 @@ map -builtin zQ <nop>
 " Tab closing
 map -builtin dd :tabclose<CR> 
 
-" Passthrough
-map -builtin <C-z> <nop>
-map -builtin <C-v> <nop>
-map -builtin <A-b> <nop>
-map -builtin <A-b> <pass-next-builtin>
-map -builtin zz <pass-all-keys>
-map -builtin ZZ <pass-next-key>
  
 " Zoom > ZXooom 
 " default: <count>zz 
@@ -139,13 +155,11 @@ nmap -builtin <Leader>\\ :noh<CR>
 " NO WAY nmap -builtin /// :noh<CR>  <---- causes the annoying sideeffect of searchahead delays
 
 " Swap semicolon and colon, as in vim.
-" https://github.com/w0ng/dotfiles/blob/master/.pentadactylr
-nmap -builtin ; :
-nmap -builtin : ;
-vmap -builtin ; :
-vmap -builtin : ;
+" based on https://github.com/w0ng/dotfiles/blob/master/.pentadactylr
+nmap -builtin -modes=n,v,c,o ; :
+nmap -builtin -modes=n,v,c,o : ;
 
-" https://github.com/w0ng/dotfiles/blob/master/.pentadactylrc
+" based on https://github.com/w0ng/dotfiles/blob/master/.pentadactylrc
 nmap -builtin <M-S-l> :tabmove! +1<CR>
 nmap -builtin <M-S-h> :tabmove! -1<CR>
 
@@ -242,7 +256,7 @@ style -name minitabs chrome://* <<EOM
     background: #282A2E !important;
     border: none !important;
     color: #707880 !important;
-    font: 8pt Cousine !important;
+    font: 8pt Cousine,Monaco,Menlo,Consolas,monospace !important;
     margin: 0 !important;
 }
 
