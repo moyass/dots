@@ -124,6 +124,7 @@ nmap -builtin <Leader>p :private winopen<CR>
 nmap -builtin <Leader>w :winopen<CR>
 nmap -builtin <Leader>ad :tabdetach<CR>
 nmap -builtin <Leader>aa :tabattach 
+nmap -builtin <Leader>ap :pin<CR>
 
 " tabline
 nmap -builtin <F9> :set showtabline=always<CR>
