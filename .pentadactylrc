@@ -15,7 +15,7 @@ group user
 " -----------------------------------------------------------------------------
 
 " Open help in new zab
-set newtab='help'
+set newtab+='help'
 
 " Only show tab line when there are multiple tabs
 "set showtabline='multitab' "" seems unstable(?)/unusable with :rehash (bug) TODO
@@ -74,7 +74,7 @@ set defsearch=g
 
 " popup windows
 " expected behaviour: open target=_blank in new tab, but resized popups in a new window
-set popups='resized'
+set popups='resized,tab'
 
 " Shut up.
 "javascript dactyl.beep = function() { return false; }
@@ -157,8 +157,8 @@ nmap -builtin <Leader>\\ :noh<CR>
 
 " Swap semicolon and colon, as in vim.
 " based on https://github.com/w0ng/dotfiles/blob/master/.pentadactylr
-nmap -builtin -modes=n,v,c,o ; :
-nmap -builtin -modes=n,v,c,o : ;
+nmap -builtin -modes=n,v ; :
+nmap -builtin -modes=n,v : ;
 
 " based on https://github.com/w0ng/dotfiles/blob/master/.pentadactylrc
 nmap -builtin <M-S-l> :tabmove! +1<CR>
