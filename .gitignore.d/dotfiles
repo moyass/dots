@@ -13,6 +13,7 @@
 !/bin/tmuxup
 !/bin/vimmy
 !/bin/whoip
+!/bin/synergy-ssh
 !/.caff
 !/.caprc
 !/.config
@@ -63,3 +64,4 @@
 !/.zshrc
 !/.gitignore.d
 !/.gitignore.d/dotfiles
+/Dropbox/*
