@@ -74,7 +74,7 @@ set defsearch=g
 
 " popup windows
 " expected behaviour: open target=_blank in new tab, but resized popups in a new window
-set popups='resized,tab'
+set popups=resized,tab
 
 " Shut up.
 "javascript dactyl.beep = function() { return false; }

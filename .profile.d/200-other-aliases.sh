@@ -3,6 +3,9 @@
 
 if  [[ "$OSTYPE" =~ darwin* ]]; then
 
+  # pidof for poor, poor osxie
+  pidof () { ps -Acw | egrep -i $@ | awk '{print $1}'; }
+
   # rm with trash (`brew install trash`).
   if [ -f `brew --prefix`/bin/trash ]; then
     alias rm='trash'
