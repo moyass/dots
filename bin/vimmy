@@ -209,12 +209,14 @@ class Vimmy < Thor
 
   desc :repo, "The name of the repo to pull."
   desc "pull REPO", "Update the subtrees of FAMILY in YAML config."
-  def pull(repo=ALL)
+  def pull(repo='ALL')
     # command = git subtree pull -P #{@target}/#{reponame} #{repourl} master"
     action= Proc.new { |remoteurl,remotename| system("#{@gitcmd} subtree pull --message='[#{remotename}] pull master' --prefix=#{@target}/#{remotename} #{remotename} master ") }
     
     if repo == 'ALL'
-      @repos.each action
+      @repos.each do | remoteurl,remotename |
+        action.call(remoteurl,remotename)
+      end
 
     elsif @repos.has_value?(repo) 
       repourl=@repos.key(repo)
