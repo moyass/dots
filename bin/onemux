@@ -12,7 +12,7 @@ if [ "`tmux ls | wc -l`" -eq "0" ]; then
   #tmux new-session -d -s irc
 
   # we creatin' some windows yall
-  #tmux new-window -t one:1
+  tmux new-window -t one:1
 fi
 
 if [ -z "$TMUX" ]; then
