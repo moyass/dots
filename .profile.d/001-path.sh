@@ -19,7 +19,7 @@ adjunct_path_with "/usr/local/bin" false
 
 # Add composer user bin
 # ===================
-adjunct_path_with "${HOME}/.composer/vendor/bin" false
+adjunct_path_with "${HOME}/.composer/vendor/bin" true
 
 
 # Npm!
