@@ -4,7 +4,7 @@
 
 # WARN: Echoing feedback causes ssh cloud apps to fail. Sad.
 
-source_if_exists {
+source_if_exists () {
   if [ -f $1 ]; then
     source $1
   fi
@@ -26,3 +26,4 @@ fi
 source_if_exists ~/.profile.d/hostnames/${THEHOSTNAME}.sh
 source_if_exists ~/.profile.d/hostnames/${THEHOSTNAME}.private.sh
 
+unset source_if_exists
