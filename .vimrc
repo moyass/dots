@@ -55,7 +55,8 @@ else
     let &guifont="Cousine\ 11,dejavu\ sans\ mono\ for\ powerline\ 11"
   endif
 
-  set clipboard=unnamed    " yank and copy to the X11 PRIMARY clipboard (selection)
+  set clipboard=unnamedplus    " yank and copy to the X11 PRIMARY clipboard (selection)
+  "http://vim.wikia.com/wiki/Accessing_the_system_clipboard 
 endif  " [/OS-Settings]<=
 "  }}}
 
@@ -417,7 +418,7 @@ noremap <Leader>v <ESC>:set paste<CR>i<C-r>+<Esc>:set nopaste<CR>
 noremap <Leader>b <ESC>:set paste<CR>i<C-r>"<Esc>:set nopaste<CR>
 "noremap <Leader>+p <ESC>:set paste<CR>i<C-r>"<Esc>:set nopaste<CR>
 "}}}
-
+"
 " Load gui menus for terminal vim "{{{
 if !has('gui_running')
   source $VIMRUNTIME/menu.vim

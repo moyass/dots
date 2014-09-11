@@ -13,6 +13,9 @@ adjunct_path_with () {
   fi
 }
 
+# Add local bin
+# ===================
+adjunct_path_with "/usr/local/bin" false
 
 
 
@@ -24,7 +27,6 @@ adjunct_path_with "${HOME}/.npm/bin" true
 # ===================
 if [[ "$OSTYPE" =~ darwin* ]]; then
   # Add localbins  to path, esp for homebrew
-  adjunct_path_with "/usr/local/bin" true
   adjunct_path_with "/usr/local/sbin" true
 
 elif [[ "$OSTYPE" =~ linux* ]]; then
