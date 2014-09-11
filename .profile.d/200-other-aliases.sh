@@ -49,6 +49,8 @@ alias cim="vim"
 alias vom="vim"
 alias vi='vim'
 
+alias sue='/usr/bin/sudo -sE'
+
 # aes-enc file.zip
 function aes-enc() {
   openssl enc -aes-256-cbc -e -in $1 -out "$1.aes"
