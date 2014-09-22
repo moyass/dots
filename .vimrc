@@ -490,22 +490,28 @@ nmap n nzz
 nmap N Nzz
 
 " Tabs."{{{
-noremap <M-t> :tabnew<CR>
-noremap <M-d> :tabclose<CR>
-noremap <M-h> :tabp<CR>
-noremap <M-j> :tabp<CR>
-noremap <M-k> :tabn<CR>
-noremap <M-l> :tabn<CR>
 
-:nnoremap <M-1> :tabn 1<CR>
-:nnoremap <M-2> :tabn 2<cr>
-:nnoremap <M-3> :tabn 3<cr>
-:nnoremap <M-4> :tabn 4<cr>
-:nnoremap <M-5> :tabn 5<cr>
-:nnoremap <M-6> :tabn 6<cr>
-:nnoremap <M-7> :tabn 7<cr>
-:nnoremap <M-8> :tabn 8<cr>
-:nnoremap <M-9> :tabn 9<cr>
+" Modifier keys broken by tmux [gh//20140922T0005Z]
+" noremap <M-t> :tabnew<CR>
+" noremap <M-d> :tabclose<CR>
+" noremap <M-h> :tabp<CR>
+" noremap <M-j> :tabp<CR>
+" noremap <M-k> :tabn<CR>
+" noremap <M-l> :tabn<CR>
+noremap ,. :tabnew<CR>
+noremap ., :tabclose<CR>
+:nnoremap .h :tabn<CR>
+:nnoremap .l :tabp<CR>
+
+" :nnoremap <M-1> :tabn 1<CR>
+" :nnoremap <M-2> :tabn 2<cr>
+" :nnoremap <M-3> :tabn 3<cr>
+" :nnoremap <M-4> :tabn 4<cr>
+" :nnoremap <M-5> :tabn 5<cr>
+" :nnoremap <M-6> :tabn 6<cr>
+" :nnoremap <M-7> :tabn 7<cr>
+" :nnoremap <M-8> :tabn 8<cr>
+" :nnoremap <M-9> :tabn 9<cr>
 "}}}
 
 " splits."{{{
@@ -514,14 +520,6 @@ noremap <M-l> :tabn<CR>
 :noremap <C-j> <C-w>j
 :noremap <C-k> <C-w>k
 :noremap <C-l> <C-w>l
-
-" https://github.com/icco/dotfiles/blob/master/link/vimrc
-" (i never liked this. it feels like i'm playing pacman.)
-":nnoremap .w <c-w><up><cr>
-":nnoremap .s <c-w><down><cr>
-":nnoremap .a <c-w><left><cr>
-":nnoremap .d <c-w><right><cr>
-
 "}}}
 
 " Folds. "{{{
