@@ -500,8 +500,8 @@ nmap N Nzz
 " noremap <M-l> :tabn<CR>
 noremap ,. :tabnew<CR>
 noremap ., :tabclose<CR>
-:nnoremap .h :tabn<CR>
-:nnoremap .l :tabp<CR>
+:nnoremap .l :tabn<CR>
+:nnoremap .h :tabp<CR>
 
 " :nnoremap <M-1> :tabn 1<CR>
 " :nnoremap <M-2> :tabn 2<cr>
