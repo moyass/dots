@@ -15,7 +15,7 @@ adjunct_path_with () {
 
 # Add local bin
 # ===================
-adjunct_path_with "/usr/local/bin" false
+adjunct_path_with "/usr/local/bin" true
 
 # Add composer user bin
 # ===================
