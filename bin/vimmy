@@ -100,7 +100,8 @@ class Vimmy < Thor
     # Target
     if defined? @config[family]['target']
       @log.debug("initialize: config specified target.")
-      @target = Pathname.new(@config[family]['target']).expand_path.relative_path_from(@gitroot)
+      # @target = Pathname.new(@config[family]['target']).expand_path.relative_path_from(@gitroot)
+      @target = Pathname.new(@config[family]['target']).expand_path
     else
       @log.debug("initialize: config does not specify target.")
       @log.error("The configuration file is missing the 'target' element under #{family}. Cannot continue.")
@@ -159,7 +160,7 @@ class Vimmy < Thor
     @repos.each do | repourl, reponame |
       unit_command = addcmd.clone
       unit_command << " --message='[#{reponame}] add, pull master'"
-      unit_command << " --prefix=#{@target}/#{reponame} #{repourl} master"
+      unit_command << " --prefix='#{@target}/#{reponame}' #{repourl} master"
       
       #check if the repo is already a subtree or exists
       if File::exists?(@gitroot + "/" + @target + "/" + reponame)
