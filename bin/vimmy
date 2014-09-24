@@ -100,8 +100,8 @@ class Vimmy < Thor
     # Target
     if defined? @config[family]['target']
       @log.debug("initialize: config specified target.")
-      # @target = Pathname.new(@config[family]['target']).expand_path.relative_path_from(@gitroot)
-      @target = Pathname.new(@config[family]['target']).expand_path
+      @target = Pathname.new(@config[family]['target']).expand_path.relative_path_from(@gitroot)
+      # TODO: should remove ./ when adding - bug
     else
       @log.debug("initialize: config does not specify target.")
       @log.error("The configuration file is missing the 'target' element under #{family}. Cannot continue.")

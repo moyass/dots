@@ -11,14 +11,17 @@
 # helper         = osxkeychain
 
 [alias]
+  ai             = add --interactive
+  ls             = ls-files
   br             = branch
   cb             = "!sh -c 'git branch $1 && git ch $1' -"
   ch             = checkout
 
   ci             = commit
-
-  c              = commit -am 'Initial commit.'
-  cpush          = "!sh -c 'git commit -au -m \"$1\" && git push -u origin' -"
+  cimp            = "!sh -c 'git commit -um \"$1\"  && git push -u origin' -"
+  aicup           = "!sh -c 'git add --interactive && git commit -u && git push -u origin' -"
+  cap            = "!sh -c 'git commit -a && git push -u origin' -"
+  cup            = "!sh -c 'git commit -u && git push -u origin' -"
 
   discard        = checkout -- .
 
