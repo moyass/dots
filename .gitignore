@@ -4,6 +4,8 @@
 *.orig
 *.log
 *~
+.swp
+*.swp
 
 .DS_Store
 .cache
