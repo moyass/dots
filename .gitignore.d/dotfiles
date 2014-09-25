@@ -1,8 +1,8 @@
-*
+# http://git-scm.com/docs/gitignore
+/*
 !/.bash_logout
 !/.bash_profile
 !/.bashrc
-!/bin
 !/bin/curling
 !/bin/dateiso
 !/bin/dateiso-full
@@ -11,12 +11,11 @@
 !/bin/stopwastingtime
 !/bin/tmuxsecured
 !/bin/tmuxup
-!bin/vimmy
+!/bin/vimmy
 !/bin/whoip
 !/bin/synergy-ssh
 !/.caff
 !/.caprc
-!/.config
 !/.config/colours/*
 !/.config/ranger/**/*
 /.config/ranger/**/*.pyo
@@ -39,6 +38,7 @@
 !.profile.d
 !/.profile.d/*
 !/.profile.d/zsh/*
+/.profile.d/zsh/cache*
 /.profile.d/zsh/.zcomp*
 /.profile.d/zsh/hist*
 !/.profile.d/bash/*
@@ -57,11 +57,11 @@
 /.vim/undo/*
 !/.vim/undo/.gitkeep
 /.weechat
-!/.pentadactyl
 !/.pentadactyl/plugin/*
 !/.pentadactylrc
 !/.zlogin
 !/.zshrc
-!/.gitignore.d
 !/.gitignore.d/dotfiles
+/.keychain
+/.gnupg
 /Dropbox/*
