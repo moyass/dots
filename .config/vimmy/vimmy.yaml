@@ -17,6 +17,9 @@ pathogens:
     https://github.com/editorconfig/editorconfig-vim: core-editorconfig
     https://github.com/ciaranm/securemodelines: core-securemodelines
 
+    #vimpager
+    https://github.com/rkitover/vimpager: core-vimpager
+
     # Commands
     https://github.com/tpope/vim-eunuch: cmd-eunuch
     https://github.com/vim-scripts/grep.vim: cmds-grep
