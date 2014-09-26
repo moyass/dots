@@ -113,9 +113,9 @@ bind-key ] paste-buffer
 bind-key -t vi-copy v begin-selection
 bind-key -t vi-copy y copy-selection
 
-#bind-key y run "tmux show-buffer | xclip"
-#bind-key y -t vi-copy y copy-pipe "xclip" 
-#bind-key p run "tmux set-buffer \"$(xsel -o)\"; tmux paste-buffer"
+bind-key y run "tmux show-buffer | xsel -i"
+#bind-key y -t vi-copy y copy-pipe "xclip"
+bind-key p run "xsel -o | tmux load-buffer -"
 set-window-option -g display-panes-time 1500
 # }}}
 
