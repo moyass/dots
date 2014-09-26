@@ -5,7 +5,7 @@
 # Prefix key
 set-option -g prefix C-a
 unbind-key C-a
-bind-key C-a send-prefix
+bind-key C-s send-prefix
 
 # Window Numbering
 set-option -g base-index 1
@@ -79,9 +79,9 @@ set -g mouse-select-window on
 # KEYS: Panes and Window # {{{
 
 # Disabled - orphans... 
-#bind-key space next-window
-#bind-key bspace previous-window
-#bind-key C-o rotate-window
+bind-key -n C-right next-window
+bind-key -n C-left previous-window
+bind-key C-o rotate-window
 
 # use vim-like keys for splits and windows
 bind-key v split-window -h
@@ -99,7 +99,7 @@ bind-key -n C-h run "(tmux display-message -p '#{pane_current_command}' | grep -
 bind-key -n C-j run "(tmux display-message -p '#{pane_current_command}' | grep -iqE '(^|\/)vim$' && tmux send-keys C-j) || tmux select-pane -D"
 bind-key -n C-k run "(tmux display-message -p '#{pane_current_command}' | grep -iqE '(^|\/)vim$' && tmux send-keys C-k) || tmux select-pane -U"
 bind-key -n C-l run "(tmux display-message -p '#{pane_current_command}' | grep -iqE '(^|\/)vim$' && tmux send-keys C-l) || tmux select-pane -R"
-bind-key -n C-\ run "(tmux display-message -p '#{pane_current_command}' | grep -iqE '(^|\/)vim$' && tmux send-keys 'C-\\') || tmux select-pane -l"
+# bind-key -n C-\ run "(tmux display-message -p '#{pane_current_command}' | grep -iqE '(^|\/)vim$' && tmux send-keys 'C-\\') || tmux select-pane -l"
 
 set-window-option -g other-pane-height 25
 set-window-option -g other-pane-width 80
@@ -107,15 +107,19 @@ set-window-option -g other-pane-width 80
 # }}}
 
 # KEYS: Copy / Paste# {{{ 
+# omg! imagine if kidz could copy & paste all over the tmuxes without tears!
+# yes, this is not a dream. all a skriptkiddie's gotta do is...
+# hold tmux pastebuffers in contempt
+# and pipe everything out to xsel 
 bind-key [ copy-mode
 bind-key Escape copy-mode
-bind-key ] paste-buffer
+unbind-key ]
 bind-key -t vi-copy v begin-selection
-bind-key -t vi-copy y copy-selection
+bind-key -t vi-copy V reactangle-toggle # change btwn line & columnwise selection
+bind-key -t vi-copy y copy-pipe "xsel -i"
+bind-key -t vi-copy Enter copy-pipe "xsel -i"
+bind-key p run "xsel -o | tmux load-buffer -; tmux paste-buffer"
 
-bind-key c-y run "tmux show-buffer | xsel -i"
-#bind-key y -t vi-copy y copy-pipe "xclip"
-bind-key c-p run "xsel -o | tmux load-buffer -"
 set-window-option -g display-panes-time 1500
 # }}}
 
