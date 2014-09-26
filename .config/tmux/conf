@@ -79,8 +79,8 @@ set -g mouse-select-window on
 # KEYS: Panes and Window # {{{
 
 # Disabled - orphans... 
-bind-key -n C-right next-window
-bind-key -n C-left previous-window
+bind-key L next-window
+bind-key H previous-window
 bind-key C-o rotate-window
 
 # use vim-like keys for splits and windows
@@ -110,30 +110,19 @@ set-window-option -g other-pane-width 80
 # omg! imagine if kidz could copy & paste all over the tmuxes without tears!
 # yes, this is not a dream. all a skriptkiddie's gotta do is...
 # hold tmux pastebuffers in contempt
-# and pipe everything out to xsel 
+# and pipe everything out to xsel  [gh//20140926T0606Z]
+#
 bind-key [ copy-mode
 bind-key Escape copy-mode
 unbind-key ]
 bind-key -t vi-copy v begin-selection
 bind-key -t vi-copy V reactangle-toggle # change btwn line & columnwise selection
-bind-key -t vi-copy y copy-pipe "xsel -i"
-bind-key -t vi-copy Enter copy-pipe "xsel -i"
-bind-key p run "xsel -o | tmux load-buffer -; tmux paste-buffer"
+bind-key -t vi-copy y copy-pipe "xsel -i || pbcopy"
+bind-key -t vi-copy Enter copy-pipe "xsel -i || pbcopy"
+bind-key p run "(xsel -o | tmux load-buffer -) || (pbpaste | tmux load-buffer -); tmux paste-buffer"
 
 set-window-option -g display-panes-time 1500
 # }}}
-
-# KEYS: ****  OSXopy / paste solution (PARTIAL) TODO: FINISH# {{{
-#if '[ $IS_OSX = true ]' 'set-option -g default-command "/bin/bash -c 'which reattach-to-user-namespace >/dev/null && exec reattach-to-user-namespace $SHELL -l || exec $SHELL -l'"'
-
-  # TODO: reintegrate github.com awesome for OSX tmux copy... 
-  # I spend wayy too much time in xdg environments to care about OSX right now
-  # But when travelling this will screw me.
-  # TODO: Test andriod SSH copy/paste.
-  
-  # Enable native Mac OS X copy/paste
-
- # }}}
 
 # KEYS   # {{{1
 # quick view of processes
