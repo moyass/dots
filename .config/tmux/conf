@@ -5,7 +5,7 @@
 # Prefix key
 set-option -g prefix C-a
 unbind-key C-a
-bind-key C-s send-prefix
+bind-key a send-prefix
 
 # Window Numbering
 set-option -g base-index 1
@@ -78,9 +78,10 @@ set -g mouse-select-window on
 
 # KEYS: Panes and Window # {{{
 
-# Disabled - orphans... 
-bind-key L next-window
-bind-key H previous-window
+# yes i quite like my backwards n&m switching  [gh//20140926T0630Z]
+#
+bind-key n next-window
+bind-key m previous-window
 bind-key C-o rotate-window
 
 # use vim-like keys for splits and windows
