@@ -117,7 +117,7 @@ bind-key [ copy-mode
 bind-key Escape copy-mode
 unbind-key ]
 bind-key -t vi-copy v begin-selection
-bind-key -t vi-copy V reactangle-toggle # change btwn line & columnwise selection
+bind-key -t vi-copy V rectangle-toggle # change btwn line & columnwise selection
 bind-key -t vi-copy y copy-pipe "xsel -i || pbcopy"
 bind-key -t vi-copy Enter copy-pipe "xsel -i || pbcopy"
 bind-key p run "(xsel -o | tmux load-buffer -) || (pbpaste | tmux load-buffer -); tmux paste-buffer"
