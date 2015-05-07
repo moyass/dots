@@ -1,6 +1,52 @@
 "
 " ~/.vimrc
 "
+
+" Vundle setup
+" see :h vundle for more details or wiki for FAQ
+set nocompatible
+filetype off
+set rtp+=~/.vim/bundle/Vundle.vim
+
+call vundle#begin()
+Plugin 'gmarik/Vundle.vim'
+
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'godlygeek/tabular'
+Plugin 'editorconfig/editorconfig'
+Plugin 'ciaranm/securemodelines'
+Plugin 'tpope/vim-eunuch', {'name': 'eunuch'} " :SudoWrite / :Wall
+Plugin 'gcmt/wildfire.vim' " Enter-select
+
+" Autocompleting
+Plugin 'jiangmiao/auto-pairs'
+Plugin 'mattn/emmet-vim', {'name': 'auto-emmet'}
+
+" Syntax etc
+Plugin 'scrooloose/syntastic', {'name': 'syntax-syntastic'}
+Plugin 'sheerun/vim-polyglot', {'name': 'syntax-polyglot'}
+Plugin 'git://fedorapeople.org/home/fedora/wwoods/public_git/vim-scripts.git', {'name': 'syntax-systemd'}
+Plugin 'plasticboy/vim-markdown', {'name': 'syntax-markdown'}
+
+" Git/VCS
+Plugin 'airblade/vim-gitgutter', {'name': 'git-gutter'}
+Plugin 'tpope/vim-fugitive', {'name': 'git-fugitive'}
+
+" Colour
+Plugin 'w0ng/vim-hybrid', {'name': 'colour-w0ng-hybrid'}
+Plugin 'guns/jellyx.vim', {'name': 'colour-guns-jellyx'}
+Plugin 'fisadev/fisa-vim-colorscheme', {'name': 'colour-fisa'}
+
+
+call vundle#end()          
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+
 if has('autocmd')
   autocmd!
 endif
@@ -26,16 +72,16 @@ endif
 
 " TEMPORARY FILES {{{1
 if !isdirectory(expand('~/.cache/vim/undo'))
-    call mkdir(expand('~/.cache/vim/undo'), 'p', 0700)
+  call mkdir(expand('~/.cache/vim/undo'), 'p', 0700)
 endif
 if isdirectory(expand('~/.cache/vim'))
-    set directory=~/.cache/vim
-    set viminfo+=n~/.cache/vim/viminfo
-    let g:netrw_home = expand('~/.cache/vim')
+  set directory=~/.cache/vim
+  set viminfo+=n~/.cache/vim/viminfo
+  let g:netrw_home = expand('~/.cache/vim')
 endif
 if has('persistent_undo') && isdirectory(expand('~/.cache/vim/undo'))
-    set undofile
-    set undodir=~/.cache/vim/undo
+  set undofile
+  set undodir=~/.cache/vim/undo
 endif
 
 "  OS Settings  {{{1
@@ -73,7 +119,7 @@ if has('gui_running')
   " scrollbar
 
   set go-=Tt
- " toolbar
+  " toolbar
 endif
 
 " }}}
@@ -100,17 +146,9 @@ let g:indentLine_color_term = 233
 let g:indentLine_color_gui = '#121212'
 let g:indentLine_char = '|'
 
-" Plugin: GISTS
-let g:gist_clip_command = 'xclip -selection clipboard'
-let g:gist_detect_filetype = 1
-let g:gist_open_browser_after_post = 1
-let g:gist_show_privates = 1
-let g:gist_post_private = 1
-let g:gist_get_multiplefile = 1
-
 
 if has("autocmd")
-    " Resize splits with window
+  " Resize splits with window
   au VimResized * :wincmd =
 
   " automatically leave insert mode after 'updatetime' ms of inacction
@@ -123,12 +161,12 @@ if has("autocmd")
   " Restore cursor position
   au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
 
-    " Autoreload vimrc.
-    augroup reload_vimrc " {
-      au!
-      au BufWritePost $MYVIMRC source $MYVIMRC
-    augroup END " }
-  endif
+  " Autoreload vimrc.
+  augroup reload_vimrc " {
+    au!
+    au BufWritePost $MYVIMRC source $MYVIMRC
+  augroup END " }
+endif
 
 
 " }}}
@@ -235,40 +273,40 @@ set synmaxcol=300 "Avoids editor lockup on extremely long lines
 let g:jellyx_show_whitespace = 0
 colorscheme jellyx
 
-" if has("gui_running")
-  " let g:jellyx_show_whitespace = 0
-  " colorscheme jellyx
-  " "colorscheme mirodark
-  " "colorscheme atom
-" else
-  " set list " fallback on invisibles ofr showing whitespace erros
-  " colorscheme ir_black
-" endif
+if has("gui_running")
+  let g:jellyx_show_whitespace = 0
+  colorscheme jellyx
+  "colorscheme mirodark
+  "colorscheme atom
+else
+  set list " fallback on invisibles ofr showing whitespace erros
+  colorscheme ir_black
+endif
 
 "}}}
 
 " Folding. {{{
 fu! CustomFoldText()
-    " I am from http://www.gregsexton.org/2011/03/improving-the-text-displayed-in-a-fold/
+  " I am from http://www.gregsexton.org/2011/03/improving-the-text-displayed-in-a-fold/
 
-    "get first non-blank line
-    let fs = v:foldstart
-    while getline(fs) =~ '^\s*$' | let fs = nextnonblank(fs + 1)
-    endwhile
-    if fs > v:foldend
-        let line = getline(v:foldstart)
-    else
-        let line = substitute(getline(fs), '\t', repeat(' ', &tabstop), 'g')
-    endif
+  "get first non-blank line
+  let fs = v:foldstart
+  while getline(fs) =~ '^\s*$' | let fs = nextnonblank(fs + 1)
+  endwhile
+  if fs > v:foldend
+    let line = getline(v:foldstart)
+  else
+    let line = substitute(getline(fs), '\t', repeat(' ', &tabstop), 'g')
+  endif
 
-    let w = winwidth(0) - &foldcolumn - (&number ? 8 : 0)
-    let foldSize = 1 + v:foldend - v:foldstart
-    let foldSizeStr = " " . foldSize . " lines "
-    let foldLevelStr = repeat("+--", v:foldlevel)
-    let lineCount = line("$")
-    let foldPercentage = printf("[%.1f", (foldSize*1.0)/lineCount*100) . "%] "
-    let expansionString = repeat(".", w - strwidth(foldSizeStr.line.foldLevelStr.foldPercentage))
-    return line . expansionString . foldSizeStr . foldPercentage . foldLevelStr
+  let w = winwidth(0) - &foldcolumn - (&number ? 8 : 0)
+  let foldSize = 1 + v:foldend - v:foldstart
+  let foldSizeStr = " " . foldSize . " lines "
+  let foldLevelStr = repeat("+--", v:foldlevel)
+  let lineCount = line("$")
+  let foldPercentage = printf("[%.1f", (foldSize*1.0)/lineCount*100) . "%] "
+  let expansionString = repeat(".", w - strwidth(foldSizeStr.line.foldLevelStr.foldPercentage))
+  return line . expansionString . foldSizeStr . foldPercentage . foldLevelStr
 endf
 set foldtext=CustomFoldText()
 set foldmethod=marker
@@ -303,7 +341,7 @@ set nogdefault " Disabled - See http://j.mp/1mZvnrt  (no `g` on `:s`)
 
 " Keep old backups, write new ones. "{{{
 set nobackup     " Disabled - See above (OS Settings)
- set writebackup  "
+set writebackup  "
 "}}}
 
 " Disabled - Superseeded by other functionality. {{{
@@ -344,11 +382,11 @@ endif
 " Modifier Normalization {{{1
 
 let g:__NAMED_KEYCODES__ = {
-    \ ' ': 'Space',
-    \ '\': 'Bslash',
-    \ '|': 'Bar',
-    \ '<': 'lt'
-\ }
+      \ ' ': 'Space',
+      \ '\': 'Bslash',
+      \ '|': 'Bar',
+      \ '<': 'lt'
+      \ }
 
 
 "source ~/.vim/local/modifiers.vim
@@ -653,18 +691,18 @@ else
   "     t_EI end insert mode (block cursor shape)
 
   if &t_Co == 256
-      let s:icolor = 'rgb:00/CC/FF'
-      let s:ncolor = 'rgb:FF/F5/9B'
+    let s:icolor = 'rgb:00/CC/FF'
+    let s:ncolor = 'rgb:FF/F5/9B'
 
-      if exists('$TMUX') || &term =~ '\v^tmux'
-          let &t_SI = "\033Ptmux;\033\033]12;" . s:icolor . "\007\033\\"
-          let &t_EI = "\033Ptmux;\033\033]12;" . s:ncolor . "\007\033\\"
-      elseif &term =~ '\v^screen'
-          let &t_SI = "\033P\033]12;" . s:icolor . "\007\033\\"
-          let &t_EI = "\033P\033]12;" . s:ncolor . "\007\033\\"
-      elseif &term =~ '\v^u?rxvt|^xterm'
-          let &t_SI = "\033]12;" . s:icolor . "\007"
-          let &t_EI = "\033]12;" . s:ncolor . "\007"
-      endif
+    if exists('$TMUX') || &term =~ '\v^tmux'
+      let &t_SI = "\033Ptmux;\033\033]12;" . s:icolor . "\007\033\\"
+      let &t_EI = "\033Ptmux;\033\033]12;" . s:ncolor . "\007\033\\"
+    elseif &term =~ '\v^screen'
+      let &t_SI = "\033P\033]12;" . s:icolor . "\007\033\\"
+      let &t_EI = "\033P\033]12;" . s:ncolor . "\007\033\\"
+    elseif &term =~ '\v^u?rxvt|^xterm'
+      let &t_SI = "\033]12;" . s:icolor . "\007"
+      let &t_EI = "\033]12;" . s:ncolor . "\007"
+    endif
   endif
 endif

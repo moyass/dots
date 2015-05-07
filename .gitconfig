@@ -3,8 +3,8 @@
   smudge         = git-media-smudge %f
 
 [user]
-  name           = Guy Hughes
-  email          = guy@guyhughes.ca
+  name           = hugg
+  email          = guyhugh3s@gmail.com
 
 [credential]
 # osx only
