@@ -3,11 +3,10 @@
   smudge         = git-media-smudge %f
 
 [user]
-  name           = hugg
+  name           = guy hughes
   email          = guyhugh3s@gmail.com
 
 [credential]
-# osx only
 # helper         = osxkeychain
 
 [alias]
@@ -18,10 +17,7 @@
   ch             = checkout
 
   ci             = commit
-  cimp            = "!sh -c 'git commit -um \"$1\"  && git push -u origin' -"
-  aicup           = "!sh -c 'git add --interactive && git commit -u && git push -u origin' -"
-  cap            = "!sh -c 'git commit -a && git push -u origin' -"
-  cup            = "!sh -c 'git commit -u \"$1\" && git push -u origin' -"
+  aic            = "!sh -c 'git add --interactive && git commit' -"
 
   discard        = checkout -- .
 
@@ -58,6 +54,9 @@
 [log]
   abbrevCommit   = true
 
+[status]
+  showUntrackdFiles = normal
+
 [diff "zip"]
   textconv       = unzip -c -a
 
@@ -65,13 +64,10 @@
   pretty         = %Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset
   graph          = true
 
-
 [url "git@github.com:"]
   insteadOf      = "gh:"
   pushInsteadOf  = "gh:"
   pushInsteadOf  = "git://github.com/"
-
-
 
 [url "git@gist.github.com:"]
   insteadOf      = "gist:"
