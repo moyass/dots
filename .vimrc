@@ -1,51 +1,41 @@
 "
 " ~/.vimrc
 "
+execute pathogen#infect('pathogens /{}')
 
-" Vundle setup
-" see :h vundle for more details or wiki for FAQ
-set nocompatible
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
+call plug#begin()
+Plug 'gmarik/Vundle.vim'
 
-call vundle#begin()
-Plugin 'gmarik/Vundle.vim'
-
-Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'godlygeek/tabular'
-Plugin 'editorconfig/editorconfig'
-Plugin 'ciaranm/securemodelines'
-Plugin 'tpope/vim-eunuch', {'name': 'eunuch'} " :SudoWrite / :Wall
-Plugin 'gcmt/wildfire.vim' " Enter-select
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdcommenter'
+Plug 'godlygeek/tabular'
+Plug 'editorconfig/editorconfig'
+Plug 'ciaranm/securemodelines'
+Plug 'tpope/vim-eunuch', {'name': 'eunuch'} " :SudoWrite / :Wall
+Plug 'bling/vim-airline'
+"surround 
+"rainbow brakets?
 
 " Autocompleting
-Plugin 'jiangmiao/auto-pairs'
-Plugin 'mattn/emmet-vim', {'name': 'auto-emmet'}
+"Plug 'jiangmiao/auto-pairs'
+Plug 'mattn/emmet-vim', {'name': 'auto-emmet'}
 
 " Syntax etc
-Plugin 'scrooloose/syntastic', {'name': 'syntax-syntastic'}
-Plugin 'sheerun/vim-polyglot', {'name': 'syntax-polyglot'}
-Plugin 'git://fedorapeople.org/home/fedora/wwoods/public_git/vim-scripts.git', {'name': 'syntax-systemd'}
-Plugin 'plasticboy/vim-markdown', {'name': 'syntax-markdown'}
+Plug 'scrooloose/syntastic', {'name': 'syntax-syntastic'}
+Plug 'sheerun/vim-polyglot', {'name': 'syntax-polyglot'}
+Plug 'git://fedorapeople.org/home/fedora/wwoods/public_git/vim-scripts.git', {'name': 'syntax-systemd'}
+Plug 'plasticboy/vim-markdown', {'name': 'syntax-markdown'}
 
 " Git/VCS
-Plugin 'airblade/vim-gitgutter', {'name': 'git-gutter'}
-Plugin 'tpope/vim-fugitive', {'name': 'git-fugitive'}
+Plug 'airblade/vim-gitgutter', {'name': 'git-gutter'}
+Plug 'tpope/vim-fugitive', {'name': 'git-fugitive'}
 
 " Colour
-Plugin 'w0ng/vim-hybrid', {'name': 'colour-w0ng-hybrid'}
-Plugin 'guns/jellyx.vim', {'name': 'colour-guns-jellyx'}
-Plugin 'fisadev/fisa-vim-colorscheme', {'name': 'colour-fisa'}
+Plug 'w0ng/vim-hybrid', {'name': 'colour-w0ng-hybrid'}
+Plug 'guns/jellyx.vim', {'name': 'colour-guns-jellyx'}
+Plug 'fisadev/fisa-vim-colorscheme', {'name': 'colour-fisa'}
 
-
-call vundle#end()          
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
+call plug#end()
 
 if has('autocmd')
   autocmd!
@@ -163,32 +153,43 @@ if has("autocmd")
   " Restore cursor position
   au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
 
-  " Autoreload vimrc.
-  augroup reload_vimrc " {
-    au!
-    au BufWritePost $MYVIMRC source $MYVIMRC
+    " Autoreload vimrc.
+    augroup reload_vimrc " {
+      au!
+      au BufWritePost $MYVIMRC source $MYVIMRC
   augroup END " }
+
+  " Airline.vim {{{
+  augroup airline_config
+   autocmd!
+    " let g:airline#extensions#tabline#buffer_nr_format = '%s '
+    " let g:airline#extensions#tabline#buffer_nr_show = 1
+    let g:airline#extensions#tabline#enabled = 1
+
+    let g:airline_left_sep=''
+    let g:airline_right_sep=''
+    let g:airline_theme='lucius' "luna 
+    let g:airline_mode_map = {
+          \ '__' : '-',
+          \ 'n'  : 'N',
+          \ 'i'  : 'I',
+          \ 'R'  : 'R',
+          \ 'c'  : 'C',
+          \ 'v'  : 'V',
+          \ 'V'  : 'V',
+          \ '' : 'V',
+          \ 's'  : 'S',
+          \ 'S'  : 'S',
+          \ '' : 'S',
+          \ }
+  augroup END
+  " }}}
+
 endif
 
 
 " }}}
 
-" Increment-Activator {{{
-
-" don't use <C-a> or <C-x>
-let g:increment_activator_no_default_key_mappings = 1
-
-" `'_'` is all files...
-let g:increment_activator_filetype_candidates = {
-      \   '_' : [
-      \     ['VERBOTEN', 'erlaubt'],
-      \     ['ACHTUNG', 'DANGER'],
-      \     ['1-VL','2-L', '3-M', '4-H', '5-VH']
-      \   ],
-      \ }
-" }}}
-
-"}}}
 
 " Code format & Indenting."{{{
 set noautoindent     " auto indents next new line
@@ -240,7 +241,7 @@ set completeopt=longest,menuone,preview
 
 "  Options."{{{
 set cursorline            " track position
-
+set noshowmode            " hide secondary statusline
 set noerrorbells          " no beeps on errors
 set visualbell            " show visual bell
 set title                 " show title in console title bar
@@ -254,13 +255,7 @@ set history=1000
 set wildmenu              " enhanced tab-completion shows all matching cmds in a popup menu
 "}}}
 
-
-
-
-
-
 set splitright " place new splits right & below
-
 
 "}}}
 
@@ -272,8 +267,7 @@ set fillchars=fold:\ ,diff:╳,vert:│
 " Colorscheme."{{{
 set synmaxcol=300 "Avoids editor lockup on extremely long lines
 
-let g:jellyx_show_whitespace = 0
-colorscheme jellyx
+set laststatus=2
 
 if has("gui_running")
   let g:jellyx_show_whitespace = 0
@@ -281,8 +275,9 @@ if has("gui_running")
   "colorscheme mirodark
   "colorscheme atom
 else
-  set list " fallback on invisibles ofr showing whitespace erros
-  colorscheme ir_black
+  set list " fallback on invisibles for showing whitespace erros
+  "colorscheme ir_black
+  colorscheme molotov
 endif
 
 "}}}
@@ -381,17 +376,8 @@ endif
 
 " Keybindings.  "{{{
 
-" Modifier Normalization {{{1
-
-let g:__NAMED_KEYCODES__ = {
-      \ ' ': 'Space',
-      \ '\': 'Bslash',
-      \ '|': 'Bar',
-      \ '<': 'lt'
-      \ }
-
-
-"source ~/.vim/local/modifiers.vim
+vnoremap > >gv
+vnoremap < <gv
 
 " Since our mappings never timeout, a single ESC will hang indefinitely,
 " waiting for a Meta/Mod4 sequence.
@@ -463,26 +449,20 @@ nmap N Nzz
 " Tabs."{{{
 
 " Modifier keys broken by tmux [gh//20140922T0005Z]
-" noremap <M-t> :tabnew<CR>
-" noremap <M-d> :tabclose<CR>
-" noremap <M-h> :tabp<CR>
-" noremap <M-j> :tabp<CR>
-" noremap <M-k> :tabn<CR>
-" noremap <M-l> :tabn<CR>
 noremap ,. :tabnew<CR>
 noremap ., :tabclose<CR>
-:nnoremap .l :tabn<CR>
-:nnoremap .h :tabp<CR>
+:nnoremap ,l :tabn<CR>
+:nnoremap ,h :tabp<CR>
 
-" :nnoremap <M-1> :tabn 1<CR>
-" :nnoremap <M-2> :tabn 2<cr>
-" :nnoremap <M-3> :tabn 3<cr>
-" :nnoremap <M-4> :tabn 4<cr>
-" :nnoremap <M-5> :tabn 5<cr>
-" :nnoremap <M-6> :tabn 6<cr>
-" :nnoremap <M-7> :tabn 7<cr>
-" :nnoremap <M-8> :tabn 8<cr>
-" :nnoremap <M-9> :tabn 9<cr>
+:nnoremap ,1 :tabn 1<CR>
+:nnoremap ,2 :tabn 2<cr>
+:nnoremap ,3 :tabn 3<cr>
+:nnoremap ,4 :tabn 4<cr>
+:nnoremap ,5 :tabn 5<cr>
+:nnoremap ,6 :tabn 6<cr>
+:nnoremap ,7 :tabn 7<cr>
+:nnoremap ,8 :tabn 8<cr>
+:nnoremap ,9 :tabn 9<cr>
 "}}}
 
 " splits."{{{
