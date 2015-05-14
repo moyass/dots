@@ -206,6 +206,18 @@ if  [[ "$OSTYPE" =~ darwin* ]]; then
     alias rm='trash'
   fi
 
+  # cd into whatever is the forefront Finder window.
+  cdf() {  # short for cdfinder
+    cd "`osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)'`"
+  } 
+
+  # who is using the laptop's iSight camera?
+  camerausedby() {
+    echo "Checking to see who is using the iSight camera… 📷"
+    usedby=$(lsof | grep -w "AppleCamera\|USBVDC\|iSight" | awk '{printf $2"\n"}' | xargs ps)
+    echo -e "Recent camera uses:\n$usedby"
+  }
+
   # Lock current session.
   alias lock='/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend'
 
