@@ -83,6 +83,7 @@ setopt transient_rprompt # only show the rprompt on the current prompt
 fpath=( "$HOME/.profile.d/zsh/f" $fpath )
 autoload -U promptinit && promptinit
 prompt pure
+PURE_GIT_PULL=0 # Set PURE_GIT_PULL=0 to prevent Pure from checking whether the current Git remote has been updated.
 
 # ===== Scripts and Functions    {{{2
 
