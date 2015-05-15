@@ -4,7 +4,6 @@
 execute pathogen#infect('pathogens /{}')
 
 call plug#begin()
-Plug 'gmarik/Vundle.vim'
 
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
@@ -217,9 +216,9 @@ set linebreak        " wrap long lines at a character in &breakat'
 
 " Interaction (Keys, Mouse)."{{{
 
-let mapleader='\'
-set backspace=2 " full backspacing capabilities (indent,eol,start)
-set nojoinspaces     " never joing lines with two spaces
+let mapleader=',' " yes i have fallen in with the rebels who don't {f,t}<CR>{\,,\;}
+set backspace=2  " full backspacing capabilities (indent,eol,start)
+set nojoinspaces " never joing lines with two spaces
 
 "set mouse=nv " enable mouse in normal, visual
 set mouse=a
@@ -388,7 +387,7 @@ noremap! <Esc><Esc> <Esc>
 " (<S-Insert> | <Leaderv): Paste."{{{
 map <S-Insert> <MiddleMouse>
 map! <S-Insert> <MiddleMouse>
-noremap <Leader>v <ESC>:set paste<CR>i<C-r>+<Esc>:set nopaste<CR>
+noremap <Leader>v <ESC>:set paste<CR>i<C-r>*<Esc>:set nopaste<CR>
 noremap <Leader>b <ESC>:set paste<CR>i<C-r>"<Esc>:set nopaste<CR>
 "noremap <Leader>+p <ESC>:set paste<CR>i<C-r>"<Esc>:set nopaste<CR>
 "}}}
