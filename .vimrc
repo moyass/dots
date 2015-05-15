@@ -13,6 +13,7 @@ Plug 'editorconfig/editorconfig'
 Plug 'ciaranm/securemodelines'
 Plug 'tpope/vim-eunuch', {'name': 'eunuch'} " :SudoWrite / :Wall
 Plug 'bling/vim-airline'
+Plug 'jamessan/vim-gnupg'
 "surround 
 "rainbow brakets?
 
