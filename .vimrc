@@ -96,6 +96,8 @@ else
   if has('xterm-clipboard')
     set clipboard=unnamedplus    " yank and copy to the X11 PRIMARY clipboard (selection)
     "http://vim.wikia.com/wiki/Accessing_the_system_clipboard
+  else
+    set clipboard=unnamed
   endif
 endif  " [/OS-Settings]<=
 "  }}}
