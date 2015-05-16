@@ -11,13 +11,12 @@ Plug 'godlygeek/tabular'
 Plug 'editorconfig/editorconfig'
 Plug 'ciaranm/securemodelines'
 Plug 'tpope/vim-eunuch', {'name': 'eunuch'} " :SudoWrite / :Wall
-Plug 'bling/vim-airline'
-Plug 'jamessan/vim-gnupg'
-"surround 
-"rainbow brakets?
+Plug 'bling/vim-airline', {'name': 'airline'}
+Plug 'jamessan/vim-gnupg', {'name': 'gnupg'}
+Plug 'rking/ag.vim', {'name': 'ag'}
 
 " Autocompleting
-"Plug 'jiangmiao/auto-pairs'
+Plug 'jiangmiao/auto-pairs'
 Plug 'mattn/emmet-vim', {'name': 'auto-emmet'}
 
 " Syntax etc
@@ -51,8 +50,8 @@ set ttymouse=xterm2       " More accurate mouse tracking
 set ttyfast               " More redrawing characters sent to terminal
 " set notimeout ttimeout  " Wait for mappings, timeout on keycodes
 set timeout ttimeout
-"set timeoutlen=1000
-"set ttimeoutlen=1000
+" set timeoutlen=900
+" set ttimeoutlen=0
 
 
 if &t_Co > 2 || has("gui_running" )
@@ -150,8 +149,7 @@ if has("autocmd")
   " automatically leave insert mode after 'updatetime' ms of inacction
   " http://vim.wikia.com/wiki/To_switch_back_to_normal_mode_automatically_after_inaction
   au CursorHoldI * stopinsert
-  " set 'updatetime' to 15 seconds when in insert mode
-  au InsertEnter * let updaterestore=&updatetime | set updatetime=15000
+  au InsertEnter * let updaterestore=&updatetime | set updatetime=7000
   au InsertLeave * let &updatetime=updaterestore
 
   " Restore cursor position
@@ -383,12 +381,28 @@ endif
 vnoremap > >gv
 vnoremap < <gv
 
+nmap q <Nop>
+
+nnoremap <buffer> <Left> <Nop>
+nnoremap <buffer> <Right> <Nop>
+nnoremap <buffer> <Up> <Nop>
+nnoremap <buffer> <Down> <Nop>
+
+inoremap <buffer> <Left> <Esc>
+inoremap <buffer> <Right> <Esc>
+inoremap <buffer> <Up> <Esc>
+inoremap <buffer> <Down> <Esc>
+
+vnoremap <buffer> <Left> <Nop>
+vnoremap <buffer> <Right> <Nop>
+vnoremap <buffer> <Up> <Nop>
+vnoremap <buffer> <Down> <Nop>
+
 " Since our mappings never timeout, a single ESC will hang indefinitely,
 " waiting for a Meta/Mod4 sequence.
 noremap! <Esc><Esc> <Esc>
-" inoremap jj <Esc>
 
-" (<S-Insert> | <Leaderv): Paste."{{{
+" (<S-Insert> | <Leader>v): Paste."{{{
 map <S-Insert> <MiddleMouse>
 map! <S-Insert> <MiddleMouse>
 noremap <Leader>v <ESC>:set paste<CR>i<C-r>*<Esc>:set nopaste<CR>
