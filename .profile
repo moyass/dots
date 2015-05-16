@@ -160,10 +160,8 @@ else
 fi
 #}}}
 
-
 ###########################################
 # ls aliases#{{{
-
 
 alias l='ls -AhF'
 alias ll='l -lh'
@@ -173,23 +171,23 @@ alias lla='lal'
 #}}}
 
 ###########################################
-# other aliases#{{{
+# other aliases #{{{
 
 
 # SSH
 # =============================
 
-
 reagent () {
   for agent in /tmp/ssh-*/agent.*; do
     export SSH_AUTH_SOCK=$agent
-    if ssh-add -l 2>&1 > /dev/null; then
-      echo Found working SSH Agent:
+
+    if ssh-add -l 2>&1 >/dev/null; then
+      echo "Found working SSH Agent..."
       ssh-add -l
-      return
+    else
+      echo "Cannot find ssh agent"
     fi
   done
-  echo Cannot find ssh agent - maybe you should reconnect and forward it?
 }
 
 
@@ -256,7 +254,6 @@ alias cim="vim"
 alias vom="vim"
 alias vi='vim'
 
-alias sue='/usr/bin/sudo -sE'
 
 # aes-enc file.zip
 function aes-enc() {
@@ -291,7 +288,6 @@ if [[ "$OSTYPE" =~ linux* && $(which trash) =~ /trash/ ]]; then
 fi
 #}}}
 
-
 ###########################################
 # systemd aliases#{{{
 
@@ -299,7 +295,6 @@ fi
 alias ctl='systemctl'
 alias uctl='systemctl --user'
 #}}}
-
 
 ###########################################
 # tmux aliases#{{{
@@ -363,7 +358,7 @@ jjclean() {
 #}}}
 
 ###########################################
-#  jjfind#{{{
+# jjfind#{{{
 
 ## For finding stuff in a directory.
 jjfind () {

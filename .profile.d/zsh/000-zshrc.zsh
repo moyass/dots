@@ -9,10 +9,11 @@
 # Jorge Israel Peña: https://github.com/blaenk/dots/tree/master/zsh/zsh
 
 ### MODULES {{{1
-autoload -U colors bashcompinit edit-command-line zmv
-autoload -Uz compinit vcs_info
+autoload -U colors edit-command-line zmv
+autoload -Uz vcs_info
+autoload -Uz +X compinit bashcompinit 
 colors && compinit -i && bashcompinit
-zmodload zsh/complist
+zmodload -i zsh/complist
 zmodload zsh/terminfo
 zle -N edit-command-line
 
