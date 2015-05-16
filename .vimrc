@@ -90,11 +90,13 @@ if has("gui_win32") " returns 1 on WOW64  =>[OS-Settings]
 else
   " ... we're not on windows, so just be normal.
   if has('gui_running')
-    let &guifont="Cousine\ 11,dejavu\ sans\ mono\ for\ powerline\ 11"
+    let &guifont="Monaco\ 11"
   endif
 
-  set clipboard=unnamedplus    " yank and copy to the X11 PRIMARY clipboard (selection)
-  "http://vim.wikia.com/wiki/Accessing_the_system_clipboard
+  if has('xterm-clipboard')
+    set clipboard=unnamedplus    " yank and copy to the X11 PRIMARY clipboard (selection)
+    "http://vim.wikia.com/wiki/Accessing_the_system_clipboard
+  endif
 endif  " [/OS-Settings]<=
 "  }}}
 
