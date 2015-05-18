@@ -196,13 +196,13 @@ reagent () {
 
 if  [[ "$OSTYPE" =~ darwin* ]]; then
 
+  # bash completion in osx, thanks to homebrew
+  if [ -f `brew --prefix`/etc/bash_completion ]; then
+    . `brew --prefix`/etc/bash_completion
+  fi
+
   # pidof for poor, poor osxie
   pidof () { ps -Acw | egrep -i $@ | awk '{print $1}'; }
-
-  # rm with trash (`brew install trash`).
-  if [ -f `brew --prefix`/bin/trash ]; then
-    alias rm='trash'
-  fi
 
   # cd into whatever is the forefront Finder window.
   cdf() {  # short for cdfinder
@@ -299,6 +299,7 @@ alias uctl='systemctl --user'
 ###########################################
 # tmux aliases#{{{
 
+alias tmux="tmux -f ~/.config/tmux/conf"
 tmuxa() { [[ -z "$TMUX" ]] && { tmux attach -d || tmux ;} }
 shux() { ssh "$1" -t tmux a -d;}
 smux() { ssh $* -t 'exec ~/bin/onemux';}
