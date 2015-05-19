@@ -1,15 +1,17 @@
 [filter "media"]
-  clean          = git-media-clean %f
-  smudge         = git-media-smudge %f
+	clean = git-media-clean %f
+	smudge = git-media-smudge %f
 
 [user]
-  name           = guy hughes
-  email          = guyhugh3s@gmail.com
-
+  name       = Guy Hughes 
+  email      = guyhugh3s@gmail.com
+  signingkey = 0x4BC72AA6B1AE2B5AC7F7ADCF9D1AA266D2BC9C2D
 [credential]
 # helper         = osxkeychain
 
 [alias]
+  rewrite-date = "!d=\"$(gdate -d \"$1\")\" && shift && GIT_COMMITTER_DATE=\"$d\" \
+            git commit --amend --date \"$d\""
   ai             = add --interactive
   ls             = ls-files
   br             = branch

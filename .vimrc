@@ -8,31 +8,31 @@ call plug#begin()
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
 Plug 'godlygeek/tabular'
-Plug 'editorconfig/editorconfig'
+Plug 'editorconfig/editorconfig-vim', 
 Plug 'ciaranm/securemodelines'
-Plug 'tpope/vim-eunuch', {'name': 'eunuch'} " :SudoWrite / :Wall
-Plug 'bling/vim-airline', {'name': 'airline'}
-Plug 'jamessan/vim-gnupg', {'name': 'gnupg'}
-Plug 'rking/ag.vim', {'name': 'ag'}
+Plug 'tpope/vim-eunuch',  " :SudoWrite / :Wall
+Plug 'bling/vim-airline', 
+Plug 'jamessan/vim-gnupg', 
+Plug 'rking/ag.vim', 
 
 " Autocompleting
-Plug 'jiangmiao/auto-pairs'
-Plug 'mattn/emmet-vim', {'name': 'auto-emmet'}
+" Plug 'jiangmiao/auto-pairs'
+Plug 'mattn/emmet-vim', 
 
 " Syntax etc
-Plug 'scrooloose/syntastic', {'name': 'syntax-syntastic'}
-Plug 'sheerun/vim-polyglot', {'name': 'syntax-polyglot'}
-Plug 'git://fedorapeople.org/home/fedora/wwoods/public_git/vim-scripts.git', {'name': 'syntax-systemd'}
-Plug 'plasticboy/vim-markdown', {'name': 'syntax-markdown'}
+Plug 'scrooloose/syntastic', 
+Plug 'sheerun/vim-polyglot', 
+Plug 'git://fedorapeople.org/home/fedora/wwoods/public_git/vim-scripts.git', 
+Plug 'plasticboy/vim-markdown', 
 
 " Git/VCS
-Plug 'airblade/vim-gitgutter', {'name': 'git-gutter'}
-Plug 'tpope/vim-fugitive', {'name': 'git-fugitive'}
+Plug 'airblade/vim-gitgutter', 
+Plug 'tpope/vim-fugitive', 
 
 " Colour
-Plug 'w0ng/vim-hybrid', {'name': 'colour-w0ng-hybrid'}
-Plug 'guns/jellyx.vim', {'name': 'colour-guns-jellyx'}
-Plug 'fisadev/fisa-vim-colorscheme', {'name': 'colour-fisa'}
+Plug 'w0ng/vim-hybrid', 
+Plug 'guns/jellyx.vim', 
+Plug 'fisadev/fisa-vim-colorscheme', 
 
 call plug#end()
 
@@ -466,7 +466,6 @@ nmap N Nzz
 
 " Tabs."{{{
 
-" Modifier keys broken by tmux [gh//20140922T0005Z]
 noremap ,. :tabnew<CR>
 noremap ., :tabclose<CR>
 :nnoremap ,l :tabn<CR>
