@@ -295,7 +295,6 @@ alias uctl='systemctl --user'
 ###########################################
 # tmux aliases#{{{
 
-alias tmux="tmux -f ~/.config/tmux/conf"
 tmuxa() { [[ -z "$TMUX" ]] && { tmux attach -d || tmux ;} }
 shux() { ssh "$1" -t tmux a -d;}
 smux() { ssh $* -t 'exec ~/bin/onemux';}

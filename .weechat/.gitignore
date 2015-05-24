@@ -1,0 +1,8 @@
+irc.conf
+**/autoload/*
+!perl/*
+!ruby/*
+!python/*
+log*
+*log
+logs/**

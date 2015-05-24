@@ -8,31 +8,31 @@ call plug#begin()
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
 Plug 'godlygeek/tabular'
-Plug 'editorconfig/editorconfig-vim', 
+Plug 'editorconfig/editorconfig-vim',
 Plug 'ciaranm/securemodelines'
 Plug 'tpope/vim-eunuch',  " :SudoWrite / :Wall
-Plug 'bling/vim-airline', 
-Plug 'jamessan/vim-gnupg', 
-Plug 'rking/ag.vim', 
+Plug 'bling/vim-airline',
+Plug 'jamessan/vim-gnupg',
+Plug 'rking/ag.vim',
 
 " Autocompleting
 " Plug 'jiangmiao/auto-pairs'
-Plug 'mattn/emmet-vim', 
+Plug 'mattn/emmet-vim',
 
 " Syntax etc
-Plug 'scrooloose/syntastic', 
-Plug 'sheerun/vim-polyglot', 
-Plug 'git://fedorapeople.org/home/fedora/wwoods/public_git/vim-scripts.git', 
-Plug 'plasticboy/vim-markdown', 
+Plug 'scrooloose/syntastic',
+Plug 'sheerun/vim-polyglot',
+Plug 'git://fedorapeople.org/home/fedora/wwoods/public_git/vim-scripts.git',
+Plug 'plasticboy/vim-markdown',
 
 " Git/VCS
-Plug 'airblade/vim-gitgutter', 
-Plug 'tpope/vim-fugitive', 
+Plug 'airblade/vim-gitgutter',
+Plug 'tpope/vim-fugitive',
 
 " Colour
-Plug 'w0ng/vim-hybrid', 
-Plug 'guns/jellyx.vim', 
-Plug 'fisadev/fisa-vim-colorscheme', 
+Plug 'w0ng/vim-hybrid',
+Plug 'guns/jellyx.vim',
+Plug 'fisadev/fisa-vim-colorscheme',
 
 call plug#end()
 
@@ -165,12 +165,12 @@ if has("autocmd")
   augroup airline_config
    autocmd!
     " let g:airline#extensions#tabline#buffer_nr_format = '%s '
-    " let g:airline#extensions#tabline#buffer_nr_show = 1
+    let g:airline#extensions#tabline#buffer_nr_show = 0
     let g:airline#extensions#tabline#enabled = 1
 
     let g:airline_left_sep=''
     let g:airline_right_sep=''
-    let g:airline_theme='lucius' "luna 
+    let g:airline_theme='luna'
     let g:airline_mode_map = {
           \ '__' : '-',
           \ 'n'  : 'N',
@@ -279,7 +279,7 @@ if has("gui_running")
 else
   set list " fallback on invisibles for showing whitespace erros
   "colorscheme ir_black
-  colorscheme molotov
+  colorscheme fisa
 endif
 
 "}}}
