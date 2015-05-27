@@ -7,13 +7,14 @@ call plug#begin()
 
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
+Plug 'tpope/vim-surround'
 Plug 'godlygeek/tabular'
 Plug 'editorconfig/editorconfig-vim',
 Plug 'ciaranm/securemodelines'
-Plug 'tpope/vim-eunuch',  " :SudoWrite / :Wall
-Plug 'bling/vim-airline',
-Plug 'jamessan/vim-gnupg',
-Plug 'rking/ag.vim',
+Plug 'tpope/vim-eunuch'  " :SudoWrite / :Wall
+Plug 'bling/vim-airline'
+Plug 'jamessan/vim-gnupg'
+Plug 'rking/ag.vim'
 
 " Autocompleting
 " Plug 'jiangmiao/auto-pairs'
@@ -224,17 +225,17 @@ set nojoinspaces " never joing lines with two spaces
 
 "set mouse=nv " enable mouse in normal, visual
 set mouse=a
-set mousehide     " Hide the mouse when typing text
-set nostartofline " Avoid moving cursor to BOL when jumping around
+set mousehide                           " Hide the mouse when typing text
+set nostartofline                       " Avoid moving cursor to BOL when jumping around
 
-set whichwrap=b,s,h,l,<,> " <BS> <Space> h l <Left> <Right> can change lines
-set virtualedit=block " Let cursor move past the last char in <C-v> mode
-set scrolloff=3 " Keep 3 context lines above and below the cursor
-set backspace=2 " Allow backspacing over autoindent, EOL, and BOL
-set showmatch " Briefly jump to a paren once it's balanced
-set matchtime=2 " (for only .2 seconds).
+set whichwrap=b,s,h,l,<,>               " <BS> <Space> h l <Left> <Right> can change lines
+set virtualedit=block                   " Let cursor move past the last char in <C-v> mode
+set scrolloff=3                         " Keep 3 context lines above and below the cursor
+set backspace=2                         " Allow backspacing over autoindent, EOL, and BOL
+set showmatch                           " Briefly jump to a paren once it's balanced
+set matchtime=2                         " (for only .2 seconds).
 
-set complete=.,w,b,u,t  " Better Completion TODO: g.
+set complete=.,w,b,u,t                  " Better Completion TODO: g.
 set completeopt=longest,menuone,preview
 
 " }}}
@@ -381,7 +382,6 @@ endif
 vnoremap > >gv
 vnoremap < <gv
 
-nmap q <Nop>
 
 nnoremap <buffer> <Left> <Nop>
 nnoremap <buffer> <Right> <Nop>
@@ -413,7 +413,7 @@ noremap <Leader>b <ESC>:set paste<CR>i<C-r>"<Esc>:set nopaste<CR>
 " Load gui menus for terminal vim "{{{
 if !has('gui_running')
   source $VIMRUNTIME/menu.vim
-  map <F10> :emenu <C-Z>
+  map <Leader>em :emenu <C-Z>
 endif
 "}}}
 
@@ -471,15 +471,6 @@ noremap ., :tabclose<CR>
 :nnoremap ,l :tabn<CR>
 :nnoremap ,h :tabp<CR>
 
-:nnoremap ,1 :tabn 1<CR>
-:nnoremap ,2 :tabn 2<cr>
-:nnoremap ,3 :tabn 3<cr>
-:nnoremap ,4 :tabn 4<cr>
-:nnoremap ,5 :tabn 5<cr>
-:nnoremap ,6 :tabn 6<cr>
-:nnoremap ,7 :tabn 7<cr>
-:nnoremap ,8 :tabn 8<cr>
-:nnoremap ,9 :tabn 9<cr>
 "}}}
 
 " splits."{{{
@@ -512,30 +503,22 @@ nnoremap <Leader>ml :call ModelineStub()<CR>
 "}}}
 
 
-" <F6> Remove trailing spaces from lines
-" " http://vim.wikia.com/wiki/Remove_unwanted_spaces
-:nnoremap <silent> <F6> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
+" Remove trailing spaces from lines
+" http://vim.wikia.com/wiki/Remove_unwanted_spaces
+:nnoremap <Leader>dts :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
 
 
-" (<F7> | \sp): Spell Check."{{{
-" https://github.com/icco/dotFiles/blob/master/link/vimrc
+
+" toggles
+nnoremap <silent> <Leader>n :set invnumber<CR>
 :noremap <Leader>sp :set spell!<cr>
-:noremap <F7> :set spell!<cr>
-"}}}
-
-" <F9> toggles line numbers and turns off relative line numbers
-nnoremap <silent> <F9> :set invnumber<CR>
-
+nnoremap <Leader>p :set invpaste<CR>
+nnoremap <Leader>w :set invwrap<CR>
 
 " Q formats paragraphs, instead of entering ex mode
 noremap Q gq
 nnoremap <silent> gqJ :call Exe#ExeWithOpts('norm! gqj', { 'tw' : 2147483647 })<CR>
 
-" <Leader>w write
-noremap <Leader>w <Esc>:w<CR>
-
-" <Leader>q quit
-noremap <Leader>q <Esc>:q<CR>
 
 
 " Plugin: Tabular. "{{{
@@ -626,7 +609,6 @@ if has('gui_running')
       execute 'map! <special> <D-'.char.'> <4-'.char.'>'
     endfor
   endif
-  " removed terminal modifer normalization here [Guy Hughes // 20150507T2131Z]
 
 endif
 
