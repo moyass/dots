@@ -469,10 +469,6 @@ noremap ., :tabclose<CR>
 :noremap <C-j> <C-w>j
 :noremap <C-k> <C-w>k
 :noremap <C-l> <C-w>l
-:noremap <C-S-h> <C-w>H
-:noremap <C-S-j> <C-w>J
-:noremap <C-S-k> <C-w>K
-:noremap <C-S-l> <C-w>L
 :noremap <C-x> <C-w>x
 "}}}
 
