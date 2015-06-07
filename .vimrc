@@ -12,7 +12,8 @@ Plug 'godlygeek/tabular'
 Plug 'editorconfig/editorconfig-vim',
 Plug 'ciaranm/securemodelines'
 Plug 'tpope/vim-eunuch'  " :SudoWrite / :Wall
-Plug 'bling/vim-airline'
+" Plug 'bling/vim-airline'
+Plug 'itchyny/lightline.vim'
 Plug 'jamessan/vim-gnupg'
 Plug 'rking/ag.vim'
 
@@ -25,6 +26,8 @@ Plug 'scrooloose/syntastic',
 Plug 'sheerun/vim-polyglot',
 Plug 'git://fedorapeople.org/home/fedora/wwoods/public_git/vim-scripts.git',
 Plug 'plasticboy/vim-markdown',
+Plug 'altercation/vim-colors-solarized'
+Plug 'whatyouhide/vim-gotham'
 
 " Git/VCS
 Plug 'airblade/vim-gitgutter',
@@ -49,10 +52,10 @@ set encoding=utf-8 nobomb " UTF-8 encoding for all new files
 set shortmess=aoOstTAI    " shorten all messages except written
 set ttymouse=xterm2       " More accurate mouse tracking
 set ttyfast               " More redrawing characters sent to terminal
-" set notimeout ttimeout  " Wait for mappings, timeout on keycodes
-set timeout ttimeout
-" set timeoutlen=900
-" set ttimeoutlen=0
+ " set notimeout ttimeout  " Wait for mappings, timeout on keycodes
+" set timeout ttimeout
+set timeoutlen=900
+set ttimeoutlen=0
 
 
 if &t_Co > 2 || has("gui_running" )
@@ -156,37 +159,27 @@ if has("autocmd")
   " Restore cursor position
   au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
 
-    " Autoreload vimrc.
-    augroup reload_vimrc " {
-      au!
-      au BufWritePost $MYVIMRC source $MYVIMRC
+  " Autoreload vimrc.
+  augroup reload_vimrc " {
+    au!
+    autocmd bufwritepost $MYVIMRC nested source $MYVIMRC 
   augroup END " }
 
-  " Airline.vim {{{
-  augroup airline_config
-   autocmd!
-    " let g:airline#extensions#tabline#buffer_nr_format = '%s '
-    let g:airline#extensions#tabline#buffer_nr_show = 0
-    let g:airline#extensions#tabline#enabled = 1
-
-    let g:airline_left_sep=''
-    let g:airline_right_sep=''
-    let g:airline_theme='luna'
-    let g:airline_mode_map = {
-          \ '__' : '-',
-          \ 'n'  : 'N',
-          \ 'i'  : 'I',
-          \ 'R'  : 'R',
-          \ 'c'  : 'C',
-          \ 'v'  : 'V',
-          \ 'V'  : 'V',
-          \ '' : 'V',
-          \ 's'  : 'S',
-          \ 'S'  : 'S',
-          \ '' : 'S',
-          \ }
-  augroup END
-  " }}}
+  "Lightline.vim {{{
+  let g:lightline = { 'colorscheme': 'gotham' }
+  let g:lightline.mode_map = {
+        \ 'n' : 'N',
+        \ 'i' : 'INSERT',
+        \ 'R' : 'REPLACE',
+        \ 'v' : 'V',
+        \ 'V' : 'V-LINE',
+        \ 'c' : 'COMMAND',
+        \ "\<C-v>": 'V-BLOCK',
+        \ 's' : 'SELECT',
+        \ 'S' : 'S-LINE',
+        \ "\<C-s>": 'S-BLOCK',
+        \ '?': '      ' }
+  "}}}
 
 endif
 
@@ -278,9 +271,9 @@ if has("gui_running")
   "colorscheme mirodark
   "colorscheme atom
 else
-  set list " fallback on invisibles for showing whitespace erros
+  set list " fallback on invisibles for showing whitespace errors
   "colorscheme ir_black
-  colorscheme fisa
+  colorscheme gotham
 endif
 
 "}}}
@@ -398,10 +391,6 @@ vnoremap <buffer> <Right> <Nop>
 vnoremap <buffer> <Up> <Nop>
 vnoremap <buffer> <Down> <Nop>
 
-" Since our mappings never timeout, a single ESC will hang indefinitely,
-" waiting for a Meta/Mod4 sequence.
-noremap! <Esc><Esc> <Esc>
-
 " (<S-Insert> | <Leader>v): Paste."{{{
 map <S-Insert> <MiddleMouse>
 map! <S-Insert> <MiddleMouse>
@@ -470,7 +459,8 @@ noremap ,. :tabnew<CR>
 noremap ., :tabclose<CR>
 :nnoremap ,l :tabn<CR>
 :nnoremap ,h :tabp<CR>
-
+:nnoremap <C-n> :tabn<CR>
+:nnoremap <C-p> :tabp<CR>
 "}}}
 
 " splits."{{{
@@ -479,6 +469,11 @@ noremap ., :tabclose<CR>
 :noremap <C-j> <C-w>j
 :noremap <C-k> <C-w>k
 :noremap <C-l> <C-w>l
+:noremap <C-S-h> <C-w>H
+:noremap <C-S-j> <C-w>J
+:noremap <C-S-k> <C-w>K
+:noremap <C-S-l> <C-w>L
+:noremap <C-x> <C-w>x
 "}}}
 
 " Folds. "{{{
