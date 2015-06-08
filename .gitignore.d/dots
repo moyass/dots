@@ -40,13 +40,6 @@
 !/.config/dircolors/solarized/img/screen-dircolors-in-iTerm2-solarized_light.png
 !/.config/dircolors/solarized/img/screen-iTerm2-bold-options.png
 !/.config/dircolors/solarized/test-directory.tar.bz2
-!/.config/htop
-!/.config/htop/htoprc
-!/.config/i3
-!/.config/i3/config
-!/.config/i3/conky.sh
-!/.config/i3/conkybar
-!/.config/i3/status
 !/.config/ranger
 !/.config/ranger/colorschemes
 !/.config/ranger/colorschemes/euphrasia.py
