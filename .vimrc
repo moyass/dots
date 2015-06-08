@@ -1,7 +1,7 @@
 "
 " ~/.vimrc
 "
-execute pathogen#infect('pathogens /{}')
+execute pathogen#infect('pathogens/{}')
 
 call plug#begin()
 
@@ -481,7 +481,7 @@ nnoremap <space> za
 vnoremap <space> zf
 
 " <leader>\ clear hlsearch and redraw screen."{{{
-noremap <silent> <Leader>\\ :nohls<cr><c-l><CR>
+noremap <silent> <Leader><Leader> :nohls<cr><c-l><CR>
 noremap <silent> /// :nohls<cr><c-l><CR>
 "noremap <silent> <C-l> :nohls<cr><c-l><CR>
 "}}}
@@ -502,9 +502,9 @@ nnoremap <Leader>ml :call ModelineStub()<CR>
 
 " toggles
 nnoremap <silent> <Leader>n :set invnumber<CR>
-:noremap <Leader>sp :set spell!<cr>
-nnoremap <Leader>p :set invpaste<CR>
-nnoremap <Leader>w :set invwrap<CR>
+nnoremap <silent> <Leader>sp :set spell!<cr>
+nnoremap <silent> <Leader>p :set invpaste<CR>
+nnoremap <silent> <Leader>w :set invwrap<CR>
 
 " Q formats paragraphs, instead of entering ex mode
 noremap Q gq

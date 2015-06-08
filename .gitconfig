@@ -17,6 +17,7 @@
   br             = branch
   cb             = "!sh -c 'git branch $1 && git ch $1' -"
   ch             = checkout
+  co             = checkout
 
   ci             = commit
   aic            = "!sh -c 'git add --interactive && git commit' -"

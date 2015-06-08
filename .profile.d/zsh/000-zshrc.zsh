@@ -19,7 +19,6 @@ zle -N edit-command-line
 
 #}}}1
 
-
 ### OPTIONS {{{1
 ZDOTDIR="$HOME/.profile.d/zsh/"
 
@@ -81,22 +80,20 @@ setopt prompt_subst      # Enable parameter expansion, command substitution, and
 setopt prompt_percent
 setopt transient_rprompt # only show the rprompt on the current prompt
 
-fpath=( "$HOME/.profile.d/zsh/f" $fpath )
 autoload -U promptinit && promptinit
-prompt pure
-PURE_GIT_PULL=0 # Set PURE_GIT_PULL=0 to prevent Pure from checking whether the current Git remote has been updated.
 
 # ===== Scripts and Functions    {{{2
 
 setopt multios          # perform implicit tees or cats when multiple redirections are attempted
 
-#}}}1
 
 # man zshcontrib
  zstyle ':vcs_info:*' actionformats '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{3}|%F{1}%a%F{5}]%f '
  zstyle ':vcs_info:*' formats '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{5}]%f '
  zstyle ':vcs_info:*' enable git #svn cvs 
 
+#}}}1
+#
 ### COMPLETION {{{1
 
 
@@ -273,6 +270,25 @@ bindkey -M viins "^?" backward-delete-char # vi-backward-delete-char
 # allow interactive incr search, ^G or ^C to exit
 bindkey -M isearch "^P" history-incremental-search-backward
 bindkey -M isearch "^N" history-incremental-search-forward
+#2}}}
+# 1}}}
+
+### PLUGINS {{{1 {{{2
+# https://github.com/zsh-users/zsh-syntax-highlighting {{{2
+if [ -e $ZDOTDIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+  source $ZDOTDIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+elif command -v git > /dev/null 2>&1; then
+  git clone https://github.com/zsh-users/zsh-syntax-highlighting $ZDOTDIR/zsh-syntax-highlighting
+fi
+
+# https://github.com/zsh-users/zaw {{{2
+if [ -e $ZDOTDIR/zaw/zaw.zsh ]; then
+  source $ZDOTDIR/zaw/zaw.zsh
+  bindkey '^z' zaw-history
+  bindkey '^x' zaw-git-files
+elif command -v git > /dev/null 2>&1; then
+  git clone https://github.com/zsh-users/zaw $ZDOTDIR/zaw
+fi
 
 
-
+# }}}1
