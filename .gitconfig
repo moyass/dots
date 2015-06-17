@@ -31,6 +31,7 @@
   whois        = "!sh -c 'git log -i -1 --pretty=\"format:%an <%ae>\n\" --author=\"$1\"' -"
 
   insta        = instaweb --httpd=webrick
+  x            = annex
 [color]
   ui             = auto
 

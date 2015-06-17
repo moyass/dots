@@ -97,6 +97,7 @@ elif [[ "$OSTYPE" =~ linux* ]]; then
 
 fi
 
+export GPG_TTY=`tty`
 export CDPATH="$CDPATH:$HOME/Projects"
 
 export VISUAL="vim"
@@ -176,6 +177,9 @@ alias lla='lal'
 
 # SSH
 # =============================
+keys () {
+  eval `keychain --eval --agents ssh,gpg --inherit any`
+}
 
 reagent () {
   for agent in /tmp/ssh-*/agent.*; do
