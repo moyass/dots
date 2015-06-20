@@ -20,6 +20,7 @@ Plug 'rking/ag.vim'
 " Autocompleting
 " Plug 'jiangmiao/auto-pairs'
 Plug 'mattn/emmet-vim',
+Plug 'nishigori/increment-activator'
 
 " Syntax etc
 Plug 'scrooloose/syntastic',
