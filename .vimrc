@@ -228,7 +228,7 @@ set scrolloff=3           " Keep 3 context lines above and below the cursor
 set backspace=2           " Allow backspacing over autoindent, EOL, and BOL
 
 set matchpairs=(:),{:},[:],<:>
-set noshowmatch             " Briefly jump to a paren once it's balanced
+set noshowmatch             " Don't Briefly jump to a paren once it's balanced
 set matchtime=2           " (for only .2 seconds).
 
 set complete=.,w,b,u,t " Better Completion TODO: g.
@@ -256,7 +256,7 @@ set history=1000
 if has('wildmenu')
  " enhanced tab-completion shows all matching cmds in a popup menu
  set wildmenu
- set wildmode=longest:list
+ set wildmode=full
  set wildcharm=<C-Z>
 
  " don't complete files I won't edit with vim
