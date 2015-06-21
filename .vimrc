@@ -45,7 +45,7 @@ if has('autocmd')
   autocmd!
 endif
 
-" Standard. (syntax, utf8, ft, nocompatible, clipboard, 256 ) "{{{1
+" Standard. (syntax, utf8, ft, clipboard, 256 ) "{{{1
 filetype plugin on
 filetype indent on
 set encoding=utf-8 nobomb " UTF-8 encoding for all new files
@@ -56,7 +56,7 @@ set ttyfast               " More redrawing characters sent to terminal
 " set timeout ttimeout
 set timeoutlen=900
 set ttimeoutlen=0
-
+set report=0 " Always report the number of lines changed by a cmd
 
 if &t_Co > 2 || has("gui_running" )
   set t_Co=256 " 256 colors please
@@ -79,6 +79,7 @@ if has('persistent_undo') && isdirectory(expand('~/.cache/vim/undo'))
   set undofile
   set undodir=~/.cache/vim/undo
 endif
+"}}}1
 
 "  OS Settings  {{{1
 
@@ -90,7 +91,7 @@ if has("gui_win32") " returns 1 on WOW64  =>[OS-Settings]
     let &guifont="Consolas:h11"
   endif
 
-  " Not Windows... Lucky you! "{{{2
+" Not Windows... Lucky you! "{{{2
 else
   " ... we're not on windows, so just be normal.
   if has('gui_running')
@@ -187,7 +188,6 @@ endif
 
 " }}}
 
-
 " Code format & Indenting."{{{
 set noautoindent     " auto indents next new line
 set nosmartindent
@@ -201,7 +201,6 @@ set softtabstop=2    " see spaces as tabs
 set showcmd      " show typing in normal mode
 set showbreak=…\  " show x in front of wrapped lines (trailing escaped space `\ `)
 set textwidth=0  " disable hard wrap (e.g. set to 79 for new files)
-
 
 set formatoptions=q  " Format text with gq, but don't format as I type.
 set formatoptions+=n " gq recognizes numbered lists, and will try to
@@ -227,11 +226,14 @@ set whichwrap=b,s,h,l,<,> " <BS> <Space> h l <Left> <Right> can change lines
 set virtualedit+=block     " Let cursor move past the last char in <C-v> mode
 set scrolloff=3           " Keep 3 context lines above and below the cursor
 set backspace=2           " Allow backspacing over autoindent, EOL, and BOL
-set showmatch             " Briefly jump to a paren once it's balanced
+
+set matchpairs=(:),{:},[:],<:>
+set noshowmatch             " Briefly jump to a paren once it's balanced
 set matchtime=2           " (for only .2 seconds).
 
 set complete=.,w,b,u,t " Better Completion TODO: g.
 set completeopt=longest,menuone,preview
+
 
 " }}}
 
@@ -245,8 +247,6 @@ set noerrorbells          " no beeps on errors
 set visualbell            " show visual bell
 set title                 " show title in console title bar
 set noruler               " no: display row, column and % of document
-set showmatch             " show matching () {} etc.
-
 
 " Commandline. "{{{
 
@@ -257,6 +257,7 @@ if has('wildmenu')
  " enhanced tab-completion shows all matching cmds in a popup menu
  set wildmenu
  set wildmode=longest:list
+ set wildcharm=<C-Z>
 
  " don't complete files I won't edit with vim
  if has('wildignore')
@@ -274,7 +275,7 @@ endif
 "}}}
 
 set splitright " place new splits right & below
-
+set splitbelow
 "}}}
 
 " Listchars: show spaces, tab, eol trailing"{{{
@@ -418,13 +419,13 @@ vnoremap <buffer> <Right> <Nop>
 vnoremap <buffer> <Up> <Nop>
 vnoremap <buffer> <Down> <Nop>
 
-" (<S-Insert> | <Leader>v): Paste."{{{
+" (<S-Insert> | <Leader>v): Paste."{{{"{{{
 map <S-Insert> <MiddleMouse>
 map! <S-Insert> <MiddleMouse>
 noremap <Leader>v <ESC>:set paste<CR>i<C-r>*<Esc>:set nopaste<CR>
 noremap <Leader>b <ESC>:set paste<CR>i<C-r>"<Esc>:set nopaste<CR>
 "noremap <Leader>+p <ESC>:set paste<CR>i<C-r>"<Esc>:set nopaste<CR>
-"}}}
+"}}}"}}}
 
 " Load gui menus for terminal vim "{{{
 if !has('gui_running')
