@@ -1,6 +1,7 @@
 "
 " ~/.vimrc
 "
+set nocompatible          " leave the old ways behind
 execute pathogen#infect('pathogens/{}')
 
 call plug#begin()
@@ -12,7 +13,6 @@ Plug 'godlygeek/tabular'
 Plug 'editorconfig/editorconfig-vim',
 Plug 'ciaranm/securemodelines'
 Plug 'tpope/vim-eunuch'  " :SudoWrite / :Wall
-" Plug 'bling/vim-airline'
 Plug 'itchyny/lightline.vim'
 Plug 'jamessan/vim-gnupg'
 Plug 'rking/ag.vim'
@@ -48,7 +48,6 @@ endif
 " Standard. (syntax, utf8, ft, nocompatible, clipboard, 256 ) "{{{1
 filetype plugin on
 filetype indent on
-set nocompatible          " leave the old ways behind
 set encoding=utf-8 nobomb " UTF-8 encoding for all new files
 set shortmess=aoOstTAI    " shorten all messages except written
 set ttymouse=xterm2       " More accurate mouse tracking
@@ -75,6 +74,7 @@ if isdirectory(expand('~/.cache/vim'))
   set viminfo+=n~/.cache/vim/viminfo
   let g:netrw_home = expand('~/.cache/vim')
 endif
+set undolevels=2000
 if has('persistent_undo') && isdirectory(expand('~/.cache/vim/undo'))
   set undofile
   set undodir=~/.cache/vim/undo
@@ -163,7 +163,7 @@ if has("autocmd")
   " Autoreload vimrc.
   augroup reload_vimrc " {
     au!
-    autocmd bufwritepost $MYVIMRC nested source $MYVIMRC 
+    autocmd bufwritepost $MYVIMRC nested source $MYVIMRC
   augroup END " }
 
   "Lightline.vim {{{
@@ -198,8 +198,9 @@ set tabstop=2        " <Tab> move three characters
 set shiftwidth=2     " >> and << shift 3 spaces
 set softtabstop=2    " see spaces as tabs
 
-set showbreak=…\     " show x in front of wrapped lines (trailing escaped space `\ `)
-set textwidth=0      " disable hard wrap (e.g. set to 79 for new files)
+set showcmd      " show typing in normal mode
+set showbreak=…\  " show x in front of wrapped lines (trailing escaped space `\ `)
+set textwidth=0  " disable hard wrap (e.g. set to 79 for new files)
 
 
 set formatoptions=q  " Format text with gq, but don't format as I type.
@@ -214,22 +215,22 @@ set linebreak        " wrap long lines at a character in &breakat'
 " Interaction (Keys, Mouse)."{{{
 
 let mapleader=',' " yes i have fallen in with the rebels who don't {f,t}<CR>{\,,\;}
-set backspace=2  " full backspacing capabilities (indent,eol,start)
-set nojoinspaces " never joing lines with two spaces
+set backspace=2   " full backspacing capabilities (indent,eol,start)
+set nojoinspaces  " never joing lines with two spaces
 
 "set mouse=nv " enable mouse in normal, visual
 set mouse=a
-set mousehide                           " Hide the mouse when typing text
-set nostartofline                       " Avoid moving cursor to BOL when jumping around
+set mousehide     " Hide the mouse when typing text
+set nostartofline " Avoid moving cursor to BOL when jumping around
 
-set whichwrap=b,s,h,l,<,>               " <BS> <Space> h l <Left> <Right> can change lines
-set virtualedit=block                   " Let cursor move past the last char in <C-v> mode
-set scrolloff=3                         " Keep 3 context lines above and below the cursor
-set backspace=2                         " Allow backspacing over autoindent, EOL, and BOL
-set showmatch                           " Briefly jump to a paren once it's balanced
-set matchtime=2                         " (for only .2 seconds).
+set whichwrap=b,s,h,l,<,> " <BS> <Space> h l <Left> <Right> can change lines
+set virtualedit+=block     " Let cursor move past the last char in <C-v> mode
+set scrolloff=3           " Keep 3 context lines above and below the cursor
+set backspace=2           " Allow backspacing over autoindent, EOL, and BOL
+set showmatch             " Briefly jump to a paren once it's balanced
+set matchtime=2           " (for only .2 seconds).
 
-set complete=.,w,b,u,t                  " Better Completion TODO: g.
+set complete=.,w,b,u,t " Better Completion TODO: g.
 set completeopt=longest,menuone,preview
 
 " }}}
@@ -237,6 +238,7 @@ set completeopt=longest,menuone,preview
 " Visuals."{{{
 
 "  Options."{{{
+
 set cursorline            " track position
 set noshowmode            " hide secondary statusline
 set noerrorbells          " no beeps on errors
@@ -249,7 +251,26 @@ set showmatch             " show matching () {} etc.
 " Commandline. "{{{
 
 set history=1000
-set wildmenu              " enhanced tab-completion shows all matching cmds in a popup menu
+
+
+if has('wildmenu')
+ " enhanced tab-completion shows all matching cmds in a popup menu
+ set wildmenu
+ set wildmode=longest:list
+
+ " don't complete files I won't edit with vim
+ if has('wildignore')
+   set wildignore+=*.a,*.o
+   set wildignore+=*.bmp,*.gif,*.ico,*.jpg,*.jpeg,*.png
+   set wildignore+=.DS_Store,.git,.hg,.svn
+   set wildignore+=*~,*.swp,*.tmp
+ endif
+
+" Complete files without case sensitivity, if the option is available
+  if exists('&wildignorecase')
+    set wildignorecase
+  endif
+endif
 "}}}
 
 set splitright " place new splits right & below
@@ -259,6 +280,8 @@ set splitright " place new splits right & below
 " Listchars: show spaces, tab, eol trailing"{{{
 set listchars=trail:·,precedes:«,extends:»,tab:▸\ ,eol:↲
 set fillchars=fold:\ ,diff:╳,vert:│
+set nolist
+nnoremap <leader>l :setlocal list!<CR>
 "}}}
 
 " Colorscheme."{{{
@@ -272,7 +295,6 @@ if has("gui_running")
   "colorscheme mirodark
   "colorscheme atom
 else
-  set list " fallback on invisibles for showing whitespace errors
   "colorscheme ir_black
   colorscheme gotham
 endif
@@ -314,10 +336,10 @@ set foldlevelstart=99
 " Line numbers."{{{
 set nonumber                " don't show linenumbers by default
 
-if exists("&relativenumber")
+"if exists("&relativenumber")
   "au InsertEnter * set norelativenumber
   "au InsertLeave * set relativenumber
-endif
+"endif
 " }}}
 
 
@@ -344,6 +366,11 @@ set writebackup  "
 " set binary noeol " Disabled - Don’t add empty newlines at the end of files
 set nomodeline     " Disabled - Using securemodelines plugin
 " set modelines=5
+
+" This breaks arrow keys etc.
+" http://stackoverflow.com/questions/22425596/trigger-cursor-positioning-and-selection-on-going-to-normal-mode-or-esc-map/22677880#22677880
+" set noesckeys     " Don't check if Escape is used for Meta entry
+
 " }}}
 
 set noautowrite " Never write a file unless I request it.
@@ -376,7 +403,6 @@ endif
 vnoremap > >gv
 vnoremap < <gv
 
-
 nnoremap <buffer> <Left> <Nop>
 nnoremap <buffer> <Right> <Nop>
 nnoremap <buffer> <Up> <Nop>
@@ -399,7 +425,7 @@ noremap <Leader>v <ESC>:set paste<CR>i<C-r>*<Esc>:set nopaste<CR>
 noremap <Leader>b <ESC>:set paste<CR>i<C-r>"<Esc>:set nopaste<CR>
 "noremap <Leader>+p <ESC>:set paste<CR>i<C-r>"<Esc>:set nopaste<CR>
 "}}}
-"
+
 " Load gui menus for terminal vim "{{{
 if !has('gui_running')
   source $VIMRUNTIME/menu.vim
@@ -458,19 +484,54 @@ nmap N Nzz
 
 noremap ,. :tabnew<CR>
 noremap ., :tabclose<CR>
-:nnoremap ,l :tabn<CR>
-:nnoremap ,h :tabp<CR>
-:nnoremap <C-n> :tabn<CR>
-:nnoremap <C-p> :tabp<CR>
+nnoremap <C-n> :tabn<CR>
+nnoremap <C-p> :tabp<CR>
 "}}}
 
-" splits."{{{
-" this works beautifully with tmux: awareness of vim splits"
-:noremap <C-h> <C-w>h
-:noremap <C-j> <C-w>j
-:noremap <C-k> <C-w>k
-:noremap <C-l> <C-w>l
-:noremap <C-x> <C-w>x
+" splits, tmux aware."{{{
+" pieced together from:
+" https://github.com/christoomey/vim-tmux-navigator
+" http://www.codeography.com/2013/06/19/navigating-vim-and-tmux-splits
+if exists('$TMUX')
+  let g:tmux_is_last_pane = 0
+  au WinEnter * let g:tmux_is_last_pane = 0
+  function! TmuxOrSplitSwitch(wincmd, tmuxdir)
+    let previous_winnr = winnr()
+    silent! execute "wincmd " . a:wincmd
+    if previous_winnr == winnr()
+      call system("tmux select-pane -" . a:tmuxdir)
+      redraw!
+    endif
+  endfunction
+
+  function! TmuxOrSplitPrevious()
+    let nr = winnr()
+    if !g:tmux_is_last_pane
+      silent! execute 'wincmd p'
+    endif
+    if g:tmux_is_last_pane || nr == winnr()
+      silent call system('tmux select-pane -l')
+      let g:tmux_is_last_pane = 1
+    else
+      let g:tmux_is_last_pane = 0
+    endif
+  endfunction
+
+  " let previous_title = substitute(system("tmux display-message -p '#{pane_title}'"), '\n', '', '')
+  " let &t_ti = "\<Esc>]2;vim\<Esc>\\" . &t_ti
+  " let &t_te = "\<Esc>]2;". previous_title . "\<Esc>\\" . &t_te
+
+  nnoremap <silent> <C-h> :call TmuxOrSplitSwitch('h', 'L')<cr>
+  nnoremap <silent> <C-j> :call TmuxOrSplitSwitch('j', 'D')<cr>
+  nnoremap <silent> <C-k> :call TmuxOrSplitSwitch('k', 'U')<cr>
+  nnoremap <silent> <C-l> :call TmuxOrSplitSwitch('l', 'R')<cr>
+  nnoremap <silent> <C-\> :call TmuxOrSplitPrevious()<cr>
+else
+  map <C-h> <C-w>h
+  map <C-j> <C-w>j
+  map <C-k> <C-w>k
+  map <C-l> <C-w>l
+endif
 "}}}
 
 " Folds. "{{{
