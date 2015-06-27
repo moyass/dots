@@ -146,7 +146,15 @@ export LESS='-g -i -M -R -w -z-4'
 #}}}
 
 ###########################################
-# ls colours#{{{
+# colours#{{{
+
+if [[ -n "$TMUX" || "$TERM" = 'screen' ]]; then
+    if [[ -e /usr/share/terminfo/s/screen-256color || "$OSTYPE" =~ darwin* ]]; then
+        export TERM='screen-256color'
+    else
+        export TERM='screen'
+    fi
+fi 
 
 # Colours for ls.
 # =========================================
