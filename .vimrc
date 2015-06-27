@@ -27,8 +27,6 @@ Plug 'scrooloose/syntastic',
 Plug 'sheerun/vim-polyglot',
 Plug 'git://fedorapeople.org/home/fedora/wwoods/public_git/vim-scripts.git',
 Plug 'plasticboy/vim-markdown',
-Plug 'altercation/vim-colors-solarized'
-Plug 'whatyouhide/vim-gotham'
 
 " Git/VCS
 Plug 'airblade/vim-gitgutter',
@@ -38,6 +36,9 @@ Plug 'tpope/vim-fugitive',
 Plug 'w0ng/vim-hybrid',
 Plug 'guns/jellyx.vim',
 Plug 'fisadev/fisa-vim-colorscheme',
+Plug 'altercation/vim-colors-solarized'
+Plug 'whatyouhide/vim-gotham'
+" Plug 'chriskempson/base16-vim'
 
 call plug#end()
 
@@ -62,6 +63,7 @@ if &t_Co > 2 || has("gui_running" )
   set t_Co=256 " 256 colors please
   syntax on
   set hlsearch " highlighted search
+  " let base16colorspace=256
 endif
 "}}}
 
@@ -168,7 +170,7 @@ if has("autocmd")
   augroup END " }
 
   "Lightline.vim {{{
-  let g:lightline = { 'colorscheme': 'gotham' }
+  let g:lightline = { 'colorscheme': 'wombat' }
   let g:lightline.mode_map = {
         \ 'n' : 'N',
         \ 'i' : 'INSERT',
@@ -297,7 +299,9 @@ if has("gui_running")
   "colorscheme atom
 else
   "colorscheme ir_black
-  colorscheme gotham
+  " colorscheme gotham
+  colorscheme hybrid
+  " colorscheme base16-ashes
 endif
 
 "}}}

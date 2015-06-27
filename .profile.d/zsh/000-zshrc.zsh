@@ -189,7 +189,6 @@ zstyle ':completion:*' completer _complete _correct _approximate
 
 # # list of completers to use
 # zstyle ':completion:*::::' completer _expand _complete _ignored _approximate
-
 # zstyle ':completion:*' menu select=1 _complete _ignored _approximate
 
 # # match uppercase from lowercase
@@ -203,11 +202,11 @@ zstyle ':completion:*' completer _complete _correct _approximate
 
 
 # # ignore completion functions (until the _ignored completer)
-# zstyle ':completion:*:functions' ignored-patterns '_*'
-# zstyle ':completion:*:scp:*' tag-order files users 'hosts:-host hosts:-domain:domain hosts:-ipaddr"IP\ Address *'
-# zstyle ':completion:*:scp:*' group-order files all-files users hosts-domain hosts-host hosts-ipaddr
-# zstyle ':completion:*:ssh:*' tag-order users 'hosts:-host hosts:-domain:domain hosts:-ipaddr"IP\ Address *'
-# zstyle ':completion:*:ssh:*' group-order hosts-domain hosts-host users hosts-ipaddr
+zstyle ':completion:*:functions' ignored-patterns '_*'
+zstyle ':completion:*:scp:*' tag-order files users 'hosts:-host hosts:-domain:domain hosts:-ipaddr"IP\ Address *'
+zstyle ':completion:*:scp:*' group-order files all-files users hosts-domain hosts-host hosts-ipaddr
+zstyle ':completion:*:ssh:*' tag-order users 'hosts:-host hosts:-domain:domain hosts:-ipaddr"IP\ Address *'
+zstyle ':completion:*:ssh:*' group-order hosts-domain hosts-host users hosts-ipaddr
 # zstyle '*' single-ignored show
 
 #}}}

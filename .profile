@@ -313,7 +313,7 @@ alias move-workspace-left="i3-msg move workspace to output left"
 
 ###########################################
 # extract#{{{
-
+alias rot13='tr a-zA-Z n-za-mN-ZA-M <<<'
 extract() {
   if [ -f $1 ] ; then
     case $1 in
