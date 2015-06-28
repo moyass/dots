@@ -58,17 +58,6 @@ export PATH
 
 #}}}
 
-###########################################
-# RVM & Gems#{{{
-
-#  Load RVM into a shell session, but only if running interactively.
-# ============================
-# https://github.com/icco/dotFiles/blob/ec264f5c311a3d0bfbd861c2d648b04d3d89c126/link/bashrc
-if [ -z "$PS1" ]; then
-  [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" 
-  return
-fi
-
 #  Pull user gems into path.
 # ============================
 # http://guides.rubygems.org/faqs/#user-install
@@ -146,7 +135,7 @@ export LESS='-g -i -M -R -w -z-4'
 #}}}
 
 ###########################################
-# colours#{{{
+# Colours  #{{{
 
 if [[ -n "$TMUX" || "$TERM" = 'screen' ]]; then
     if [[ -e /usr/share/terminfo/s/screen-256color || "$OSTYPE" =~ darwin* ]]; then
@@ -169,21 +158,39 @@ else
 fi
 #}}}
 
-###########################################
-# ls aliases#{{{
+# Skip all this for non-interactive shells
+[[ ! $- =~ i ]] && return
 
-alias l='ls -AhF'
+###########################################
+# RVM & Gems#{{{
+
+#  Load RVM into a shell session, but only if running interactively.
+# ============================
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" 
+
+
+###########################################
+# Aliases  #{{{
+
+alias h='history'
+alias j="jobs -l"
+alias p="cd ~/Projects/"
+
+alias d='dirs -v'
+alias dirs='dirs -v'
+
+alias bim="vim"
+alias cim="vim"
+alias vom="vim"
+alias vi='vim'
+alias l='ls -hF'
 alias ll='l -lh'
 alias la='l -A'
 alias lal='l -lA'
 alias lla='lal'
-#}}}
 
-###########################################
-# other aliases #{{{
-
-
-# SSH
+# SSH#{{{
 # =============================
 keys () {
   eval `keychain --eval --agents ssh,gpg --inherit any`
@@ -200,14 +207,13 @@ reagent () {
       echo "Cannot find ssh agent"
     fi
   done
-}
+} #}}}
 
 
-# OSX
+# OSX#{{{
 # ============================
 
 if  [[ "$OSTYPE" =~ darwin* ]]; then
-
 
   # pidof for poor, poor osxie
   pidof () { ps -Acw | egrep -i $@ | awk '{print $1}'; }
@@ -238,57 +244,29 @@ if  [[ "$OSTYPE" =~ darwin* ]]; then
     end tell
 EOL
   }
+#}}}
+#{{{ NON-OS X
+# ============================
 
-  # NON-OS X
-  # ============================
 else
 
   # pgrep: Process grep output full paths to binaries.
   alias pgrep='pgrep -fl'
 
-fi
-
-# General
-# ============================
-alias h='history'
-alias j="jobs -l"
-alias p="cd ~/Projects/"
-
-alias d='dirs -v'
-alias dirs='dirs -v'
-
-alias bim="vim"
-alias cim="vim"
-alias vom="vim"
-alias vi='vim'
+fi #}}}
 
 
-# aes-enc file.zip
-function aes-enc() {
+
+# Encryption #{{{
+alias rot13='tr a-zA-Z n-za-mN-ZA-M <<<'
+
+function aes-encypt() {
 openssl enc -aes-256-cbc -e -in $1 -out "$1.aes"
 }
 
-# aes-dec file.zip.aes
-function aes-dec() {
+function aes-decrypt() {
 openssl enc -aes-256-cbc -d -in $1 -out "${1%.*}"
-}
-
-# Execute commands for each file in current directory.
-function each() {
-for dir in *; do
-  echo "${dir}:"
-  cd $dir
-  $@
-  cd ..
-done
-}
-
-# Find files and exec commands at them.
-# $ find-exec .coffee cat | wc -l
-# # => 9762
-function find-exec() {
-find . -type f -iname "*${1:-}*" -exec "${2:-file}" '{}' \;
-}
+} #}}}
 
 
 if [[ "$OSTYPE" =~ linux* && $(which trash) =~ /trash/ ]]; then
@@ -301,6 +279,7 @@ fi
 
 #https://github.com/daoo/dotfiles/blob/master/zsh/zshrc#L83
 alias ctl='systemctl'
+alias sctl='systemctl'
 alias uctl='systemctl --user'
 #}}}
 
@@ -309,19 +288,11 @@ alias uctl='systemctl --user'
 
 tmuxa() { [[ -z "$TMUX" ]] && { tmux attach -d || tmux ;} }
 shux() { ssh "$1" -t tmux a -d;}
-smux() { ssh $* -t 'exec ~/bin/onemux';}
-#}}}
-
-###########################################
-# i3wm aliases#{{{
-
-alias move-workspace-right="i3-msg move workspace to output right"
-alias move-workspace-left="i3-msg move workspace to output left"
+# smux() { ssh $* -t 'exec ~/bin/onemux';}
 #}}}
 
 ###########################################
 # extract#{{{
-alias rot13='tr a-zA-Z n-za-mN-ZA-M <<<'
 extract() {
   if [ -f $1 ] ; then
     case $1 in
@@ -356,10 +327,10 @@ jjclean() {
   echo -n "Really clean this directory? ";
   read yorn;
   if test "$yorn" = "y"; then
-    rm -vf $cleanies;
-    echo "Cleaned.";
+    rm -vf $cleanies
+    echo "Cleaned."
   else
-    echo "Not cleaned.";
+    echo "Not cleaned."
   fi
 }
 #}}}
@@ -381,7 +352,7 @@ jjfind () {
 #}}}
 
 ###########################################
-# Hostname file#{{{
+# Source Hostname file#{{{
 
 # WARN: Echoing feedback causes ssh cloud apps to fail. Sad.
 
@@ -408,7 +379,7 @@ source_if_exists ~/.profile.d/hostnames/${THEHOSTNAME}.sh
 source_if_exists ~/.profile.d/hostnames/${THEHOSTNAME}.private.sh
 
 unset THEHOSTNAME
-unset THESHORTHOSTNAMEt
+unset THESHORTHOSTNAME
 unset source_if_exists
 #}}}
 
@@ -420,6 +391,4 @@ unset source_if_exists
 if [[ -z "$DISPLAY" ]] && [[ $(tty) = /dev/tty1 ]]; then
   exec xinit -- vt1 &>/dev/null
   logout
-  A
-fi
-#}}}
+fi #}}}
