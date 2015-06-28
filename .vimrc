@@ -1,6 +1,7 @@
 "
 " ~/.vimrc
 "
+"{{{1 Plugins 
 set nocompatible          " leave the old ways behind
 execute pathogen#infect('pathogens/{}')
 
@@ -9,7 +10,10 @@ call plug#begin()
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround'
-Plug 'godlygeek/tabular'
+Plug 'tpope/vim-repeat'
+Plug 'junegunn/vim-easy-align'
+
+" Plug 'godlygeek/tabular'
 Plug 'editorconfig/editorconfig-vim',
 Plug 'ciaranm/securemodelines'
 Plug 'tpope/vim-eunuch'  " :SudoWrite / :Wall
@@ -45,19 +49,18 @@ call plug#end()
 if has('autocmd')
   autocmd!
 endif
-
-" Standard. (syntax, utf8, ft, clipboard, 256 ) "{{{1
+" }}}1
+"{{{1 Standard (syntax, utf8, ft, clipboard, 256 ) 
 filetype plugin on
 filetype indent on
-set encoding=utf-8 nobomb " UTF-8 encoding for all new files
-set shortmess=aoOstTAI    " shorten all messages except written
-set ttymouse=xterm2       " More accurate mouse tracking
-set ttyfast               " More redrawing characters sent to terminal
- " set notimeout ttimeout  " Wait for mappings, timeout on keycodes
-" set timeout ttimeout
+
+set encoding=utf-8 nobomb  " UTF-8 encoding for all new files
+set shortmess=aoOstTAI     " shorten all messages except written
+set ttymouse=xterm2        " More accurate mouse tracking
+set ttyfast                " More redrawing characters sent to terminal
 set timeoutlen=900
 set ttimeoutlen=0
-set report=0 " Always report the number of lines changed by a cmd
+set report=0               " Always report the number of lines changed by a cmd
 
 if &t_Co > 2 || has("gui_running" )
   set t_Co=256 " 256 colors please
@@ -66,8 +69,7 @@ if &t_Co > 2 || has("gui_running" )
   " let base16colorspace=256
 endif
 "}}}
-
-" TEMPORARY FILES {{{1
+"{{{1 Undo & Cache 
 if !isdirectory(expand('~/.cache/vim/undo'))
   call mkdir(expand('~/.cache/vim/undo'), 'p', 0700)
 endif
@@ -81,11 +83,10 @@ if has('persistent_undo') && isdirectory(expand('~/.cache/vim/undo'))
   set undofile
   set undodir=~/.cache/vim/undo
 endif
-"}}}1
 
-"  OS & GUI Settings  {{{1
+"{{{1 OS & GUI Settings  
 
-" Windows... pitiful... "{{{2
+"{{{2 Windows... pitiful... 
 if has("gui_win32") " returns 1 on WOW64  =>[OS-Settings]
   " ... do nonsense.
 
@@ -93,7 +94,7 @@ if has("gui_win32") " returns 1 on WOW64  =>[OS-Settings]
     let &guifont="Consolas:h11"
   endif
 
-" Not Windows... Lucky you! "{{{2
+"{{{2 Not Windows... Lucky you! 
 else
   " ... we're not on windows, so just be normal.
   if has('gui_running')
@@ -108,7 +109,7 @@ else
   endif
 endif  " [/OS-Settings]<=
 "  }}}
-" GUI {{{2
+"{{{2 GUI 
 if has('gui_running')
   " [+c text dialogues instead of popups]
   " http://vimdoc.sourceforge.net/htmldoc/options.html#%27guioptions%27
@@ -123,17 +124,14 @@ if has('gui_running')
   " toolbar
   set go-=Tt
 
-  " Load gui menus for terminal vim "{{{2
-  if !has('gui_running')
+"{{{2 Terminal: emenus 
+else
     source $VIMRUNTIME/menu.vim
     map <Leader>em :emenu <C-Z>
-  endif
-  "}}}
 endif
 
-" }}}
 
-" PLUGIN SETTINGS  {{{1
+"{{{1 Plugin Configuration  
 
 "  NERDTree
 let g:NERDTreeBookmarksFile = expand('~/.cache/vim/NERDTreeBookmarks')
@@ -156,7 +154,7 @@ let g:indentLine_color_gui = '#121212'
 let g:indentLine_char = '|'
 
 
-" Lightline.vim {{{
+"{{{ Lightline.vim 
 if has("autocmd")
   let g:lightline = { 'colorscheme': 'wombat' }
   let g:lightline.mode_map = {
@@ -176,8 +174,7 @@ endif
 
 
 " }}}
-
-" Code format & Indenting {{{
+"{{{1 Code format & Indenting 
 set noautoindent     " auto indents next new line
 set nosmartindent
 set nocindent
@@ -199,8 +196,7 @@ set linebreak        " wrap long lines at a character in &breakat'
 
 
 " }}}
-
-" Interaction (Keys, Mouse)."{{{
+"{{{1 Interaction (Keys, Mouse).
 
 let mapleader=' '
 set backspace=2   " full backspacing capabilities (indent,eol,start)
@@ -208,20 +204,24 @@ set nojoinspaces  " never joing lines with two spaces
 
 "set mouse=nv " enable mouse in normal, visual
 set mouse=a
-set mousehide     " Hide the mouse when typing text
-set nostartofline " Avoid moving cursor to BOL when jumping around
+set mousehide      " Hide the mouse when typing text
+set nostartofline  " Avoid moving cursor to BOL when jumping around
 
 set whichwrap=b,s,h,l,<,> " <BS> <Space> h l <Left> <Right> can change lines
-set virtualedit+=block     " Let cursor move past the last char in <C-v> mode
+set virtualedit+=block    " Let cursor move past the last char in <C-v> mode
 set scrolloff=3           " Keep 3 context lines above and below the cursor
 set backspace=2           " Allow backspacing over autoindent, EOL, and BOL
 
 set matchpairs=(:),{:},[:],<:>
-set noshowmatch             " Don't Briefly jump to a paren once it's balanced
-set matchtime=2           " (for only .2 seconds).
+set noshowmatch  " Don't Briefly jump to a paren once it's balanced
+set matchtime=2  " (for only .2 seconds).
 
 set complete=.,w,b,u,t " Better Completion TODO: g.
 set completeopt=longest,menuone,preview
+
+" This breaks arrow keys etc.
+" http://stackoverflow.com/questions/22425596/trigger-cursor-positioning-and-selection-on-going-to-normal-mode-or-esc-map/22677880#22677880
+" set noesckeys     " Don't check if Escape is used for Meta entry
 
 
 if has("autocmd")
@@ -245,23 +245,31 @@ if has("autocmd")
 endif
 
 " }}}
+"{{{1 Visuals.
 
-" Visuals."{{{
+"{{{2 Basic 
 
-"  Options."{{{
-
+set number
 set synmaxcol=300 " Avoids editor lockup on extremely long lines
-set laststatus=2
+set laststatus=2  " ??
 set cursorline    " track position
 set noshowmode    " hide secondary statusline
 set noerrorbells  " no beeps on errors
 set visualbell    " show visual bell
 set title         " show title in console title bar
 set noruler       " no: display row, column and % of document
+set splitright    " place new splits right & below
+set splitbelow
 
-" Commandline "{{{
+"{{{2 Cursor Column 
+augroup activecursor
+  autocmd!
+  autocmd WinEnter * set cursorcolumn   | set cursorline
+  autocmd WinLeave * set nocursorcolumn | set nocursorline
+augroup END
+
+"{{{2 Commandline & Wildmenu 
 set history=1000
-
 
 if has('wildmenu')
  " enhanced tab-completion shows all matching cmds in a popup menu
@@ -283,19 +291,12 @@ if has('wildmenu')
   endif
 endif
 "}}}
-
-set splitright " place new splits right & below
-set splitbelow
-"}}}
-
-" Listchars: show spaces, tab, eol trailing"{{{
-set listchars=trail:·,precedes:«,extends:»,tab:▸\ ,eol:↲
+"{{{ Listchars: show spaces, tab, eol trailing
+set listchars=trail:·,precedes:⇐,extends:⇒,tab:▸\ ,eol:↲
 set fillchars=fold:\ ,diff:╳,vert:│
 set nolist
-nnoremap <leader>l :setlocal list!<CR>
 "}}}
-
-" Colorscheme."{{{
+"{{{ Colorscheme.
 
 if has("gui_running")
   let g:jellyx_show_whitespace = 0
@@ -310,9 +311,8 @@ else
 endif
 
 "}}}
-
-" Folding. {{{
-fu! CustomFoldText() "{{{2
+"{{{ Folding. 
+fu! CustomFoldText() "{{{
   " I am from http://www.gregsexton.org/2011/03/improving-the-text-displayed-in-a-fold/
 
   "get first non-blank line
@@ -333,7 +333,7 @@ fu! CustomFoldText() "{{{2
   let foldPercentage = printf("[%.1f", (foldSize*1.0)/lineCount*100) . "%] "
   let expansionString = repeat(".", w - strwidth(foldSizeStr.line.foldLevelStr.foldPercentage))
   return line . expansionString . foldSizeStr . foldPercentage . foldLevelStr
-endf "}}}2
+endf "}}}
 set foldtext=CustomFoldText()
 set foldmethod=marker
 set foldlevelstart=99
@@ -342,32 +342,28 @@ set foldlevelstart=99
 "set foldcolumn=1
 "setlocal foldlevel=0
 "}}}
-" Searching."{{{
+"{{{ Searching.
+
 set incsearch " increment search
 set ignorecase " case-insensitive search
 set smartcase " uppercase causes case-sensitive search
 "set hlsearch " included with colours -- highlight search results
 set nogdefault " Disabled - See http://j.mp/1mZvnrt  (no `g` on `:s`)
 "}}}
-" }}}
 
-" Files."{{{
+"{{{ Files.
 
-" Keep old backups, write new ones. "{{{
+"{{{ Keep old backups, write new ones. 
 set nobackup     " Disabled - See above (OS Settings)
 set writebackup  "
 "}}}
 
-" Disabled - Superseeded by other functionality. {{{
+"{{{ Disabled - Superseeded by other functionality. 
 " set noswapfile   " Disabled - See above (OS Settings)
 " set exrc secure  " Disabled -  Per-directory .vimrc files without unsafe cmds
 " set binary noeol " Disabled - Don’t add empty newlines at the end of files
 set nomodeline     " Disabled - Using securemodelines plugin
 " set modelines=5
-
-" This breaks arrow keys etc.
-" http://stackoverflow.com/questions/22425596/trigger-cursor-positioning-and-selection-on-going-to-normal-mode-or-esc-map/22677880#22677880
-" set noesckeys     " Don't check if Escape is used for Meta entry
 
 " }}}
 
@@ -377,7 +373,7 @@ set noautowriteall " NEVER.
 set ffs=unix,dos,mac " Try recognizing dos, unix, and mac line endings.
 
 
-" Filetype misc."{{{
+"{{{ Filetype misc.
 if has("autocmd")
 
   " Filetypes (au = autocmd)
@@ -396,9 +392,8 @@ endif
 
 " }}}
 
-" Keybindings.  "{{{
-
-" Basic functionality extension {{{2
+"{{{1 Keybindings.  
+"{{{2 Basic functionality extension 
 vnoremap > >gv
 vnoremap < <gv
 
@@ -406,6 +401,11 @@ vnoremap < <gv
 " http://git.z3bra.org/cgit.cgi/dotfiles/tree/vimrc
 nmap n nzz
 nmap N Nzz
+
+" I use <C-f> for commandline window
+nnoremap q: <Nop>
+nnoremap q? <Nop>
+nnoremap q/ <Nop>
 
 nnoremap <buffer> <Left> <Nop>
 nnoremap <buffer> <Right> <Nop>
@@ -422,22 +422,53 @@ vnoremap <buffer> <Right> <Nop>
 vnoremap <buffer> <Up> <Nop>
 vnoremap <buffer> <Down> <Nop>
 
-" Paste."{{{2
-map <S-Insert> <MiddleMouse>
-map! <S-Insert> <MiddleMouse>
-noremap <Leader>v <ESC>:set paste<CR>i<C-r>*<Esc>:set nopaste<CR>
-noremap <Leader>b <ESC>:set paste<CR>i<C-r>"<Esc>:set nopaste<CR>
-"noremap <Leader>+p <ESC>:set paste<CR>i<C-r>"<Esc>:set nopaste<CR>
+"{{{2 splits, tmux aware.
+" pieced together from:
+" https://github.com/christoomey/vim-tmux-navigator
+" http://www.codeography.com/2013/06/19/navigating-vim-and-tmux-splits
+if exists('$TMUX')
+  let g:tmux_is_last_pane = 0
+  au WinEnter * let g:tmux_is_last_pane = 0
+  function! TmuxOrSplitSwitch(wincmd, tmuxdir)
+    let previous_winnr = winnr()
+    silent! execute "wincmd " . a:wincmd
+    if previous_winnr == winnr()
+      call system("tmux select-pane -" . a:tmuxdir)
+      redraw!
+    endif
+  endfunction
+
+  function! TmuxOrSplitPrevious()
+    let nr = winnr()
+    if !g:tmux_is_last_pane
+      silent! execute 'wincmd p'
+    endif
+    if g:tmux_is_last_pane || nr == winnr()
+      silent call system('tmux select-pane -l')
+      let g:tmux_is_last_pane = 1
+    else
+      let g:tmux_is_last_pane = 0
+    endif
+  endfunction
+
+  " let previous_title = substitute(system("tmux display-message -p '#{pane_title}'"), '\n', '', '')
+  " let &t_ti = "\<Esc>]2;vim\<Esc>\\" . &t_ti
+  " let &t_te = "\<Esc>]2;". previous_title . "\<Esc>\\" . &t_te
+
+  nnoremap <silent> <C-h> :call TmuxOrSplitSwitch('h', 'L')<cr>
+  nnoremap <silent> <C-j> :call TmuxOrSplitSwitch('j', 'D')<cr>
+  nnoremap <silent> <C-k> :call TmuxOrSplitSwitch('k', 'U')<cr>
+  nnoremap <silent> <C-l> :call TmuxOrSplitSwitch('l', 'R')<cr>
+  nnoremap <silent> <C-\> :call TmuxOrSplitPrevious()<cr>
+else
+  map <C-h> <C-w>h
+  map <C-j> <C-w>j
+  map <C-k> <C-w>k
+  map <C-l> <C-w>l
+endif
+inoremap <C-k> <C-k>
 "}}}
-" Folds. "{{{2
-
-" TODO: test fold
-" <space> toggle fold
-" nnoremap <space> za
-" <space> in visual mode creates a fold over the marked range
-" vnoremap <space> zf
-
-" Timestamps, datestamps {{{2
+"{{{2 Timestamps, datestamps 
 
 if exists("*strftime")
   " Local datestamp
@@ -461,7 +492,7 @@ noremap <silent> <Leader>gh a<C-R>=' Guy Hughes'<CR><ESC>
 nmap <silent> <leader>zh A<C-R>=' [Guy Hughes // '<CR><ESC><leader>zs<ESC>A<C-R>=']'<CR><ESC>
 nmap <silent> <Leader>zz A<C-R>=' ['.expand("$USER").' // '<CR><ESC><leader>zs<ESC>A<C-R>=']'<CR><ESC>
 "}}}2
-" Leader. {{{2
+"{{{2 Leader. 
 
 " Edit vimrc.
 nnoremap <Leader>rc :tabnew $MYVIMRC<CR>
@@ -475,12 +506,11 @@ vmap <silent> <leader>d "_d
 " <leader>\ clear hlsearch and redraw screen.
 noremap <silent> <Leader><Leader> :nohls<cr><c-l><CR>
 
-" <Leader>ml - Append Modeline."{{{
+"{{{ <Leader>ml - Append Modeline.
 " https://github.com/godlygeek/vim-files/blob/master/.vimrc#L346
 " Insert a modeline on the last line with <leader>ml
 nnoremap <Leader>ml :call ModelineStub()<CR>
 "}}}
-
 
 " Remove trailing spaces from lines
 " http://vim.wikia.com/wiki/Remove_unwanted_spaces
@@ -491,6 +521,7 @@ nnoremap <silent> <Leader>n :set invnumber<CR>
 nnoremap <silent> <Leader>sp :set spell!<cr>
 nnoremap <silent> <Leader>p :set invpaste<CR>
 nnoremap <silent> <Leader>w :set invwrap<CR>
+nnoremap <silent> <leader>l :setlocal list!<CR>
 
 " Q formats paragraphs, instead of entering ex mode
 noremap Q gq
@@ -500,48 +531,46 @@ nnoremap <silent> gqJ :call Exe#ExeWithOpts('norm! gqj', { 'tw' : 2147483647 })<
 nnoremap K kj
 
 
-" Plugin: Tabular. "{{{2
+"{{{2 Plugin: Tabular. 
 " Key: <LEADER>a  (A for Align)
 
-" Automatic"{{{
-nnoremap <silent> <Leader>aa :Tabularize<CR>
-vnoremap <silent> <Leader>aa :Tabularize<CR>
+"{{{ " Automatic
+" nnoremap <silent> <Leader>aa :Tabularize<CR>
+" vnoremap <silent> <Leader>aa :Tabularize<CR>
 
 
+" "}}}
+"{{{ " `=` Equals sign
+" nnoremap <silent> <Leader>a= :Tabularize /=<CR>
+" vnoremap <silent> <Leader>a= :GTabularize /^[^=]*\zs=\(*[*\)\@!/l1c1l0<CR>
+
+" "}}}
+"{{{ " `#` Hash comments
+" nnoremap <silent> <Leader>a# :Tabularize /#<CR>
+" vnoremap <silent> <Leader>a# :GTabularize /^[^#]*\zs=\(*[*\)\@!/l1c1l0<CR>
+" nnoremap <silent> <Leader>a3 :Tabularize /#<CR>
+" vnoremap <silent> <Leader>a3 :GTabularize /^[^#]*\zs=\(*[*\)\@!/l1c1l0<CR>
+" "}}}
+"{{{ " `"` Double-quotes for vim comments
+" nnoremap <silent> <Leader>a' :Tabularize /"<CR>
+" vnoremap <silent> <Leader>a' :Tabularize /"<CR>
+" nnoremap <silent> <Leader>a" :Tabularize /"<CR>
+" vnoremap <silent> <Leader>a" :Tabularize /"<CR>
+" "}}}
+"{{{ " `:` Colon assignments, JSON-safe style
+" nnoremap <silent> <Leader>a: :Tabularize /:\zs<CR>
+" vnoremap <silent> <Leader>a: :Tabularize /:\zs<CR>
+" "}}}
+"{{{ " `|` Pipes, cucumber tables
+" nnoremap <silent> <Leader>a\| :Tabularize /\|<CR>
+" vnoremap <silent> <Leader>a\| :Tabularize /\|<CR>
+" nnoremap <silent> <Leader>a\\ :Tabularize /\|<CR>
+" vnoremap <silent> <Leader>a\\ :Tabularize /\|<CR>
+" "}}}
 "}}}
-" `=` Equals sign"{{{
-nnoremap <silent> <Leader>a= :Tabularize /=<CR>
-vnoremap <silent> <Leader>a= :GTabularize /^[^=]*\zs=\(*[*\)\@!/l1c1l0<CR>
+"{{{2 Plugin: Easy Align 
+" Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
+vmap <Enter> <Plug>(EasyAlign)
 
-"}}}
-" `#` Hash comments"{{{
-nnoremap <silent> <Leader>a# :Tabularize /#<CR>
-vnoremap <silent> <Leader>a# :GTabularize /^[^#]*\zs=\(*[*\)\@!/l1c1l0<CR>
-nnoremap <silent> <Leader>a3 :Tabularize /#<CR>
-vnoremap <silent> <Leader>a3 :GTabularize /^[^#]*\zs=\(*[*\)\@!/l1c1l0<CR>
-"}}}
-" `"` Double-quotes for vim comments"{{{
-nnoremap <silent> <Leader>a' :Tabularize /"<CR>
-vnoremap <silent> <Leader>a' :Tabularize /"<CR>
-nnoremap <silent> <Leader>a" :Tabularize /"<CR>
-vnoremap <silent> <Leader>a" :Tabularize /"<CR>
-"}}}
-" `:` Colon assignments, JSON-safe style"{{{
-nnoremap <silent> <Leader>a: :Tabularize /:\zs<CR>
-vnoremap <silent> <Leader>a: :Tabularize /:\zs<CR>
-"}}}
-" `|` Pipes, cucumber tables"{{{
-nnoremap <silent> <Leader>a\| :Tabularize /\|<CR>
-vnoremap <silent> <Leader>a\| :Tabularize /\|<CR>
-nnoremap <silent> <Leader>a\\ :Tabularize /\|<CR>
-vnoremap <silent> <Leader>a\\ :Tabularize /\|<CR>
-"}}}
-"}}}
-" }}}
-
-
-
-"}}}
-
-
-
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
