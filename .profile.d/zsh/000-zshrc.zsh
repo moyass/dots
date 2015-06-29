@@ -280,14 +280,6 @@ elif command -v git > /dev/null 2>&1; then
   git clone https://github.com/zsh-users/zsh-syntax-highlighting $ZDOTDIR/zsh-syntax-highlighting
 fi
 
-# https://github.com/zsh-users/zaw {{{2
-if [ -e $ZDOTDIR/zaw/zaw.zsh ]; then
-  source $ZDOTDIR/zaw/zaw.zsh
-  bindkey '^z' zaw-history
-  bindkey '^x' zaw-git-files
-elif command -v git > /dev/null 2>&1; then
-  git clone https://github.com/zsh-users/zaw $ZDOTDIR/zaw
-fi
 
 
 # }}}1
