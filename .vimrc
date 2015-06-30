@@ -71,18 +71,24 @@ endif
 "}}}
 "{{{1 Undo & Cache 
 if !isdirectory(expand('~/.cache/vim/undo'))
+  if !isdirectory(expand('~/.cache/vim'))
+    if !isdirectory(expand('~/.cache'))
+      call mkdir(expand('~/.cache'), 'p', 0700)
+    endif
+    call mkdir(expand('~/.cache/vim'), 'p', 0700)
+  endif
   call mkdir(expand('~/.cache/vim/undo'), 'p', 0700)
 endif
-if isdirectory(expand('~/.cache/vim'))
+if isdirectory(expand('~/.cache/vim/undo'))
   set directory=~/.cache/vim
   set viminfo+=n~/.cache/vim/viminfo
   let g:netrw_home = expand('~/.cache/vim')
+  if has('persistent_undo')
+    set undofile
+    set undodir=~/.cache/vim/undo
+  endif
 endif
 set undolevels=2000
-if has('persistent_undo') && isdirectory(expand('~/.cache/vim/undo'))
-  set undofile
-  set undodir=~/.cache/vim/undo
-endif
 
 "{{{1 OS & GUI Settings  
 
