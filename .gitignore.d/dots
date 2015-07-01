@@ -124,3 +124,12 @@
 !/bin/onemux
 !/bin/rc
 !/bin/whoip
+!/.weechat/*
+!/.weechat/**/*
+/.weechat/sec.conf
+/.weechat/irc.conf
+/.weechat/*fifo*
+/.weechat/logs/*
+/.weechat/*log
+/.weechat/urlserver*
+
