@@ -132,6 +132,9 @@
 /.weechat/python
 /.weechat/ruby
 /.weechat/*fifo*
+/.weechat/ssl
+/.weechat/ssl/**
+/.weechat/script
 /.weechat/logs/*
 /.weechat/*log
 /.weechat/urlserver*
