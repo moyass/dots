@@ -119,8 +119,6 @@
 !/.zshrc
 !/bin
 !/bin/dateiso
-!/bin/fixkeys
-!/bin/mouse
 !/bin/onemux
 !/bin/rc
 !/bin/whoip
