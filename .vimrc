@@ -65,7 +65,7 @@ set report=0               " Always report the number of lines changed by a cmd
 if &t_Co > 2 || has("gui_running" )
   set t_Co=256 " 256 colors please
   syntax on
-  set hlsearch " highlighted search
+  set nohlsearch " highlighted search
   " let base16colorspace=256
 endif
 "}}}
@@ -159,15 +159,33 @@ let g:indentLine_color_term = 233
 let g:indentLine_color_gui = '#121212'
 let g:indentLine_char = '|'
 
-
+" Increment Activator
+let g:increment_activator_no_default_key_mappings = 1 
+let g:increment_activator_filetype_candidates = 
+      \ {
+      \ '_': [
+      \   [
+      \     's:black', 's:red', 's:green', 's:yellow', 's:blue', 's:magenta',
+      \     's:cyan', 's:white', 's:blackb', 's:redb', 's:greenb', 's:yellowb',
+      \     's:blueb', 's:magentab', 's:cyanb', 's:whiteb'
+      \   ], 
+      \   [
+      \     'black', 'red', 'green', 'yellow', 'blue', 'magenta',
+      \     'cyan', 'white', 'blackb', 'redb', 'greenb', 'yellowb',
+      \     'blueb', 'magentab', 'cyanb', 'whiteb'
+      \   ], 
+      \ ],
+    \ }
+" s: black  no
 "{{{ Lightline.vim 
 if has("autocmd")
-  let g:lightline = { 'colorscheme': 'wombat' }
+  " let g:lightline = { 'colorscheme': 'wombat' }
+  let g:lightline = { 'colorscheme': 'euphramiro' }
   let g:lightline.mode_map = {
-        \ 'n' : 'N',
+        \ 'n' : '',
         \ 'i' : 'INSERT',
         \ 'R' : 'REPLACE',
-        \ 'v' : 'V',
+        \ 'v' : 'VISUAL',
         \ 'V' : 'V-LINE',
         \ 'c' : 'COMMAND',
         \ "\<C-v>": 'V-BLOCK',
@@ -175,7 +193,19 @@ if has("autocmd")
         \ 'S' : 'S-LINE',
         \ "\<C-s>": 'S-BLOCK',
         \ '?': '      ' }
-endif
+		let g:lightline.tabline = {
+		    \ 'left': [ [ 'tabs' ] ],
+		    \ 'right': [ ] }
+   		let g:lightline.active = {
+		    \ 'left': [ [ 'mode', 'paste' ],
+		    \           [ 'readonly', 'filename', 'modified' ] ],
+		    \ 'right': [ [ 'lineinfo' ],
+		    \            [ 'fileformat', 'fileencoding', 'filetype' ] ] } 
+    let g:lightline.inactive = {
+		    \ 'left': [ [ 'filename' ] ],
+		    \ 'right': [ [ 'lineinfo' ],
+        \ ] }
+  endif
 "}}}
 
 
@@ -310,9 +340,10 @@ if has("gui_running")
   "colorscheme mirodark
   "colorscheme atom
 else
+  colorscheme mirodark
   "colorscheme ir_black
   " colorscheme gotham
-  colorscheme hybrid
+  " colorscheme hybrid
   " colorscheme base16-ashes
 endif
 
@@ -508,6 +539,10 @@ nnoremap <leader>ac :center<CR>
 " <Leader>dd to _ register (i.e. buffer)
 nmap <silent> <leader>dd "_dd
 vmap <silent> <leader>d "_d
+
+" Increment activator
+nmap <Leader>aa <Plug>(increment-activator-increment)
+nmap <Leader>az <Plug>(increment-activator-decrement)
 
 " <leader>\ clear hlsearch and redraw screen.
 noremap <silent> <Leader><Leader> :nohls<cr><c-l><CR>
