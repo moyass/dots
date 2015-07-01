@@ -128,9 +128,9 @@
 /.weechat/sec.conf
 /.weechat/irc.conf
 /.weechat/plugins.conf
-/.weechat/perl/*
-/.weechat/python/*
-/.weechat/ruby/*
+/.weechat/perl
+/.weechat/python
+/.weechat/ruby
 /.weechat/*fifo*
 /.weechat/logs/*
 /.weechat/*log
