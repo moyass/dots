@@ -1,7 +1,7 @@
 all: 256 ansi
 
 clean:
-	rm dircolors.*
+	rm dircolors.{256dark,ansi-dark,ansi-light,ansi-universal}
 
 dircolors.256dark:
 	curl -OJ https://raw.githubusercontent.com/seebi/dircolors-solarized/master/dircolors.256dark
