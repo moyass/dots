@@ -247,7 +247,6 @@ set nostartofline " Avoid moving cursor to BOL when jumping around
 set whichwrap=b,s,h,l,<,> " <BS> <Space> h l <Left> <Right> can change lines
 set virtualedit+=block    " Let cursor move past the last char in <C-v> mode
 set scrolloff=3           " Keep 3 context lines above and below the cursor
-set backspace=2           " Allow backspacing over autoindent, EOL, and BOL
 
 set matchpairs=(:),{:},[:],<:>
 set noshowmatch  " Don't Briefly jump to a paren once it's balanced
@@ -537,9 +536,11 @@ nnoremap <Leader>rc :tabnew $MYVIMRC<CR>
 
 " In normal/insert mode, ac center aligns the text after it to &tw or 80 chars
 nnoremap <leader>ac :center<CR>
-" <Leader>dd to _ register (i.e. buffer)
+"
+" <Leader>dd to black hole register 
 nmap <silent> <leader>dd "_dd
 vmap <silent> <leader>d "_d
+nmap <silent> <leader>x "_x
 
 " Increment activator
 nmap <Leader>aa <Plug>(increment-activator-increment)
@@ -570,7 +571,7 @@ noremap Q gq
 nnoremap <silent> gqJ :call Exe#ExeWithOpts('norm! gqj', { 'tw' : 2147483647 })<CR>
 
 " K should behave like J
-nnoremap K kj
+nnoremap K kJ
 
 
 "{{{2 Plugin: Easy Align 
