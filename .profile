@@ -96,7 +96,7 @@ export SYSTEMD_PAGER="/usr/bin/less -R"
 
 # Mouse-wheel scroll can be disabled by -X (disable screen clearing)
 # Remove -X and -F (exit if the content fits on one screen) to enable mouse-wheel scroll
-export LESS='-g -i -M -R -w -z-4'
+export LESS='-X -F -g -i -M -R -w -z-4'
 
 #export TMOUT=300
 
@@ -128,14 +128,13 @@ fi
 
 # Colours for ls
 if [[ "$OSTYPE" =~ darwin* ]]; then
-  # Use colours in OSX ls
   export CLICOLOR=1
   export LSCOLORS=ExFxCxDxBxegedabagacad
 else
   eval $(dircolors -b $HOME/.config/dircolors/solarized/dircolors.256dark)
-  # Use color in ls
   alias ls='ls --color=auto'
 fi
+alias tree='tree -C' # colour
 
 #{{{1 RVM
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
@@ -152,7 +151,10 @@ alias cim="vim"
 alias vom="vim"
 alias vi='vim'
 
-alias l='ls -hF'
+alias l='ls -hF ' 
+if ls --group-directories-first > /dev/null 2>&1; then
+  alias l='l --group-directories-first' # no --group-dir.. on BSD ls
+fi
 alias ll='l -lh'
 alias la='l -A'
 alias lal='l -lA'

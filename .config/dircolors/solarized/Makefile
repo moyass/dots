@@ -1,3 +1,5 @@
+SHELL = /bin/sh
+
 all: 256 ansi
 
 clean:

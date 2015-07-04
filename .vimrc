@@ -234,14 +234,14 @@ set linebreak        " wrap long lines at a character in &breakat'
 " }}}
 "{{{1 Interaction (Keys, Mouse).
 
-let mapleader=' '
-set backspace=2   " full backspacing capabilities (indent,eol,start)
+let mapleader="\<Space>"
+set backspace=indent  " =0: full backspacing capabilities (indent,eol,start)
 set nojoinspaces  " never joing lines with two spaces
 
 "set mouse=nv " enable mouse in normal, visual
-set mouse=a
-set mousehide      " Hide the mouse when typing text
-set nostartofline  " Avoid moving cursor to BOL when jumping around
+set mouse=a       " akk
+set mousehide     " Hide the mouse when typing text
+set nostartofline " Avoid moving cursor to BOL when jumping around
 
 set whichwrap=b,s,h,l,<,> " <BS> <Space> h l <Left> <Right> can change lines
 set virtualedit+=block    " Let cursor move past the last char in <C-v> mode
@@ -381,10 +381,10 @@ set foldlevelstart=99
 "}}}
 "{{{ Searching.
 
-set incsearch " increment search
+set incsearch  " increment search
 set ignorecase " case-insensitive search
-set smartcase " uppercase causes case-sensitive search
-"set hlsearch " included with colours -- highlight search results
+set smartcase  " uppercase causes case-sensitive search
+"set hlsearch  " included with colours -- highlight search results
 set nogdefault " Disabled - See http://j.mp/1mZvnrt  (no `g` on `:s`)
 "}}}
 
@@ -404,9 +404,9 @@ set nomodeline     " Disabled - Using securemodelines plugin
 
 " }}}
 
-set noautowrite " Never write a file unless I request it.
-set noautowriteall " NEVER.
-"set noautoread " Don't automatically re-read changed files.
+set noautowrite      " Never write a file unless I request it.
+set noautowriteall   " NEVER.
+"set noautoread      " Don't automatically re-read changed files.
 set ffs=unix,dos,mac " Try recognizing dos, unix, and mac line endings.
 
 
@@ -572,43 +572,6 @@ nnoremap <silent> gqJ :call Exe#ExeWithOpts('norm! gqj', { 'tw' : 2147483647 })<
 nnoremap K kj
 
 
-"{{{2 Plugin: Tabular. 
-" Key: <LEADER>a  (A for Align)
-
-"{{{ " Automatic
-" nnoremap <silent> <Leader>aa :Tabularize<CR>
-" vnoremap <silent> <Leader>aa :Tabularize<CR>
-
-
-" "}}}
-"{{{ " `=` Equals sign
-" nnoremap <silent> <Leader>a= :Tabularize /=<CR>
-" vnoremap <silent> <Leader>a= :GTabularize /^[^=]*\zs=\(*[*\)\@!/l1c1l0<CR>
-
-" "}}}
-"{{{ " `#` Hash comments
-" nnoremap <silent> <Leader>a# :Tabularize /#<CR>
-" vnoremap <silent> <Leader>a# :GTabularize /^[^#]*\zs=\(*[*\)\@!/l1c1l0<CR>
-" nnoremap <silent> <Leader>a3 :Tabularize /#<CR>
-" vnoremap <silent> <Leader>a3 :GTabularize /^[^#]*\zs=\(*[*\)\@!/l1c1l0<CR>
-" "}}}
-"{{{ " `"` Double-quotes for vim comments
-" nnoremap <silent> <Leader>a' :Tabularize /"<CR>
-" vnoremap <silent> <Leader>a' :Tabularize /"<CR>
-" nnoremap <silent> <Leader>a" :Tabularize /"<CR>
-" vnoremap <silent> <Leader>a" :Tabularize /"<CR>
-" "}}}
-"{{{ " `:` Colon assignments, JSON-safe style
-" nnoremap <silent> <Leader>a: :Tabularize /:\zs<CR>
-" vnoremap <silent> <Leader>a: :Tabularize /:\zs<CR>
-" "}}}
-"{{{ " `|` Pipes, cucumber tables
-" nnoremap <silent> <Leader>a\| :Tabularize /\|<CR>
-" vnoremap <silent> <Leader>a\| :Tabularize /\|<CR>
-" nnoremap <silent> <Leader>a\\ :Tabularize /\|<CR>
-" vnoremap <silent> <Leader>a\\ :Tabularize /\|<CR>
-" "}}}
-"}}}
 "{{{2 Plugin: Easy Align 
 " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
 vmap <Enter> <Plug>(EasyAlign)
