@@ -5,9 +5,7 @@
 [user]
   name       = Guy Hughes 
   email      = guyhugh3s@gmail.com
-  signingkey = 0x4BC72AA6B1AE2B5AC7F7ADCF9D1AA266D2BC9C2D
-[credential]
-# helper         = osxkeychain
+  signingkey = 0x363026BBDB4B35B7
 
 [alias]
   rewrite-date = "!d=\"$(gdate -d \"$1\")\" && shift && GIT_COMMITTER_DATE=\"$d\" \
@@ -15,8 +13,6 @@
   ai           = add --interactive
   ls           = ls-files
   br           = branch
-  cb           = "!sh -c 'git branch $1 && git ch $1' -"
-  ch           = checkout
   co           = checkout
 
   ci           = commit
