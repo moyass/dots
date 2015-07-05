@@ -98,6 +98,9 @@ export SYSTEMD_PAGER="/usr/bin/less -R"
 # Remove -X and -F (exit if the content fits on one screen) to enable mouse-wheel scroll
 export LESS='-X -F -g -i -M -R -w -z-4'
 
+export DEBFULLNAME="Guy Hughes"
+export DEBEMAIL="guyhugh3s@gmail.com"
+
 #export TMOUT=300
 
 #}}}
@@ -151,9 +154,10 @@ alias cim="vim"
 alias vom="vim"
 alias vi='vim'
 
-alias l='ls -hF ' 
 if ls --group-directories-first > /dev/null 2>&1; then
-  alias l='l --group-directories-first' # no --group-dir.. on BSD ls
+  alias l='ls -hF --group-directories-first' # no --group-dir.. on BSD ls
+else
+  alias l='ls -hF' 
 fi
 alias ll='l -lh'
 alias la='l -A'
@@ -327,6 +331,4 @@ unset source_if_exists
 if [[ -z "$DISPLAY" ]] && [[ $(tty) = /dev/tty1 ]]; then
   exec xinit -- vt1 &>/dev/null
   logout
-else
-  tmuxa
 fi #}}}
