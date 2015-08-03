@@ -4,7 +4,7 @@
 
 [user]
   name       = Guy Hughes 
-  email      = guyhugh3s@gmail.com
+  email      = g@gxg.me 
   signingkey = 0x363026BBDB4B35B7
 
 [alias]
@@ -21,13 +21,15 @@
   discard      = checkout -- .
 
   d            = diff
-  st           = status --short
+  st           = status --short --branch
+  ignored      = ls-files --others -i --exclude-standard
   graph        = log --graph
   last         = log -n 10
   whois        = "!sh -c 'git log -i -1 --pretty=\"format:%an <%ae>\n\" --author=\"$1\"' -"
 
   insta        = instaweb --httpd=webrick
   x            = annex
+
 [color]
   ui             = auto
 
