@@ -328,7 +328,9 @@ unset THESHORTHOSTNAME
 unset source_if_exists
 
 #{{{1 Start X or tmux
-if [[ -z "$DISPLAY" ]] && [[ $(tty) = /dev/tty1 ]]; then
+if [[ -n "$SSH_CONNECTION" ]];then
+  tmuxa
+elif [[ -z "$DISPLAY" ]] && [[ $(tty) = /dev/tty1 ]] && [[ $(which xinit)  ]]; then
   exec xinit -- vt1 &>/dev/null
   logout
 fi #}}}
