@@ -3,9 +3,14 @@
 "
 "{{{1 Plugins 
 set nocompatible          " leave the old ways behind
-execute pathogen#infect('pathogens/{}')
+if has('win32')
+  execute pathogen#infect('~/vimfiles/pathogens/{}')
+  call plug#begin('~/vimfiles/plugged/{}')
+else
+  execute pathogen#infect('pathogens/{}')
+  call plug#begin()
+endif
 
-call plug#begin()
 
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
@@ -334,7 +339,9 @@ set nolist
 "}}}
 "{{{ Colorscheme.
 
-if has("gui_running")
+if has("win32")
+  colorscheme ir_black
+elseif has("gui_running")
   let g:jellyx_show_whitespace = 0
   colorscheme jellyx
   "colorscheme mirodark
