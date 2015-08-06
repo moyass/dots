@@ -1,22 +1,15 @@
 "
 " ~/.vimrc
 "
-"{{{1 NB: Win32 installation
-" %USERPROFILE% <> $HOME; often network drive
-" rm ~/_vimrc
-" mv ./.vimrc ~/vimfiles/vimrc
-" Install msysgit, with allow git in cmd.exe
-" :PlugInstall requires git
-
-
 "{{{1 Plugins 
 set nocompatible          " leave the old ways behind
 if has('win32')
   execute pathogen#infect('~/vimfiles/pathogens/{}')
-  call plug#begin('~/vimfiles/plugged/{}')
+  call plug#begin('~/vimfiles/plugged')
 else
   execute pathogen#infect('pathogens/{}')
   call plug#begin()
+  Plug 'editorconfig/editorconfig-vim', " temporary hack to get rid of error message on startup, how do i windows? is it `cmd del /s /q C:\*`?
 endif
 
 
@@ -27,7 +20,6 @@ Plug 'tpope/vim-repeat'
 Plug 'junegunn/vim-easy-align'
 
 " Plug 'godlygeek/tabular'
-Plug 'editorconfig/editorconfig-vim',
 Plug 'ciaranm/securemodelines'
 Plug 'tpope/vim-eunuch'  " :SudoWrite / :Wall
 Plug 'itchyny/lightline.vim'
@@ -42,8 +34,9 @@ Plug 'nishigori/increment-activator'
 " Syntax etc
 Plug 'scrooloose/syntastic',
 Plug 'sheerun/vim-polyglot',
-Plug 'git://fedorapeople.org/home/fedora/wwoods/public_git/vim-scripts.git',
+Plug 'git://fedorapeople.org/home/fedora/wwoods/public_git/vim-scripts.git', {}
 Plug 'plasticboy/vim-markdown',
+Plug 'vim-scripts/SQLUtilities',
 Plug 'PotatoesMaster/i3-vim-syntax'
 
 " Git/VCS
@@ -111,7 +104,8 @@ if has("gui_win32") " returns 1 on WOW64  =>[OS-Settings]
   " ... do nonsense.
 
   if has('gui_running')
-    let &guifont="Consolas:h11"
+    set guicursor+=a:blinkon0 " disable blinking cursor (gvimwin32)
+    let &guifont="Consolas:h10"
   endif
 
 "{{{2 Not Windows... Lucky you! 
