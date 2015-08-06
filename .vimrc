@@ -1,6 +1,14 @@
 "
 " ~/.vimrc
 "
+"{{{1 NB: Win32 installation
+" %USERPROFILE% <> $HOME; often network drive
+" rm ~/_vimrc
+" mv ./.vimrc ~/vimfiles/vimrc
+" Install msysgit, with allow git in cmd.exe
+" :PlugInstall requires git
+
+
 "{{{1 Plugins 
 set nocompatible          " leave the old ways behind
 if has('win32')
