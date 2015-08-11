@@ -448,10 +448,11 @@ vnoremap < <gv
 nmap n nzz
 nmap N Nzz
 
+""" <C-f> BREAKS IN GVIM -- wontfix -- plus i like q:
 " I use <C-f> for commandline window
-nnoremap q: <Nop>
-nnoremap q? <Nop>
-nnoremap q/ <Nop>
+" nnoremap q: <Nop>
+" nnoremap q? <Nop>
+" nnoremap q/ <Nop>
 
 nnoremap <buffer> <Left> <Nop>
 nnoremap <buffer> <Right> <Nop>
