@@ -67,12 +67,13 @@ precmd () {
 }
 
 
-#[[ -n "$SSH_CONNECTION" ]] && sshinfo=' %n@%m'
 line=
 rline=
 subshell=
 
 line+=$'\n'
+
+[[ -n "$SSH_CONNECTION" ]] && [[ -z "$TMUX" ]]  && line+='%n@%m'$'\n'
 
 # icanhazcolourforbadboyz
 line+='%(?..%{$fg[red]%})'
