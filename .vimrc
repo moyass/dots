@@ -3,9 +3,15 @@
 "
 "{{{1 Plugins 
 set nocompatible          " leave the old ways behind
-execute pathogen#infect('pathogens/{}')
+if has('win32')
+  execute pathogen#infect('~/vimfiles/pathogens/{}')
+  call plug#begin('~/vimfiles/plugged')
+else
+  execute pathogen#infect('pathogens/{}')
+  call plug#begin()
+  Plug 'editorconfig/editorconfig-vim', " temporary hack to get rid of error message on startup, how do i windows? is it `cmd del /s /q C:\*`?
+endif
 
-call plug#begin()
 
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
@@ -14,7 +20,6 @@ Plug 'tpope/vim-repeat'
 Plug 'junegunn/vim-easy-align'
 
 " Plug 'godlygeek/tabular'
-Plug 'editorconfig/editorconfig-vim',
 Plug 'ciaranm/securemodelines'
 Plug 'tpope/vim-eunuch'  " :SudoWrite / :Wall
 Plug 'itchyny/lightline.vim'
@@ -29,8 +34,9 @@ Plug 'nishigori/increment-activator'
 " Syntax etc
 Plug 'scrooloose/syntastic',
 Plug 'sheerun/vim-polyglot',
-Plug 'git://fedorapeople.org/home/fedora/wwoods/public_git/vim-scripts.git',
+Plug 'git://fedorapeople.org/home/fedora/wwoods/public_git/vim-scripts.git', {}
 Plug 'plasticboy/vim-markdown',
+Plug 'vim-scripts/SQLUtilities',
 Plug 'PotatoesMaster/i3-vim-syntax'
 
 " Git/VCS
@@ -98,7 +104,8 @@ if has("gui_win32") " returns 1 on WOW64  =>[OS-Settings]
   " ... do nonsense.
 
   if has('gui_running')
-    let &guifont="Consolas:h11"
+    set guicursor+=a:blinkon0 " disable blinking cursor (gvimwin32)
+    let &guifont="Consolas:h10"
   endif
 
 "{{{2 Not Windows... Lucky you! 
@@ -339,7 +346,9 @@ set nolist
 "}}}
 "{{{ Colorscheme.
 
-if has("gui_running")
+if has("win32")
+  colorscheme ir_black
+elseif has("gui_running")
   let g:jellyx_show_whitespace = 0
   colorscheme jellyx
   "colorscheme mirodark
@@ -444,10 +453,11 @@ vnoremap < <gv
 nmap n nzz
 nmap N Nzz
 
+""" <C-f> BREAKS IN GVIM -- wontfix -- plus i like q:
 " I use <C-f> for commandline window
-nnoremap q: <Nop>
-nnoremap q? <Nop>
-nnoremap q/ <Nop>
+" nnoremap q: <Nop>
+" nnoremap q? <Nop>
+" nnoremap q/ <Nop>
 
 nnoremap <buffer> <Left> <Nop>
 nnoremap <buffer> <Right> <Nop>

@@ -8,7 +8,7 @@
 
 if [ "`tmux ls | wc -l`" -eq "0" ]; then
   # we got no sessions yall
-  tmux -f ~/.config/tmux/conf new-session -d -s one
+  tmux new-session -d -s one
   #tmux new-session -d -s irc
 
   # we creatin' some windows yall
