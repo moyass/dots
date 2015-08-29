@@ -176,6 +176,11 @@ let g:increment_activator_filetype_candidates =
       \     'blueb', 'magentab', 'cyanb', 'whiteb'
       \   ], 
       \ ],
+      \ 'gitrebase': [
+      \   [
+      \      'pick','reword','edit','squash','fixup','exec'
+      \   ],
+      \ ],
     \ }
 " s: black  no
 "{{{ Lightline.vim 
@@ -286,7 +291,7 @@ endif
 "{{{2 Basic 
 
 set number
-set synmaxcol=300 " Avoids editor lockup on extremely long lines
+set synmaxcol=1300 " Avoids editor lockup on extremely long lines
 set laststatus=2  " ??
 set cursorline    " track position
 set noshowmode    " hide secondary statusline
