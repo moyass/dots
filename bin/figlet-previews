@@ -1,0 +1,5 @@
+#!/bin/sh
+for file in /usr/local/Cellar/figlet/2.2.5/share/figlet/fonts/*; do 
+  echo `basename "$file"`;
+  figlet -f $file hello; 
+done
