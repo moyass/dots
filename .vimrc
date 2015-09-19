@@ -42,6 +42,8 @@ Plug 'PotatoesMaster/i3-vim-syntax'
 " Git/VCS
 Plug 'airblade/vim-gitgutter',
 Plug 'tpope/vim-fugitive',
+Plug 'mattn/gist-vim'
+Plug 'mattn/webapi-vim'
 
 " Colour
 Plug 'w0ng/vim-hybrid',
