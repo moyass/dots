@@ -11,11 +11,17 @@
   rewrite-date = "!d=\"$(gdate -d \"$1\")\" && shift && GIT_COMMITTER_DATE=\"$d\" \
             git commit --amend --date \"$d\""
   ai           = add --interactive
+  au           = add -u
+  
   ls           = ls-files
   br           = branch
   co           = checkout
 
+
+  cau          = "!sh -c 'git add -u && git commit' -"
+  c            = commit
   ci           = commit
+  cia          = "!sh -c 'git add --interactive && git commit' -"
   aic          = "!sh -c 'git add --interactive && git commit' -"
 
   discard      = checkout -- .
