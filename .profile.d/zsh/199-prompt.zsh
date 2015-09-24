@@ -75,6 +75,8 @@ line+=$'\n'
 
 [[ -n "$SSH_CONNECTION" ]] && [[ -z "$TMUX" ]]  && line+='%n@%m'$'\n'
 
+[[ -n "$VCSH_REPO_NAME" ]] && line+='%{%b$fg[cyan]%}vcsh repo %{$VCSH_REPO_NAME$reset_color%B%}'$'\n'
+
 # icanhazcolourforbadboyz
 line+='%(?..%{$fg[red]%})'
 
