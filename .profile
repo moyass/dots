@@ -86,7 +86,7 @@ fi
 
 export GPG_TTY=`tty`
 
-export CDPATH="$CDPATH:$HOME/Projects"
+export CDPATH="$HOME/Projects"
 
 export VISUAL="vim"
 export EDITOR=$VISUAL
