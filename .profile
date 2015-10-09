@@ -101,6 +101,8 @@ export LESS='-X -F -g -i -M -R -w -z-4'
 export DEBFULLNAME="Guy Hughes"
 export DEBEMAIL="g@gxg.me"
 
+[[ $(id -u) == 0 ]] && export TMOUT=300
+
 #export TMOUT=300
 
 #}}}
