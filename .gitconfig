@@ -27,6 +27,7 @@
   discard      = checkout -- .
 
   d            = diff
+  stv          = status --verbose --branch
   st           = status --short --branch
   ignored      = ls-files --others -i --exclude-standard
   graph        = log --graph
