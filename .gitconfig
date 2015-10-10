@@ -15,6 +15,7 @@
   
   ls           = ls-files
   br           = branch
+  bra          = branch -va
   co           = checkout
 
 
