@@ -220,8 +220,14 @@ autoload -U history-search-end
 zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
 
+# arrow keys
 bindkey "^[OA" history-beginning-search-backward-end
 bindkey "^[OB" history-beginning-search-forward-end
+
+# page up and page down 
+bindkey "[5~" history-beginning-search-backward-end 
+bindkey "[6~" history-beginning-search-forward-end
+
 bindkey "\ep" insert-last-word
 bindkey "\eq" quote-line
 bindkey "\ek" backward-kill-line
