@@ -169,7 +169,8 @@ alias lla='lal'
 #{{{2 SSH
 # =============================
 keys () {
-  eval `keychain --eval --agents ssh,gpg --inherit any`
+  eval `keychain --eval --quiet --agents ssh,gpg --inherit any-once --attempts 3 --timeout 15 id_rsa`
+  keychain --systemd --stop others --quiet
 }
 
 reagent () {
