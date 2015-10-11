@@ -227,6 +227,8 @@ bindkey "^[OB" history-beginning-search-forward-end
 # page up and page down 
 bindkey "[5~" history-beginning-search-backward-end 
 bindkey "[6~" history-beginning-search-forward-end
+bindkey -M vicmd "[5~" history-beginning-search-backward-end 
+bindkey -M vicmd "[6~" history-beginning-search-forward-end
 
 bindkey "\ep" insert-last-word
 bindkey "\eq" quote-line
