@@ -37,6 +37,7 @@
 
   insta        = instaweb --httpd=webrick
   x            = annex
+  schoolboy    = "!sh -c 'git archive --format zip --prefix=\"$1/\" -o $1.zip HEAD' -"
 
 [color]
   ui             = auto
