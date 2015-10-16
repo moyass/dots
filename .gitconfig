@@ -16,11 +16,12 @@
   ls           = ls-files
   br           = branch
   bra          = branch -va
+  branches     = branch -va
   co           = checkout
 
+  remotes      = remote -v
 
   cau          = "!sh -c 'git add -u && git commit' -"
-  c            = commit
   ci           = commit
   cia          = "!sh -c 'git add --interactive && git commit' -"
   aic          = "!sh -c 'git add --interactive && git commit' -"
