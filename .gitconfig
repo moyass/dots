@@ -38,7 +38,10 @@
 
   insta        = instaweb --httpd=webrick
   x            = annex
-  schoolboy    = "!sh -c 'git archive --format zip --prefix=\"$1/\" -o $1.zip HEAD' -"
+  schoolboy    = "!sh -c 'git archive --format zip --prefix=\"$1_$(git rev-parse --short HEAD)/\" -o $1_$(git rev-parse --short HEAD).zip HEAD' -"
+
+  lol = log --graph --oneline --decorate --abbrev-commit --date-order
+	lola = log --graph --pretty=format:'%Cred%h%Creset%C(yellow)%d%Creset %C(blue)by %an%Creset - %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative --all
 
 [color]
   ui             = auto
@@ -74,7 +77,7 @@
   textconv       = unzip -c -a
 
 [format]
-  pretty         = %Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset
+  pretty         = %Cred%h%Creset%C(yellow)%d%Creset %C(blue)by %an%Creset - %s %Cgreen(%cr)%Creset 
   graph          = true
 
 [url "git@github.com:"]
