@@ -2,10 +2,9 @@ plugins: duplicates chroma fetchart ftintitle
 directory: ~/Media/Music
 library: ~/.cache/beetslibrary.llbl
 import:
+  write: yes
   move: yes
 fetchart:
-  auto: yes
-chroma:
   auto: yes
 ftintitle:
   auto: yes
