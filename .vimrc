@@ -1,7 +1,7 @@
 "
 " ~/.vimrc
 "
-"{{{1 Plugins 
+"{{{1 Plugins
 set nocompatible          " leave the old ways behind
 if has('win32')
   execute pathogen#infect('~/vimfiles/pathogens/{}')
@@ -9,11 +9,11 @@ if has('win32')
 else
   execute pathogen#infect('pathogens/{}')
   call plug#begin()
-  Plug 'editorconfig/editorconfig-vim', " temporary hack to get rid of error message on startup, how do i windows? is it `cmd del /s /q C:\*`?
 endif
 
 
-Plug 'scrooloose/nerdtree'
+" Plug 'scrooloose/nerdtree'
+Plug 'editorconfig/editorconfig-vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
@@ -28,7 +28,7 @@ Plug 'rking/ag.vim'
 
 " Autocompleting
 " Plug 'jiangmiao/auto-pairs'
-Plug 'mattn/emmet-vim',
+" Plug 'mattn/emmet-vim',
 Plug 'nishigori/increment-activator'
 
 " Syntax etc
@@ -36,8 +36,8 @@ Plug 'scrooloose/syntastic',
 Plug 'sheerun/vim-polyglot',
 Plug 'git://fedorapeople.org/home/fedora/wwoods/public_git/vim-scripts.git', {}
 Plug 'plasticboy/vim-markdown',
-Plug 'vim-scripts/SQLUtilities',
-Plug 'PotatoesMaster/i3-vim-syntax'
+" Plug 'vim-scripts/SQLUtilities',
+" Plug 'PotatoesMaster/i3-vim-syntax'
 
 " Git/VCS
 Plug 'airblade/vim-gitgutter',
@@ -59,7 +59,7 @@ if has('autocmd')
   autocmd!
 endif
 " }}}1
-"{{{1 Standard (syntax, utf8, ft, clipboard, 256 ) 
+"{{{1 Standard (syntax, utf8, ft, clipboard, 256 )
 filetype plugin on
 filetype indent on
 
@@ -78,7 +78,7 @@ if &t_Co > 2 || has("gui_running" )
   " let base16colorspace=256
 endif
 "}}}
-"{{{1 Undo & Cache 
+"{{{1 Undo & Cache
 if !isdirectory(expand('~/.cache/vim/undo'))
   if !isdirectory(expand('~/.cache/vim'))
     if !isdirectory(expand('~/.cache'))
@@ -99,9 +99,9 @@ if isdirectory(expand('~/.cache/vim/undo'))
 endif
 set undolevels=2000
 
-"{{{1 OS & GUI Settings  
+"{{{1 OS & GUI Settings
 
-"{{{2 Windows... pitiful... 
+"{{{2 Windows... pitiful...
 if has("gui_win32") " returns 1 on WOW64  =>[OS-Settings]
   " ... do nonsense.
 
@@ -110,7 +110,7 @@ if has("gui_win32") " returns 1 on WOW64  =>[OS-Settings]
     let &guifont="Consolas:h10"
   endif
 
-"{{{2 Not Windows... Lucky you! 
+"{{{2 Not Windows... Lucky you!
 else
   " ... we're not on windows, so just be normal.
   if has('gui_running')
@@ -125,7 +125,7 @@ else
   endif
 endif  " [/OS-Settings]<=
 "  }}}
-"{{{2 GUI 
+"{{{2 GUI
 if has('gui_running')
   " [+c text dialogues instead of popups]
   " http://vimdoc.sourceforge.net/htmldoc/options.html#%27guioptions%27
@@ -140,14 +140,14 @@ if has('gui_running')
   " toolbar
   set go-=Tt
 
-"{{{2 Terminal: emenus 
+"{{{2 Terminal: emenus
 else
     source $VIMRUNTIME/menu.vim
     map <Leader>em :emenu <C-Z>
 endif
 
 
-"{{{1 Plugin Configuration  
+"{{{1 Plugin Configuration
 
 "  NERDTree
 let g:NERDTreeBookmarksFile = expand('~/.cache/vim/NERDTreeBookmarks')
@@ -170,20 +170,20 @@ let g:indentLine_color_gui = '#121212'
 let g:indentLine_char = '|'
 
 " Increment Activator
-let g:increment_activator_no_default_key_mappings = 1 
-let g:increment_activator_filetype_candidates = 
+let g:increment_activator_no_default_key_mappings = 1
+let g:increment_activator_filetype_candidates =
       \ {
       \ '_': [
       \   [
       \     's:black', 's:red', 's:green', 's:yellow', 's:blue', 's:magenta',
       \     's:cyan', 's:white', 's:blackb', 's:redb', 's:greenb', 's:yellowb',
       \     's:blueb', 's:magentab', 's:cyanb', 's:whiteb'
-      \   ], 
+      \   ],
       \   [
       \     'black', 'red', 'green', 'yellow', 'blue', 'magenta',
       \     'cyan', 'white', 'blackb', 'redb', 'greenb', 'yellowb',
       \     'blueb', 'magentab', 'cyanb', 'whiteb'
-      \   ], 
+      \   ],
       \ ],
       \ 'gitrebase': [
       \   [
@@ -192,7 +192,7 @@ let g:increment_activator_filetype_candidates =
       \ ],
     \ }
 " s: black  no
-"{{{ Lightline.vim 
+"{{{ Lightline.vim
 if has("autocmd")
   " let g:lightline = { 'colorscheme': 'wombat' }
   let g:lightline = { 'colorscheme': 'euphramiro' }
@@ -215,7 +215,7 @@ if has("autocmd")
 		    \ 'left': [ [ 'mode', 'paste' ],
 		    \           [ 'readonly', 'filename', 'modified' ] ],
 		    \ 'right': [ [ 'lineinfo' ],
-		    \            [ 'fileformat', 'fileencoding', 'filetype' ] ] } 
+		    \            [ 'fileformat', 'fileencoding', 'filetype' ] ] }
     let g:lightline.inactive = {
 		    \ 'left': [ [ 'filename' ] ],
 		    \ 'right': [ [ 'lineinfo' ],
@@ -225,7 +225,7 @@ if has("autocmd")
 
 
 " }}}
-"{{{1 Code format & Indenting 
+"{{{1 Code format & Indenting
 set noautoindent     " auto indents next new line
 set nosmartindent
 set nocindent
@@ -297,7 +297,7 @@ endif
 " }}}
 "{{{1 Visuals.
 
-"{{{2 Basic 
+"{{{2 Basic
 
 set number
 set synmaxcol=1300 " Avoids editor lockup on extremely long lines
@@ -311,14 +311,14 @@ set noruler       " no: display row, column and % of document
 set splitright    " place new splits right & below
 set splitbelow
 
-"{{{2 Cursor Column 
+"{{{2 Cursor Column
 augroup activecursor
   autocmd!
   autocmd WinEnter * set cursorcolumn   | set cursorline
   autocmd WinLeave * set nocursorcolumn | set nocursorline
 augroup END
 
-"{{{2 Commandline & Wildmenu 
+"{{{2 Commandline & Wildmenu
 set history=1000
 
 if has('wildmenu')
@@ -364,7 +364,7 @@ else
 endif
 
 "}}}
-"{{{ Folding. 
+"{{{ Folding.
 fu! CustomFoldText() "{{{
   " I am from http://www.gregsexton.org/2011/03/improving-the-text-displayed-in-a-fold/
 
@@ -406,12 +406,12 @@ set nogdefault " Disabled - See http://j.mp/1mZvnrt  (no `g` on `:s`)
 
 "{{{ Files.
 
-"{{{ Keep old backups, write new ones. 
+"{{{ Keep old backups, write new ones.
 set nobackup     " Disabled - See above (OS Settings)
 set writebackup  "
 "}}}
 
-"{{{ Disabled - Superseeded by other functionality. 
+"{{{ Disabled - Superseeded by other functionality.
 " set noswapfile   " Disabled - See above (OS Settings)
 " set exrc secure  " Disabled -  Per-directory .vimrc files without unsafe cmds
 " set binary noeol " Disabled - Don’t add empty newlines at the end of files
@@ -445,8 +445,8 @@ endif
 
 " }}}
 
-"{{{1 Keybindings.  
-"{{{2 Basic functionality extension 
+"{{{1 Keybindings.
+"{{{2 Basic functionality extension
 vnoremap > >gv
 vnoremap < <gv
 
@@ -520,9 +520,10 @@ else
   map <C-k> <C-w>k
   map <C-l> <C-w>l
 endif
+" insert mode <C-k> inserts diatrics etc
 inoremap <C-k> <C-k>
 "}}}
-"{{{2 Timestamps, datestamps 
+"{{{2 Timestamps, datestamps
 
 if exists("*strftime")
   " Local datestamp
@@ -546,7 +547,7 @@ noremap <silent> <Leader>gh a<C-R>=' Guy Hughes'<CR><ESC>
 nmap <silent> <leader>zh A<C-R>=' [Guy Hughes // '<CR><ESC><leader>zs<ESC>A<C-R>=']'<CR><ESC>
 nmap <silent> <Leader>zz A<C-R>=' ['.expand("$USER").' // '<CR><ESC><leader>zs<ESC>A<C-R>=']'<CR><ESC>
 "}}}2
-"{{{2 Leader. 
+"{{{2 Leader.
 
 " Edit vimrc.
 nnoremap <Leader>rc :tabnew $MYVIMRC<CR>
@@ -554,7 +555,7 @@ nnoremap <Leader>rc :tabnew $MYVIMRC<CR>
 " In normal/insert mode, ac center aligns the text after it to &tw or 80 chars
 nnoremap <leader>ac :center<CR>
 "
-" <Leader>dd to black hole register 
+" <Leader>dd to black hole register
 nmap <silent> <leader>dd "_dd
 vmap <silent> <leader>d "_d
 nmap <silent> <leader>x "_x
@@ -591,7 +592,7 @@ nnoremap <silent> gqJ :call Exe#ExeWithOpts('norm! gqj', { 'tw' : 2147483647 })<
 nnoremap K kJ
 
 
-"{{{2 Plugin: Easy Align 
+"{{{2 Plugin: Easy Align
 " Disable ignore comments/strings by default, change with CTRL-G
 let g:easy_align_ignore_groups=[]
 
