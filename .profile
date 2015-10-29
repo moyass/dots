@@ -172,6 +172,7 @@ keys () {
   eval `keychain --eval --quiet --agents ssh,gpg --inherit any-once --attempts 3 --timeout 15 id_rsa`
   keychain --systemd --stop others --quiet
 }
+alias k=keys
 
 reagent () {
   for agent in /tmp/ssh-*/agent.*; do
