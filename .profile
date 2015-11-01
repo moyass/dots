@@ -86,24 +86,41 @@ fi
 
 export GPG_TTY=`tty`
 
-export CDPATH="$HOME/Projects"
 
 export VISUAL="vim"
 export EDITOR=$VISUAL
 
-export PAGER="/usr/bin/less"
-export SYSTEMD_PAGER="/usr/bin/less -R"
+export PAGER='/usr/bin/less'
+export SYSTEMD_PAGER='/usr/bin/less'
 
 # Mouse-wheel scroll can be disabled by -X (disable screen clearing)
 # Remove -X and -F (exit if the content fits on one screen) to enable mouse-wheel scroll
-export LESS='-X -F -g -i -M -R -w -z-4'
+typeset -a LESSOPTS
+LESSOPTS=(
+    --force                             # Force open non-regular files
+    --clear-screen                      # Print buffer from top of screen
+    --dumb                              # Do not complain about terminfo errors
+    --ignore-case                       # Like vim ignorecase + smartcase
+    --no-lessopen                       # Ignore LESSOPEN preprocessor
+    --long-prompt                       # Show position percentage
+    --RAW-CONTROL-CHARS                 # Only interpret SGR escape sequences
+    --chop-long-lines                   # Disable soft wrapping
+    --no-init                           # Prevent use of alternate screen
+    --tilde                             # Do not show nonextant lines as `~`
+    --shift 8                           # Horizontal movement in columns
+)
+export LESS="${LESSOPTS[@]}"
+export SYSTEMD_LESS="${LESSOPTS[@]}"
+export LESSSECURE='1'
+export LESSHISTFILE='-'
+unset LESSOPTS
 
-export DEBFULLNAME="Guy Hughes"
+export DEBFULLNAME='Guy Hughes'
 export DEBEMAIL="g\u0040gxg.me"
 
-[[ $(id -u) == 0 ]] && export TMOUT=300
+[[ "$(id -u)" == 0 ]] && export TMOUT=300
 
-#export TMOUT=300
+export CDPATH="$HOME/Projects"
 
 #}}}
 #{{{1 Non-interactive shells

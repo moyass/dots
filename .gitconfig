@@ -24,7 +24,6 @@
   cau          = "!sh -c 'git add -u && git commit' -"
   ci           = commit
   cia          = "!sh -c 'git add --interactive && git commit' -"
-  aic          = "!sh -c 'git add --interactive && git commit' -"
 
   discard      = checkout -- .
 
@@ -40,8 +39,8 @@
   x            = annex
   schoolboy    = "!sh -c 'git archive --format zip --prefix=\"$1_$(git rev-parse --short HEAD)/\" -o $1_$(git rev-parse --short HEAD).zip HEAD' -"
 
-  lol = log --graph --oneline --decorate --abbrev-commit --date-order
-	lola = log --graph --pretty=format:'%Cred%h%Creset%C(yellow)%d%Creset %C(blue)by %an%Creset - %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative --all
+  lol          = log --graph --oneline --decorate --abbrev-commit --date-order
+	lola         = log --graph --pretty=format:'%Cred%h%Creset%C(yellow)%d%Creset %C(blue)by %an%Creset - %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative --all
 
 [color]
   ui             = auto
@@ -62,7 +61,6 @@
   autosetupmerge = true
 
 [pager]
-  status         = true
   color          = true
 
 [merge]
