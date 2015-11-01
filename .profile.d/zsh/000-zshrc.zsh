@@ -34,6 +34,7 @@ setopt autopushd pushdminus pushdsilent pushdtohome # http://zsh.sourceforge.net
 
 # ===== Expansion and Globbing  {{{2
 setopt extended_glob          # treat #, ~, and ^ as part of patterns for filename generation
+alias ng="noglob"
 
 # ===== History  {{{2
 setopt append_history         # Allow multiple terminal sessions to all append to one zsh command history
