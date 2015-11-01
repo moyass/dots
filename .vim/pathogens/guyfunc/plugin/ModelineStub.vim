@@ -22,7 +22,7 @@
 
 function! ModelineStub()
   let io = (&fdm == 'marker' ? ' fmr='.&fmr : '')
-  let io = io.( &et  ? ' et': 'noet ').( &ro? ' ro' : '' )
+  let io = io.( &et  ? ' et': ' noet').( &ro? ' ro' : '' )
 
   let ml = 'vim: set ft=%s tw=%d ts=%d sw=%d sts=%d fdm=%s%s:'
   let ml = printf(ml, &ft, &tw, &ts, &sw, &sts, &fdm, io  )
