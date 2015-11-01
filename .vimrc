@@ -520,7 +520,7 @@ else
   map <C-k> <C-w>k
   map <C-l> <C-w>l
 endif
-" insert mode <C-k> inserts diatrics etc
+" insert mode <C-k> inserts digraphs etc
 inoremap <C-k> <C-k>
 "}}}
 "{{{2 Timestamps, datestamps
