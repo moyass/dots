@@ -1,105 +1,108 @@
 [filter "media"]
-	clean  = git-media-clean %f
-	smudge = git-media-smudge %f
+	clean             = git-media-clean %f
+	smudge            = git-media-smudge %f
 
 [user]
-  name       = Guy Hughes 
-  email      = g@gxg.me 
-  signingkey = 0x363026BBDB4B35B7
+  name              = Guy Hughes
+  email             = g@gxg.me
+  signingkey        = 0x363026BBDB4B35B7
 
 [alias]
-  rewrite-date = "!d=\"$(gdate -d \"$1\")\" && shift && GIT_COMMITTER_DATE=\"$d\" \
+  rewrite-date      = "!d=\"$(gdate -d \"$1\")\" && shift && GIT_COMMITTER_DATE=\"$d\" \
             git commit --amend --date \"$d\""
-  ai           = add --interactive
-  au           = add -u
+  ai                = add --interactive
+  au                = add -u
+  api               = add --patch --interactive
   
-  ls           = ls-files
-  br           = branch
-  bra          = branch -va
-  branches     = branch -va
-  co           = checkout
+  ls                = ls-files
+  br                = branch
+  bra               = branch -va
+  branches          = branch -va
+  co                = checkout
 
-  remotes      = remote -v
+  remotes           = remote -v
 
-  cau          = "!sh -c 'git add -u && git commit' -"
-  ci           = commit
-  cia          = "!sh -c 'git add --interactive && git commit' -"
+  ci                = commit
+  cau               = "!sh -c 'git add -u && git commit' -"
+  cia               = "!sh -c 'git add --interactive && git commit' -"
 
-  discard      = checkout -- .
+  discard           = checkout -- .
 
-  d            = diff
-  stv          = status --verbose --branch
-  st           = status --short --branch
-  ignored      = ls-files --others -i --exclude-standard
-  graph        = log --graph
-  last         = log -n 10
-  whois        = "!sh -c 'git log -i -1 --pretty=\"format:%an <%ae>\n\" --author=\"$1\"' -"
+  d                 = diff
+  stv               = status --verbose --branch
+  st                = status --short --branch
+  ignored           = ls-files --others -i --exclude-standard
+  whois             = "!sh -c 'git log -i -1 --pretty=\"format:%an <%ae>\n\" --author=\"$1\"' -"
 
-  insta        = instaweb --httpd=webrick
-  x            = annex
-  schoolboy    = "!sh -c 'git archive --format zip --prefix=\"$1_$(git rev-parse --short HEAD)/\" -o $1_$(git rev-parse --short HEAD).zip HEAD' -"
+  insta             = instaweb --httpd=webrick
+  x                 = annex
+  schoolboy         = "!sh -c 'git archive --format zip --prefix=\"$1_$(git rev-parse --short HEAD)/\" -o $1_$(git rev-parse --short HEAD).zip HEAD' -"
 
-  lol          = log --graph --oneline --decorate --abbrev-commit --date-order
-	lola         = log --graph --pretty=format:'%Cred%h%Creset%C(yellow)%d%Creset %C(blue)by %an%Creset - %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative --all
+  last              = log -n 10
+  lol               = log --graph --oneline --decorate --abbrev-commit --date-order
+	lola              = log --graph --pretty=format:'%Cred%h%Creset%C(yellow)%d%Creset %C(blue)by %an%Creset - %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative --all
 
 [color]
-  ui             = auto
+  ui                = auto
 
 [color "diff"]
-  whitespace     = red reverse
+  whitespace        = red reverse
 
 [core]
-  whitespace     = fix,-indent-with-non-tab,trailing-space,cr-at-eol
-  autocrlf       = input
-  editor         = vim
-  excludesfile   = ~/.gitignore
+  whitespace        = fix,-indent-with-non-tab,trailing-space,cr-at-eol
+  autocrlf          = input
+  editor            = vim
+  excludesfile      = ~/.gitignore
 
 [github]
-  user           = guyhughes
+  user              = guyhughes
 
 [branch]
-  autosetupmerge = true
+  autosetupmerge    = false
 
 [pager]
-  color          = true
+  color             = true
+  log               = false
+  reflog            = false
+  status            = false
 
 [merge]
-  stat           = true
+  stat              = true
 
 [log]
-  abbrevCommit   = true
+  abbrevCommit      = true
 
 [status]
   showUntrackdFiles = normal
 
 [diff "zip"]
-  textconv       = unzip -c -a
+  textconv          = unzip -c -a
 
 [format]
-  pretty         = %Cred%h%Creset%C(yellow)%d%Creset %C(blue)by %an%Creset - %s %Cgreen(%cr)%Creset 
-  graph          = true
+  pretty            = %Cred%h%Creset%C(yellow)%d%Creset %C(blue)by %an%Creset - %s %Cgreen(%cr)%Creset
+  graph             = true
 
 [url "git@github.com:"]
-  insteadOf      = "gh:"
-  pushInsteadOf  = "gh:"
-  pushInsteadOf  = "git://github.com/"
+  insteadOf         = "gh:"
+  pushInsteadOf     = "gh:"
+  pushInsteadOf     = "git://github.com/"
 
 [url "git@gist.github.com:"]
-  insteadOf      = "gist:"
-  pushInsteadOf  = "gist:"
-  pushInsteadOf  = "git://gist.github.com/"
+  insteadOf         = "gist:"
+  pushInsteadOf     = "gist:"
+  pushInsteadOf     = "git://gist.github.com/"
 
 [rebase]
-  stat           = true
+  stat              = true
 
 [help]
-  autocorrect    = 0
+  autocorrect       = 0
 
 [daemon]
-  uploadarch     = true
+  uploadarch        = true
 
 [push]
-  default        = current
+  default           = current
 
 [mergetool]
-  keepBackup     = true
+  keepBackup        = true
