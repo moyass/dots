@@ -116,7 +116,7 @@ export LESSHISTFILE='-'
 unset LESSOPTS
 
 export DEBFULLNAME='Guy Hughes'
-export DEBEMAIL="g\u0040gxg.me"
+export DEBEMAIL="g"$'\u0040'"gxg.me"
 
 [[ "$(id -u)" == 0 ]] && export TMOUT=300
 
