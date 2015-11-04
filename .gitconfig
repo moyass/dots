@@ -107,3 +107,7 @@
 
 [mergetool]
   keepBackup        = true
+
+[include]
+  path = .config/git-hub-oauth
+
