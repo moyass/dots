@@ -70,8 +70,8 @@ if [[ "$OSTYPE" =~ darwin* ]]; then
   export BROWSER='open'
 
 elif [[ "$OSTYPE" =~ linux* ]]; then
-  stty -ixon # Disable flow control 
- 
+  stty -ixon # Disable flow control
+
   [[ -n "$XDG_CACHE_HOME" ]] || export XDG_CACHE_HOME="$HOME/.cache"
   [[ -n "$XDG_CONFIG_HOME" ]] || export XDG_CONFIG_HOME="$HOME/.config"
   [[ -n "$XDG_DATA_HOME" ]] || export XDG_DATA_HOME="$HOME/.local/share"
@@ -181,7 +181,7 @@ alias vi='vim'
 if ls --group-directories-first > /dev/null 2>&1; then
   alias l='ls -hF --group-directories-first' # no --group-dir.. on BSD ls
 else
-  alias l='ls -hF' 
+  alias l='ls -hF'
 fi
 alias ll='l -lh'
 alias la='l -A'
@@ -356,7 +356,7 @@ unset THEHOSTNAME
 unset THESHORTHOSTNAME
 unset source_if_exists
 
-#{{{1 Start X 
+#{{{1 Start X
 if [[ -z "$DISPLAY" ]] && [[ $(tty) = /dev/tty1 ]] && $(which xinit &>/dev/null) ; then
   exec xinit -- vt1
   logout
