@@ -8,39 +8,55 @@
   signingkey        = 0x363026BBDB4B35B7
 
 [alias]
-  rewrite-date      = "!d=\"$(gdate -d \"$1\")\" && shift && GIT_COMMITTER_DATE=\"$d\" \
-            git commit --amend --date \"$d\""
+  a                 = add
   ai                = add --interactive
+  af                = add --force
   au                = add -u
-  api               = add --patch --interactive
-  
-  ls                = ls-files
+  ap                = add --patch
+
   br                = branch
-  bra               = branch -va
-  branches          = branch -va
+  bra               = branch -vva
+  branches          = branch -vva
+
   co                = checkout
 
+  r                 = remote
   remotes           = remote -v
-
-  ci                = commit
-  cau               = "!sh -c 'git add -u && git commit' -"
-  cia               = "!sh -c 'git add --interactive && git commit' -"
-
   discard           = checkout -- .
 
-  d                 = diff
-  stv               = status --verbose --branch
+  ci                = commit --verbose
+  cm                = "!sh -c 'git commit --message=\"$*\"' -"
+  cia               = add --interactive
+  auc               = "!sh -c 'git add -u && git commit --verbose' -"
+
+  d                 = diff -C -w ; -w===--ignore=all-space; -C===--find-copies
+  dw                = diff -C -w --color-words=. ; word diff with no ws
+  dad               = diff -C --ws-error-highlight=all ; dad shows ws errors ;'all' includes context
+  dih               = diff -C -w HEAD
+  dic               = diff -C -w --cached
+  diffs             = diff -C -w --summary --stat
+
   st                = status --short --branch
-  ignored           = ls-files --others -i --exclude-standard
-  whois             = "!sh -c 'git log -i -1 --pretty=\"format:%an <%ae>\n\" --author=\"$1\"' -"
+  stv               = status --verbose --branch
 
-  insta             = instaweb --httpd=webrick
-  x                 = annex
-  schoolboy         = "!sh -c 'git archive --format zip --prefix=\"$1_$(git rev-parse --short HEAD)/\" -o $1_$(git rev-parse --short HEAD).zip HEAD' -"
-
-  last              = log -n 10
+  l                 = "!sh -c 'git lol -n10'"
   lol               = log --graph --oneline --decorate --abbrev-commit --date-order
-	lola              = log --graph --pretty=format:'%Cred%h%Creset%C(yellow)%d%Creset %C(blue)by %an%Creset - %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative --all
+  last              = log -n 10 --decorate
+  lola              = log --graph --pretty=format:'%Cred%h%Creset%C(yellow)%d%Creset %C(blue)by %an%Creset - %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative --all
+
+  rl                = reflog --decorate
+
+  ls                = ls-files
+  ignored           = ls-files --others -i --exclude-standard
+
+  insta             = instaweb
+
+  x                 = annex
+
+  schoolboy         = "!sh -c 'git archive --format zip --prefix=\"$1_$(git rev-parse --short HEAD)/\" -o $1_$(git rev-parse --short HEAD).zip HEAD' -"
+  whois             = "!sh -c 'git log -i -1 --pretty = \"format:%an <%ae>\n\" --author = \"$1\"' -"
+  rewrite-date      = "!d=\"$(gdate -d \"$1\")\" && shift && GIT_COMMITTER_DATE=\"$d\" \
+                        git commit --amend --date \"$d\""
 
 [color]
   ui                = auto
@@ -62,9 +78,6 @@
 
 [pager]
   color             = true
-  log               = false
-  reflog            = false
-  status            = false
 
 [merge]
   stat              = true
@@ -75,6 +88,11 @@
 
 [status]
   showUntrackdFiles = normal
+
+[diff]
+  mnemonicPrefix    = true
+  renames           = copies
+  algorithm         = minimal
 
 [diff "zip"]
   textconv          = unzip -c -a
@@ -109,5 +127,6 @@
   keepBackup        = true
 
 [include]
-  path = .config/git-hub-oauth
+  path              = .config/git-hub-oauth
 
+; vim: set ft=gitconfig tw=0 ts=2 sw=2 sts=2 et:
