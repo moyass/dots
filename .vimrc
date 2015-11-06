@@ -37,6 +37,7 @@ Plug 'scrooloose/syntastic',
 Plug 'sheerun/vim-polyglot',
 Plug 'git://fedorapeople.org/home/fedora/wwoods/public_git/vim-scripts.git', {}
 Plug 'plasticboy/vim-markdown',
+Plug 'guyhughes/vim-ini-fold',
 " Plug 'vim-scripts/SQLUtilities',
 " Plug 'PotatoesMaster/i3-vim-syntax'
 
