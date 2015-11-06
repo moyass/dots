@@ -596,7 +596,7 @@ nnoremap K kJ
 
 "{{{2 Plugin: Easy Align
 " Disable ignore comments/strings by default, change with CTRL-G
-let g:easy_align_ignore_groups=[]
+" let g:easy_align_ignore_groups=[]
 
 " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
 vmap <Enter> <Plug>(EasyAlign)
