@@ -183,6 +183,8 @@ alias la='l -A'
 alias lal='l -lA'
 alias lla='lal'
 
+alias bts='bts --mutt'
+
 #{{{2 SSH
 # =============================
 keys () {
