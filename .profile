@@ -118,13 +118,18 @@ unset LESSOPTS
 export DEBFULLNAME='Guy Hughes'
 export DEBEMAIL="g"$'\u0040'"gxg.me"
 
-[[ "$(id -u)" == 0 ]] && export TMOUT=300
 
 export CDPATH="$HOME/Projects"
 
 #}}}
 #{{{1 Non-interactive shells
 [[ ! $- =~ i ]] && return
+
+if [[ "$(id -u)" == 0 ]]; then
+  export TMOUT=300
+elif [[ "$(tty)" =~ /dev/tty* ]]; then
+  export TMOUT=600
+fi
 
 #{{{1 Colours
 export GREP_COLOR="1;33"
