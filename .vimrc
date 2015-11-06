@@ -17,6 +17,7 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
+Plug 'vim-scripts/visualrepeat'
 Plug 'junegunn/vim-easy-align'
 
 " Plug 'godlygeek/tabular'
