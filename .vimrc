@@ -281,9 +281,9 @@ if has("autocmd")
 
   " automatically leave insert mode after 'updatetime' ms of inacction
   " http://vim.wikia.com/wiki/To_switch_back_to_normal_mode_automatically_after_inaction
-  " au CursorHoldI * stopinsert
-  " au InsertEnter * let updaterestore=&updatetime | set updatetime=7000
-  " au InsertLeave * let &updatetime=updaterestore
+  au CursorHoldI * stopinsert
+  au InsertEnter * let updaterestore=&updatetime | set updatetime=2000
+  au InsertLeave * let &updatetime=updaterestore
 
   " Restore cursor position
   au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
