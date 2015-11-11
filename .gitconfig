@@ -38,6 +38,8 @@
 
   st                = status --short --branch
   stv               = status --verbose --branch
+  
+  tags              = tag -l
 
   l                 = "!sh -c 'git lol -n10'"
   lol               = log --graph --oneline --decorate --abbrev-commit --date-order
