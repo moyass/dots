@@ -26,9 +26,10 @@ Plug 'tpope/vim-eunuch'  " :SudoWrite / :Wall
 Plug 'itchyny/lightline.vim'
 Plug 'jamessan/vim-gnupg'
 Plug 'rking/ag.vim'
+Plug 'chrisbra/vim-diff-enhanced'
 
 " Autocompleting
-" Plug 'jiangmiao/auto-pairs'
+Plug 'jiangmiao/auto-pairs'
 " Plug 'mattn/emmet-vim',
 Plug 'nishigori/increment-activator'
 
