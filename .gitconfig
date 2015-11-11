@@ -1,6 +1,6 @@
 [filter "media"]
-	clean             = git-media-clean %f
-	smudge            = git-media-smudge %f
+  clean             = git-media-clean %f
+  smudge            = git-media-smudge %f
 
 [user]
   name              = Guy Hughes
@@ -85,7 +85,7 @@
 
 [merge]
   stat              = true
-	tool              = vimdiff2
+  tool              = vimdiff2
 
 [log]
   abbrevCommit      = true
