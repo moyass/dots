@@ -145,11 +145,11 @@ export LESS_TERMCAP_so=$'\E[01;30;03;36m'
 export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;35m'
 
-if [[ -n "$TMUX" || "$TERM" = 'screen' ]]; then
-    if [[ -e /usr/share/terminfo/s/screen-256color || "$OSTYPE" =~ darwin* ]]; then
+if [ -n "$TMUX" ] || [ "$TERM" = 'screen' ]; then
+    if [ -e '/usr/share/terminfo/s/screen-256color-s' ]; then
+      export TERM='screen-256color-s'
+    elif [[ -e /usr/share/terminfo/s/screen-256color || "$OSTYPE" =~ darwin* ]]; then
         export TERM='screen-256color'
-    else
-        export TERM='screen'
     fi
 fi
 
