@@ -54,7 +54,6 @@ Plug 'guns/jellyx.vim',
 Plug 'fisadev/fisa-vim-colorscheme',
 Plug 'altercation/vim-colors-solarized'
 Plug 'whatyouhide/vim-gotham'
-" Plug 'chriskempson/base16-vim'
 
 call plug#end()
 
