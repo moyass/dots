@@ -125,7 +125,7 @@ export STOW_DIR=/usr/local/stow
 #{{{1 Non-interactive shells
 [[ ! $- =~ i ]] && return
 
-if [ "$(id -u)" -wq 0 ]; then
+if [ "$(id -u)" -eq 0 ]; then
   export TMOUT=300
 elif tty | grep tty >/dev/null; then
   export TMOUT=600
