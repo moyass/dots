@@ -252,7 +252,7 @@ set linebreak        " wrap long lines at a character in &breakat'
 "{{{1 Interaction (Keys, Mouse).
 
 let mapleader="\<Space>"
-set backspace=indent  " =0: full backspacing capabilities (indent,eol,start)
+set backspace=2  " =2: full backspacing capabilities (indent,eol,start)
 set nojoinspaces  " never joing lines with two spaces
 
 "set mouse=nv " enable mouse in normal, visual
