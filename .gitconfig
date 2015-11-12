@@ -29,11 +29,11 @@
   cia               = add --interactive
   auc               = "!sh -c 'git add -u && git commit --verbose' -"
 
-  d                 = diff -C -w ; -w===--ignore=all-space; -C===--find-copies
+  d                 = diff -C -w --ignore-blank-lines ; -w===--ignore=all-space; -C===--find-copies
   dw                = diff -C -w --color-words=. ; word diff with no ws
   dad               = diff -C --ws-error-highlight=all ; dad shows ws errors ;'all' includes context
-  dih               = diff -C -w HEAD
-  dic               = diff -C -w --cached
+  dih               = "!sh -c 'git d HEAD' -"
+  dic               = "!sh -c 'git d --cached' -"
   diffs             = diff -C -w --summary --stat
 
   st                = status --short --branch
