@@ -453,6 +453,7 @@ vnoremap < <gv
 nnoremap gls :ls<CR>
 nnoremap gb :bn<CR>
 nnoremap gB :bp<CR>
+nnoremap Y y$
 
 " Center the cursor on the search word when using 'n'
 " http://git.z3bra.org/cgit.cgi/dotfiles/tree/vimrc
