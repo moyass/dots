@@ -76,7 +76,7 @@ set report=0               " Always report the number of lines changed by a cmd
 if &t_Co > 2 || has("gui_running" )
   set t_Co=256 " 256 colors please
   syntax on
-  set nohlsearch " highlighted search
+  set hlsearch
   " let base16colorspace=256
 endif
 "}}}
@@ -402,7 +402,6 @@ set foldlevelstart=99
 set incsearch  " increment search
 set ignorecase " case-insensitive search
 set smartcase  " uppercase causes case-sensitive search
-"set hlsearch  " included with colours -- highlight search results
 set nogdefault " Disabled - See http://j.mp/1mZvnrt  (no `g` on `:s`)
 "}}}
 
