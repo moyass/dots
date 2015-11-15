@@ -179,6 +179,7 @@ alias bim="vim"
 alias cim="vim"
 alias vom="vim"
 alias vi='vim'
+alias vimj="vim **/*.java"
 
 if ls --group-directories-first > /dev/null 2>&1; then
   alias l='ls -hF --group-directories-first' # no --group-dir.. on BSD ls
