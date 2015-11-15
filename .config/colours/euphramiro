@@ -15,7 +15,7 @@
 !URxvt.foreground: #999999
 
 !! eurphrasia
-URxvt*background: #090C19
+URxvt*background: [78]#090C19
 URxvt*foreground: #E6E6E6
 URxvt*cursorColor: #1AAA13
 
