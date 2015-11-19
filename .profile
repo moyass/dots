@@ -174,6 +174,7 @@ alias j="jobs -l"
 
 alias d='dirs -v'
 alias dirs='dirs -v'
+alias mkd='mkdir -p'
 
 alias bim="vim"
 alias cim="vim"
