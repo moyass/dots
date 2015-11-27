@@ -21,6 +21,7 @@ adjunct_path_with "${HOME}/.composer/vendor/bin" true
 
 # Npm
 # ===================
+adjunct_path_with "${HOME}/.npm-packages/bin" true
 adjunct_path_with "${HOME}/.npm-local/bin" true
 
 # Gems
