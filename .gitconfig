@@ -49,6 +49,7 @@
   rl                = reflog --decorate
 
   rp                = rev-parse
+  rps               = rev-parse --short
 
   ls                = ls-files
   ignored           = ls-files --others -i --exclude-standard
