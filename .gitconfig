@@ -41,10 +41,11 @@
   
   tags              = tag -l
 
-  l                 = "!sh -c 'git lol -n10'"
+  l                 = "!sh -c 'git lol -n10'- "
   lol               = log --graph --oneline --decorate --abbrev-commit --date-order
   last              = log -n 10 --decorate
   lola              = log --graph --pretty=format:'%Cred%h%Creset%C(yellow)%d%Creset %C(blue)by %an%Creset - %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative --all
+  lols              = log --graph --pretty=format:'%Cred%h%Creset%C(yellow)%d%Creset %C(blue)by %an%Creset - %s %Cgreen(%cD)%Creset' --abbrev-commit --date=relative --all
 
   rl                = reflog --decorate
 
@@ -60,8 +61,7 @@
 
   schoolboy         = "!sh -c 'git archive --format zip --prefix=\"$1_$(git rev-parse --short HEAD)/\" -o $1_$(git rev-parse --short HEAD).zip HEAD' -"
   whois             = "!sh -c 'git log -i -1 --pretty = \"format:%an <%ae>\n\" --author = \"$1\"' -"
-  rewrite-date      = "!d=\"$(gdate -d \"$1\")\" && shift && GIT_COMMITTER_DATE=\"$d\" \
-                        git commit --amend --date \"$d\""
+  rewrite-date      = "!set -x;DATUM=\"$(date -u -R -d \"$1\")\"; shift; GIT_AUTHOR_DATE=\"$DATUM\" GIT_COMMITTER_DATE=\"$DATUM\" git commit --amend --date \"$DATUM\""
 
 [color]
   ui                = auto
