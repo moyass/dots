@@ -28,7 +28,6 @@ adjunct_path_with "${HOME}/.npm-local/bin" true
 # ============================
 # http://guides.rubygems.org/faqs/#user-install
 if command -v ruby >/dev/null && command -v gem >/dev/null; then
-   echo "$(ruby -rubygems -e 'puts Gem.user_dir')/bin" true
   adjunct_path_with "$(ruby -rubygems -e 'puts Gem.user_dir')/bin" true
 else
 fi
