@@ -284,8 +284,9 @@ alias uctl='systemctl --user'
 
 tmuxa() { [[ -z "$TMUX" ]] && { tmux attach -d || tmux ;} }
 sshux() { ssh "$1" -t 'tmux a -d || tmux';}
-sshok() { ssh -t "$*" -- 'exec ~/bin/onemux';}
-ssho() { ssh -tA "$*" -- 'exec ~/bin/onemux';}
+ssho() { ssh -t "$*" -- 'exec ~/bin/onemux';}
+sshk() { ssh -A "$*"}
+sshok() { ssh -tA "$*" -- 'exec ~/bin/onemux';}
 #}}}
 extract() { #{{{
   # TODO: remove this or improve it
