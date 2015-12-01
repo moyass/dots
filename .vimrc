@@ -151,6 +151,9 @@ endif
 
 "{{{1 Plugin Configuration
 
+" Syntastic
+let g:syntastic_javascript_checkers = ['standard']
+
 "  NERDTree
 let g:NERDTreeBookmarksFile = expand('~/.cache/vim/NERDTreeBookmarks')
 let g:NERDChristmasTree = 1
@@ -543,7 +546,7 @@ if exists("*strftime")
   else
     " Real timestamps, yes. Praise GNU... and Darwin?
     noremap <silent> <Leader>zs m'A<C-R>=system('date -u \+\%Y\%m\%dT\%H\%MZ')<CR><ESC>``
-    noremap <silent> <Leader>zd m'A<C-R>=system('date -u \+\%Y\%m\%dZ')<CR><ESC>``
+    noremap <silent> <Leader>zd m'A<C-R>=system('date -u \+\%Y-\%m-\%d')<CR><ESC>``
   endif
 endif
 noremap <silent> <Leader>gh a<C-R>=' Guy Hughes'<CR><ESC>
