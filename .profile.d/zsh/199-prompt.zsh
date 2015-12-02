@@ -73,7 +73,9 @@ subshell=
 
 line+=$'\n'
 
-[[ -n "$SSH_CONNECTION" ]] && [[ -z "$TMUX" ]]  && line+='%n@%m'$'\n'
+if [[ -n "$SSH_CONNECTION" ]] && [[ -z "$TMUX" ]] || [[ "`whoami`" != "gxg"  ]]; then
+  line+='%n@%m'$'\n'
+fi
 
 [[ -n "$VCSH_REPO_NAME" ]] && line+='%{%b$fg[cyan]%}vcsh repo %{$VCSH_REPO_NAME$reset_color%B%}'$'\n'
 
