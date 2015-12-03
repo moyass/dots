@@ -142,7 +142,8 @@ bash_prompt() {
 
     # install prompt
     # PS1="${RST}\n[ ${B}\$(date -u +\"%Y%m%d${W}T${B}%H%M${W}Z\")${RST} ] $GITBRANCH $P4CLIENT \n${RST}[ ${UC}\u${RST}@${UC}\h ${EMB}\${NEW_PWD}${RST} ]${UC}\\$ ${RST}"
-    PS1="${RST}\n${B}\$(date -u +\"%Y%m%d${W}T${B}%H%M${W}Z\")${RST} \u${W}@${RST}\H ${B}$GITBRANCH \n${M}\${NEW_PWD}${RST}\n${UC}\\$ ${RST}"
+    # PS1="${RST}\n${B}\$(date -u +\"%Y%m%d${W}T${B}%H%M${W}Z\")${RST} \u${W}@${RST}\H ${B}$GITBRANCH \n${M}\${NEW_PWD}${RST}\n${UC}\\$ ${RST}"
+    PS1="${RST}\n\u${W}@${RST}\H ${B}$GITBRANCH ${M}\${NEW_PWD}${RST}\n${UC}\\$ ${RST}"
 }
 
 export PROMPT_COMMAND=bash_prompt_command
