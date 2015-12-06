@@ -1,5 +1,62 @@
-#{{{1 Aliases
-#{{{2 history, dirs, vim, ls
+#{{{1 Non-interactive shells
+[[ ! $- =~ i ]] && return
+
+#{{{1 OS-Dependent
+case in "$OSTYPE"
+  #{{{2 OSX
+  # ============================
+  darwin*)
+    # pidof for poor, poor osxie
+    pidof () { ps -Acw | egrep -i $@ | awk '{print $1}'; }
+
+    # cd into whatever is the forefront Finder window
+    cdf() {  # short for cdfinder
+      cd "`osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)'`"
+    }
+
+    # who is using the laptop's iSight camera?
+    camerausedby() {
+      echo "Checking to see who is using the iSight camera… 📷"
+      usedby=$(lsof | grep -w "AppleCamera\|USBVDC\|iSight" | awk '{printf $2"\n"}' | xargs ps)
+      echo -e "Recent camera uses:\n$usedby"
+    }
+
+    # Lock current session
+    alias lock='/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend'
+
+    # Sniff network info
+    alias sniff="sudo ngrep -d 'en1' -t '^(GET|POST) ' 'tcp and port 80'"
+
+    # Show current Finder directory
+    finder () {
+      osascript 2>/dev/null <<EOL
+      tell application "Finder"
+      return POSIX path of (target of window 1 as alias)
+    end tell
+EOL
+  }
+    ;;
+  #{{{2 Linux
+  # ============================
+  linux*)
+    if [[ $(which trash) =~ /trash/ ]]; then
+      alias trash = "trash-put"
+    fi
+
+    # pgrep: Process grep output full paths to binaries
+    alias pgrep='pgrep -fl'
+
+    #{{{2 systemd aliases
+    #https://github.com/daoo/dotfiles/blob/master/zsh/zshrc#L83
+    alias ctl='systemctl'
+    alias jctl='sudo journalctl'
+    alias sctl='sudo systemctl'
+    alias uctl='systemctl --user'
+    #}}}
+    ;;
+esac
+
+#{{{1 history, dirs, vim, ls
 alias h='history'
 alias j="jobs -l"
 
@@ -26,7 +83,7 @@ alias lla='lal'
 
 alias bts='bts --mutt'
 
-#{{{2 SSH
+#{{{1 SSH and TMUX
 # =============================
 keys () {
   eval `keychain --eval --quiet --agents ssh,gpg --inherit any-once --attempts 3 --timeout 15 id_rsa`
@@ -45,81 +102,23 @@ reagent () {
       echo "Cannot find ssh agent"
     fi
   done
-} #}}}
-#{{{2 OSX
-# ============================
-
-if  [[ "$OSTYPE" =~ darwin* ]]; then
-
-  # pidof for poor, poor osxie
-  pidof () { ps -Acw | egrep -i $@ | awk '{print $1}'; }
-
-  # cd into whatever is the forefront Finder window
-  cdf() {  # short for cdfinder
-    cd "`osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)'`"
-  }
-
-  # who is using the laptop's iSight camera?
-  camerausedby() {
-    echo "Checking to see who is using the iSight camera… 📷"
-    usedby=$(lsof | grep -w "AppleCamera\|USBVDC\|iSight" | awk '{printf $2"\n"}' | xargs ps)
-    echo -e "Recent camera uses:\n$usedby"
-  }
-
-  # Lock current session
-  alias lock='/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend'
-
-  # Sniff network info
-  alias sniff="sudo ngrep -d 'en1' -t '^(GET|POST) ' 'tcp and port 80'"
-
-  # Show current Finder directory
-  finder () {
-    osascript 2>/dev/null <<EOL
-    tell application "Finder"
-    return POSIX path of (target of window 1 as alias)
-    end tell
-EOL
-  }
-#}}}
-#{{{2 Linux
-# ============================
-
-elif [[ "$OSTYPE" =~ linux* ]]; then
-  if [[ $(which trash) =~ /trash/ ]]; then
-    alias trash = "trash-put"
-  fi
-
-  # pgrep: Process grep output full paths to binaries
-  alias pgrep='pgrep -fl'
-
-fi
-#{{{2 Encryption, rot13
-alias rot13='tr a-zA-Z n-za-mN-ZA-M <<<'
-
-aes-encypt() {
-openssl enc -aes-256-cbc -e -in $1 -out "$1.aes"
-}
-
-aes-decrypt() {
-openssl enc -aes-256-cbc -d -in $1 -out "${1%.*}"
-} #}}}
-#{{{2 systemd aliases
-
-#https://github.com/daoo/dotfiles/blob/master/zsh/zshrc#L83
-alias ctl='systemctl'
-alias jctl='sudo journalctl'
-alias sctl='sudo systemctl'
-alias uctl='systemctl --user'
-#}}}
-#{{{2 tmux aliases
-
-tmuxa () { [[ -z "$TMUX" ]] && { tmux attach -d || tmux; } }
+} 
 sshux () { ssh "$1" -t 'tmux a -d || tmux'; }
 ssho  () { ssh -t "$*" -- 'exec ~/bin/onemux'; }
 sshk  () { ssh -A "$*"; }
 sshok () { ssh -tA "$*" -- 'exec ~/bin/onemux'; }
+tmuxa () { [[ -z "$TMUX" ]] && { tmux attach -d || tmux; } }
 #}}}
-extract() { #{{{
+#{{{1 Encryption
+alias rot13='tr a-zA-Z n-za-mN-ZA-M <<<'
+aes_encypt () {
+  openssl enc -aes-256-cbc -e -in $1 -out "$1.aes"
+}
+aes_decrypt () {
+  openssl enc -aes-256-cbc -d -in $1 -out "${1%.*}"
+} #}}}
+
+extract() {
   # TODO: remove this or improve it
   if [ -f $1 ]; then
     case $1 in
@@ -143,7 +142,7 @@ extract() { #{{{
     echo "\`$1' is not a valid file"
   fi
 }
-#}}}
+#{{{1 GNU Find
 set_finder() {
   FIND="find"
   if [[ "$OSTYPE" =~ darwin* ]]; then
