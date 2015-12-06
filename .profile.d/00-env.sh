@@ -95,22 +95,9 @@ export SYSTEMD_PAGER='/usr/bin/less'
 
 # Mouse-wheel scroll can be disabled by -X (disable screen clearing)
 # Remove -X and -F (exit if the content fits on one screen) to enable mouse-wheel scroll
-typeset -a LESSOPTS
-LESSOPTS=(
-    '--no-init'           # Prevent usof alternate screen
-    '--quit-if-one-screen'
-    '--force'             # Force open non-regular files
-    '--dumb'              # Do not complain about terminfo errors
-    '--ignore-case'       # Like vim ignorecase + smartcase
-    '--no-lessopen'       # Ignore LESSOPEN preprocessor
-    '--long-prompt'       # Show position percentage
-    '--RAW-CONTROL-CHARS' # Only interpret SGR escape sequences
-    '--chop-long-lines'   # Disable soft wrapping
-    '--tilde'             # Do not show nonextant lines with tilde
-    '--shift 8'           # Horizontal movement in columns
-)
-export LESS="${LESSOPTS[@]}"
-export SYSTEMD_LESS="${LESSOPTS[@]}"
+LESSOPTS="--no-init --quit-if-one-screen --force --dumb --ignore-case --no-lessopen --long-prompt --RAW-CONTROL-CHARS --chop-long-lines --tilde --shift 8"
+export LESS="${LESSOPTS}"
+export SYSTEMD_LESS="${LESSOPTS}"
 export LESSSECURE='1'
 export LESSHISTFILE='-'
 unset LESSOPTS
