@@ -6,8 +6,8 @@ adjunct_path_with () {
   adjunctor="$1"    # the directory  ## WARN: DO NOT USE TRAILING SLASH OR THE WORLD ENDS!
   override="$2"    # if $2 is true: $1 is prefixed to PATH; else $1 is appended to PATH
 
-  if [[ -d "$adjunctor" ]]; then
-    if [[ "$override" != false ]]; then
+  if [ -d "$adjunctor" ]; then
+    if [ "$override" != "false" ]; then
       PATH="$1:$PATH"
     else
       PATH="$PATH:$1"
@@ -121,9 +121,11 @@ export DEBEMAIL="g"$'\u0040'"gxg.me"
 export CDPATH="$HOME/Projects"
 export STOW_DIR=/usr/local/stow
 #}}}
+
 #{{{1 Non-interactive shells
 [[ ! $- =~ i ]] && return
 
+#{{{1 TMOUT
 if [ "$(id -u)" -eq 0 ]; then
   export TMOUT=300
 elif tty | grep tty >/dev/null; then
