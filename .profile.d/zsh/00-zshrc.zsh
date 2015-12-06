@@ -288,7 +288,4 @@ if [ -e $ZDOTDIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
 elif command -v git > /dev/null 2>&1; then
   git clone https://github.com/zsh-users/zsh-syntax-highlighting $ZDOTDIR/zsh-syntax-highlighting
 fi
-
-
-
 # }}}1
