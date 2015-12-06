@@ -2,7 +2,7 @@
 [[ ! $- =~ i ]] && return
 
 #{{{1 OS-Dependent
-case in "$OSTYPE"
+case "$OSTYPE" in
   #{{{2 OSX
   # ============================
   darwin*)
@@ -32,10 +32,10 @@ case in "$OSTYPE"
       osascript 2>/dev/null <<EOL
       tell application "Finder"
       return POSIX path of (target of window 1 as alias)
-    end tell
+      end tell
 EOL
-  }
-    ;;
+    }
+  ;;
   #{{{2 Linux
   # ============================
   linux*)
@@ -47,7 +47,7 @@ EOL
     alias pgrep='pgrep -fl'
 
     #{{{2 systemd aliases
-    #https://github.com/daoo/dotfiles/blob/master/zsh/zshrc#L83
+    # inspired by https://github.com/daoo/dotfiles/blob/master/zsh/zshrc#L83
     alias ctl='systemctl'
     alias jctl='sudo journalctl'
     alias sctl='sudo systemctl'
@@ -72,7 +72,6 @@ alias vimj="vim **/*.java"
 
 if ls --group-directories-first > /dev/null 2>&1; then
   alias l='ls -hF --group-directories-first' # no --group-dir.. on BSD ls
-  alias ls='l'
 else
   alias l='ls -hF'
 fi
@@ -108,7 +107,6 @@ ssho  () { ssh -t "$*" -- 'exec ~/bin/onemux'; }
 sshk  () { ssh -A "$*"; }
 sshok () { ssh -tA "$*" -- 'exec ~/bin/onemux'; }
 tmuxa () { [[ -z "$TMUX" ]] && { tmux attach -d || tmux; } }
-#}}}
 #{{{1 Encryption
 alias rot13='tr a-zA-Z n-za-mN-ZA-M <<<'
 aes_encypt () {
@@ -117,7 +115,7 @@ aes_encypt () {
 aes_decrypt () {
   openssl enc -aes-256-cbc -d -in $1 -out "${1%.*}"
 } #}}}
-
+#{{{1 Extract
 extract() {
   # TODO: remove this or improve it
   if [ -f $1 ]; then
@@ -154,7 +152,7 @@ set_finder() {
     fi
   fi
 }
-cleanout() { #{{{
+cleanout() { 
   set_finder
   op="$FIND . -type f -regextype posix-extended -regex '((.*\.(pyc|pyo|bak|tmp|toc|aux|log|cp|fn|tp|vr|pg|ky))|(.*\~))'"
   if [ $# -eq 1  ]; then
@@ -170,8 +168,7 @@ cleanout() { #{{{
     eval $op | column
   fi
 }
-#}}}
-findregex () { #{{{
+findregex () {
   set_finder
   if [ $# -lt 2 ]; then
     searchpath='.'
@@ -182,5 +179,4 @@ findregex () { #{{{
   fi
   $FIND "$searchpath" -regextype posix-extended -type f -regex "$search"
 }
-#}}}
 unset set_finder
