@@ -1,9 +1,4 @@
-#!/usr/bin/env zsh
-
-
-#
-# Executes commands at login post-zshrc.
-#
+# .zlogin: executed at login after .zshrc is sourced
 
 # Execute code that does not affect the current session in the background.
 {
@@ -12,5 +7,4 @@
   if [[ "$zcompdump" -nt "${zcompdump}.zwc" || ! -s "${zcompdump}.zwc" ]]; then
     zcompile "$zcompdump"
   fi
-
 } &!
