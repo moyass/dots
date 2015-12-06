@@ -277,6 +277,7 @@ openssl enc -aes-256-cbc -d -in $1 -out "${1%.*}"
 
 #https://github.com/daoo/dotfiles/blob/master/zsh/zshrc#L83
 alias ctl='systemctl'
+alias jctl='sudo journalctl'
 alias sctl='sudo systemctl'
 alias uctl='systemctl --user'
 #}}}
