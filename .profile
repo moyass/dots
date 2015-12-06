@@ -311,16 +311,31 @@ extract() { #{{{
   fi
 }
 #}}}
-jjclean() { #{{{
-  cleanies=`ls -r *~ .*~ *.pyc *.pyo *.bak .*.bak *.tmp .*.tmp core a.out .DS_Store *.toc *.aux *.log *.cp *.fn *.tp *.vr *.pg *.ky`;
-  echo "Will delete $(echo "$cleanies" | wc -l | tr -d ' ') files."
-  echo -n "Really clean this directory? ";
-  read yorn;
-  if test "$yorn" = "y"; then
-    rm -vf $cleanies
-    echo "Cleaned."
+set_finder() {
+  FIND="find"
+  if [[ "$OSTYPE" =~ darwin* ]]; then
+    if command -v gfind 2>&1 >/dev/null; then
+      FIND="gfind"
+    else
+      echo "You need GNU find.\n$ brew install coreutils findutils gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt"
+      exit 2
+    fi
+  fi
+}
+cleanout() { #{{{
+  set_finder
+  op="$FIND . -type f -regextype posix-extended -regex '((.*\.(pyc|pyo|bak|tmp|toc|aux|log|cp|fn|tp|vr|pg|ky))|(.*\~))'"
+  if [ $# -eq 1  ]; then
+    case "$1" in
+      "-f")
+        eval $op -delete 
+        ;;
+      "-i")
+        eval "$op -exec rm -i {} \;"
+        ;;
+    esac
   else
-    echo "Not cleaned."
+    eval $op | column
   fi
 }
 #}}}
@@ -335,6 +350,7 @@ jjfind () { #{{{
   find . -name "$files" -a ! -wholename '*/.*' -exec grep -Hin ${3} "$search" {} \; ;
 }
 #}}}
+unset set_finder
 #{{{1 Source Hostname file
 
 source_if_exists () {
