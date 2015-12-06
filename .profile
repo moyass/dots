@@ -339,15 +339,16 @@ cleanout() { #{{{
   fi
 }
 #}}}
-jjfind () { #{{{
+findregex () { #{{{
+  set_finder
   if [ $# -lt 2 ]; then
-    files="*";
-    search="${1}";
+    searchpath='.'
+    search="${1}"
   else
-    files="${1}";
-    search="${2}";
-  fi;
-  find . -name "$files" -a ! -wholename '*/.*' -exec grep -Hin ${3} "$search" {} \; ;
+    searchpath="${1}"
+    search="${2}"
+  fi
+  $FIND "$searchpath" -regextype posix-extended -type f -regex "$search"
 }
 #}}}
 unset set_finder
