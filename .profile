@@ -27,9 +27,8 @@ adjunct_path_with "${HOME}/.npm-local/bin" true
 # Gems
 # ============================
 # http://guides.rubygems.org/faqs/#user-install
-if command -v ruby >/dev/null && command -v gem >/dev/null; then
+if command -v ruby 2>&1 >/dev/null && command -v gem 2>&1 >/dev/null; then
   adjunct_path_with "$(ruby -rubygems -e 'puts Gem.user_dir')/bin" true
-else
 fi
 
 # Add local bin
@@ -50,7 +49,6 @@ if [[ "$OSTYPE" =~ darwin* ]]; then
 # ===================
 elif [[ "$OSTYPE" =~ linux* ]]; then
   adjunct_path_with "/usr/games" false
-
 fi
 
 # sbins
@@ -120,7 +118,6 @@ unset LESSOPTS
 export DEBFULLNAME='Guy Hughes'
 export DEBEMAIL="g"$'\u0040'"gxg.me"
 
-
 export CDPATH="$HOME/Projects"
 export STOW_DIR=/usr/local/stow
 #}}}
@@ -137,7 +134,6 @@ fi
 
 #{{{1 Colours
 export GREP_COLOR="1;33"
-
 alias grep='grep --color=auto'
 
 # coloured man pages
@@ -169,6 +165,7 @@ alias tree='tree -C' # colour
 
 #{{{1 RVM
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+
 #{{{1 Aliases
 #{{{2 history, dirs, vim, ls
 alias h='history'
@@ -266,11 +263,11 @@ fi
 #{{{2 Encryption, rot13
 alias rot13='tr a-zA-Z n-za-mN-ZA-M <<<'
 
-function aes-encypt() {
+aes-encypt() {
 openssl enc -aes-256-cbc -e -in $1 -out "$1.aes"
 }
 
-function aes-decrypt() {
+aes-decrypt() {
 openssl enc -aes-256-cbc -d -in $1 -out "${1%.*}"
 } #}}}
 #{{{2 systemd aliases
@@ -283,15 +280,15 @@ alias uctl='systemctl --user'
 #}}}
 #{{{2 tmux aliases
 
-tmuxa() { [[ -z "$TMUX" ]] && { tmux attach -d || tmux ;} }
-sshux() { ssh "$1" -t 'tmux a -d || tmux';}
-ssho() { ssh -t "$*" -- 'exec ~/bin/onemux';}
-sshk() { ssh -A "$*"}
-sshok() { ssh -tA "$*" -- 'exec ~/bin/onemux';}
+tmuxa () { [[ -z "$TMUX" ]] && { tmux attach -d || tmux; } }
+sshux () { ssh "$1" -t 'tmux a -d || tmux'; }
+ssho  () { ssh -t "$*" -- 'exec ~/bin/onemux'; }
+sshk  () { ssh -A "$*"; }
+sshok () { ssh -tA "$*" -- 'exec ~/bin/onemux'; }
 #}}}
 extract() { #{{{
   # TODO: remove this or improve it
-  if [ -f $1 ] ; then
+  if [ -f $1 ]; then
     case $1 in
       *.tar.bz2)   tar xvjf $1    ;;
       *.tar.gz)    tar xvzf $1    ;;
@@ -365,7 +362,7 @@ unset THESHORTHOSTNAME
 unset source_if_exists
 
 #{{{1 Start X
-if [[ -z "$DISPLAY" ]] && [[ $(tty) = /dev/tty1 ]] && $(which xinit &>/dev/null) ; then
+if [[ -z "$DISPLAY" ]] && [[ $(tty) = /dev/tty1 ]] && $(which xinit &>/dev/null); then
   exec xinit -- vt1
   logout
 fi #}}}
