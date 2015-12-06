@@ -1,2 +1,7 @@
 [ -f ${HOME}/.profile ] && . ~/.profile
-. .profile.d/bash/*.bash
+${HOME}/.profile.d/bash/*.bash
+for file in ${files}; do
+  . ${file}
+done
+
+
