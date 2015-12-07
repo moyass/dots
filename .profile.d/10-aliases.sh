@@ -64,6 +64,8 @@ alias d='dirs -v'
 alias dirs='dirs -v'
 alias mkd='mkdir -p'
 
+alias c="LANG='c'"
+
 alias bim="vim"
 alias cim="vim"
 alias vom="vim"
