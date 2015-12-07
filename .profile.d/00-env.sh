@@ -100,6 +100,7 @@ export LESS="${LESSOPTS}"
 export SYSTEMD_LESS="${LESSOPTS}"
 export LESSSECURE='1'
 export LESSHISTFILE='-'
+export LESSCHARSET="utf-8"
 unset LESSOPTS
 
 export DEBFULLNAME='Guy Hughes'
