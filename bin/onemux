@@ -10,26 +10,32 @@
 #
 #  Inspired by https://gist.github.com/aki--aki/5062314
 
-if [ "`tmux ls | wc -l`" -eq "0" ]; then
+SESSION_CODE="one"
+if [ $# -eq 1  ]; then
+  # we takin dem cool kidz parameterz
+  SESSION_CODE="$1"
+fi
+
+if [ "`tmux ls| grep "${SESSION_CODE}-" | wc -l`" -eq "0" ]; then
   # we got no sessions yall
-  tmux new-session -d -s one
+  tmux new-session -d -s $SESSION_CODE
 
   # we creatin' some windows yall
-  tmux new-window -t one:1
+  tmux new-window -t ${SESSION_CODE}:1
 fi
 
 if [ -z "$TMUX" ]; then
   # we in not in tmux now tho, yall
 
   # we killing dem old sessions, boyz
-  tmux ls | grep "one-" | grep -v "(attached)" | cut -d ":" -f1 | \
+  tmux ls | grep "${SESSION_CODE}-" | grep -v "(attached)" | cut -d ":" -f1 | \
   xargs --replace={} tmux kill-session -t {}
 
   # tell me wot yo name is, shawty
-  shawty="one-`date -u +%Y%m%dT%H%M%SZ`"
+  shawty="$SESSION_CODE-`date -u +%Y%m%dT%H%M%SZ`"
 
   # shawty uses dem white people Julian date
-  tmux new-session -d -t one -s $shawty
+  tmux new-session -d -t $SESSION_CODE -s $shawty
 
   # i be attachin' to mah shawty
   exec tmux attach-session -t $shawty
