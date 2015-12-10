@@ -1,19 +1,32 @@
 #!/usr/bin/env bash
+#                   __                                
+#    _____ _____   / /_   __  __   ____ _ _  __ ____ _
+#   / ___// ___/  / __ \ / / / /  / __ `/| |/_// __ `/
+#  / /   / /__   / /_/ // /_/ /  / /_/ /_>  < / /_/ / 
+# /_/    \___/  /_.___/ \__, /   \__, //_/|_| \__, /  
+# github.com/guyhughes /____/   /____/       /____/   
 
-# edit dotfiles
-# heavy lifting by falconindy: https://bbs.archlinux.org/viewtopic.php?id=128585
-# https://bitbucket.org/jasonwryan/centurion/raw/120ca5085493f49e6ed0c3d42ef7992d8010e086/Scripts/xdg
+# Inspired by: https://bitbucket.org/jasonwryan/centurion/raw/120ca5085493f49e6ed0c3d42ef7992d8010e086/Scripts/xdg
+# Original Author: falconindy - https://bbs.archlinux.org/viewtopic.php?id=128585
+
+read_and_quit () {
+  if (( ${#files[*]} )); then
+    "$EDITOR" "${files}"
+    exit 0
+  fi
+}
 
 dirs=($HOME/.$1* $HOME/.$1/ $XDG_CONFIG_HOME/$1/)
 IFS=$'\n'
 read -r -d '' -a files < \
     <(find "${dirs[@]}" -type f \( \
-           -name "*.conf" \
+        -name "*.conf" \
         -o -name "*rc" \
         -o -name "conf" \
         -o -name "config" \
         -o -name "*.cfg" \) 2>/dev/null)
+unset dirs IFS
+read_and_quit 
 
-(( ${#files[*]} )) && "$EDITOR" "${files}"
-
-
+read -r -d '' -a files < <( find "$HOME" -type f \( -iname ".${1}rc" -o -iname "$1.conf" \) 2>/dev/null )
+read_and_quit 
