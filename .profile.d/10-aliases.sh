@@ -39,10 +39,6 @@ EOL
   #{{{2 Linux
   # ============================
   linux*)
-    if [[ $(which trash) =~ /trash/ ]]; then
-      alias trash = "trash-put"
-    fi
-
     # pgrep: Process grep output full paths to binaries
     alias pgrep='pgrep -fl'
 
