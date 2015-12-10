@@ -6,8 +6,10 @@ adjunct_path_with () {
   adjunctor="$1"    # the directory  ## WARN: DO NOT USE TRAILING SLASH OR THE WORLD ENDS!
   override="$2"    # if $2 is true: $1 is prefixed to PATH; else $1 is appended to PATH
 
+  [ "${PATH#*$adjunctor}" != "$PATH"  ] && return 0
+
   if [ -d "$adjunctor" ]; then
-    if [ "$override" != "false" ]; then
+    if [ "$override" = "true" ]; then
       PATH="$1:$PATH"
     else
       PATH="$PATH:$1"
@@ -15,47 +17,44 @@ adjunct_path_with () {
   fi
 }
 
-# Add composer user bin
+# Add local bin
 # ===================
-adjunct_path_with "${HOME}/.composer/vendor/bin" true
+adjunct_path_with "/usr/local/bin" false
+
+# User's bin
+# ===================
+adjunct_path_with "${HOME}/bin"  false
+
+# Linux
+# ===================
+adjunct_path_with "/usr/games" false
+
+# Composer user bin
+# ===================
+adjunct_path_with "${HOME}/.composer/vendor/bin" false
 
 # Npm
 # ===================
-adjunct_path_with "${HOME}/.npm-packages/bin" true
-adjunct_path_with "${HOME}/.npm-local/bin" true
+adjunct_path_with "${HOME}/.npm-packages/bin" false
+adjunct_path_with "${HOME}/.npm-local/bin" false
 
 # Gems
 # ============================
 # http://guides.rubygems.org/faqs/#user-install
 if command -v ruby 2>&1 >/dev/null && command -v gem 2>&1 >/dev/null; then
-  adjunct_path_with "$(ruby -rubygems -e 'puts Gem.user_dir')/bin" true
-fi
-
-# Add local bin
-# ===================
-adjunct_path_with "/usr/local/bin" true
-
-# User's bin
-# ===================
-adjunct_path_with "${HOME}/bin"  true
-
-# OSX
-# ===================
-if [[ "$OSTYPE" =~ darwin* ]]; then
-  # Add localbins  to path, esp for homebrew
-  adjunct_path_with "/usr/local/sbin" true
-
-# Linux
-# ===================
-elif [[ "$OSTYPE" =~ linux* ]]; then
-  adjunct_path_with "/usr/games" false
+  adjunct_path_with "$(ruby -rubygems -e 'puts Gem.user_dir')/bin" false
 fi
 
 # sbins
 # ===================
-adjunct_path_with "/sbin" true
-adjunct_path_with "/usr/sbin" true
-
+if [ "$(id -u)" -eq 0 ]; then
+  if [[ "$OSTYPE" =~ darwin* ]]; then
+    # Add localbins  to path, esp for homebrew
+    adjunct_path_with "/usr/local/sbin" true
+  fi
+  adjunct_path_with "/sbin" true
+  adjunct_path_with "/usr/sbin" true
+fi
 
 # Cleanup
 # ===================
