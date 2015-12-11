@@ -62,8 +62,8 @@ alias mkd='mkdir -p'
 
 alias c="LANG='c'"
 alias langc="LANG='c.UTF-8'"
-alias langen="LANG='en'"
-alias langde="LANG='de'"
+alias langen="LANG='en_GB.UTF-8'"
+alias langde="LANG='de_DE.UTF-8'"
 alias bim="vim"
 alias cim="vim"
 alias vom="vim"
