@@ -573,7 +573,7 @@ nmap <Leader>aa <Plug>(increment-activator-increment)
 nmap <Leader>az <Plug>(increment-activator-decrement)
 
 " <leader>\ clear hlsearch and redraw screen.
-noremap <silent> <Leader><Leader> :nohls<cr><c-l><CR>
+noremap <silent> <Leader><Leader> :nohls<cr><c-l>
 
 "{{{ <Leader>ml - Append Modeline.
 " https://github.com/godlygeek/vim-files/blob/master/.vimrc#L346
