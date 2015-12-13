@@ -163,7 +163,8 @@ cleanout() {
   if [ $# -eq 1  ]; then
     case "$1" in
       "-f")
-        eval $op -delete 
+        #eval "$op -exec rm {} \+" # should be this, but when rm→trash it breaks¿?
+        eval "$op -exec rm {} \;"
         ;;
       "-i")
         eval "$op -exec rm -i {} \;"
