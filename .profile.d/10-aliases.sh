@@ -64,6 +64,7 @@ alias c="LANG='c'"
 alias langc="LANG='c.UTF-8'"
 alias langen="LANG='en_GB.UTF-8'"
 alias langde="LANG='de_DE.UTF-8'"
+
 alias bim="vim"
 alias cim="vim"
 alias vom="vim"
@@ -79,6 +80,12 @@ alias ll='l -lh'
 alias la='l -A'
 alias lal='l -lA'
 alias lla='lal'
+
+#{{{1 Trash
+alias rmi='/bin/rm -i'
+if type /usr/bin/trash >/dev/null 2>&1; then
+  alias rm='echo "Trashing..." && /usr/bin/trash'
+fi
 
 #{{{1 SSH and TMUX
 # =============================
