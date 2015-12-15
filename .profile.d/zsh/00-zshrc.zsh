@@ -216,10 +216,11 @@ bindkey -M isearch "^P" history-incremental-search-backward
 bindkey -M isearch "^N" history-incremental-search-forward
 
 ###1 PLUGINS
+# disabled because this is slow -,-  [gxg // 20151215T1659Z]
 # https://github.com/zsh-users/zsh-syntax-highlighting
-if [ -e $ZDOTDIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
-  source $ZDOTDIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-elif command -v git > /dev/null 2>&1; then
-  git clone https://github.com/zsh-users/zsh-syntax-highlighting $ZDOTDIR/zsh-syntax-highlighting
-fi
+# if [ -e $ZDOTDIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+  # source $ZDOTDIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# elif command -v git > /dev/null 2>&1; then
+  # git clone https://github.com/zsh-users/zsh-syntax-highlighting $ZDOTDIR/zsh-syntax-highlighting
+# fi
 # vim: set ft=zsh tw=0 ts=2 sw=2 sts=2 fdm=marker fmr=###,### et:
