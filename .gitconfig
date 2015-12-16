@@ -1,3 +1,4 @@
+; vim: set ft=gitconfig tw=0 ts=2 sw=2 sts=2 et:
 [filter "media"]
   clean             = git-media-clean %f
   smudge            = git-media-smudge %f
@@ -138,6 +139,5 @@
 [include]
   path              = .config/git-hub-oauth
 
-; vim: set ft=gitconfig tw=0 ts=2 sw=2 sts=2 et:
 [hub]
 	triangular = false
