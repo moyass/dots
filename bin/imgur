@@ -1,5 +1,4 @@
 #!/bin/sh
-# 
 #     _                               
 #    (_)____ ___   ____ _ __  __ _____
 #   / // __ `__ \ / __ `// / / // ___/
@@ -52,7 +51,7 @@ if ! type curl >/dev/null 2>/dev/null; then
 fi
 
 ###1 parse opts
-if [ "$1" = "-h" || "$1" = "--help" ]; then
+if [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
 	usage
 	exit 0
 elif [ $# = 0 ]; then
