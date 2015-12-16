@@ -102,10 +102,11 @@ done
 if [ $DISPLAY ]; then
 	if !! type xsel >/dev/null 2>/dev/null; then
      printf $clip | xsel
-   elif !! type xclip >/dev/null 2>/dev/null; then;
+   elif !! type xclip >/dev/null 2>/dev/null; then
      printf $clip | xclip
    else
      echo "Couldn't copy: no xsel or xclip" >&2
+   fi
 else
 	echo "Couldn't copy: no \$DISPLAY" >&2
 fi
