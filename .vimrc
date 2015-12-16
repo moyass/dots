@@ -283,11 +283,15 @@ if has("autocmd")
   " Resize splits with window
   au VimResized * :wincmd =
 
+  " -fucking turn this off. it's horrible. it doesn't work well with slow
+  "  typing over mobile ssh. it's bad form.-   [gxg // 20151216T1724Z]
+  " TODO: move this to guyfunc
+  "
   " automatically leave insert mode after 'updatetime' ms of inacction
   " http://vim.wikia.com/wiki/To_switch_back_to_normal_mode_automatically_after_inaction
-  au CursorHoldI * stopinsert
-  au InsertEnter * let updaterestore=&updatetime | set updatetime=2000
-  au InsertLeave * let &updatetime=updaterestore
+  " au CursorHoldI * stopinsert
+  " au InsertEnter * let updaterestore=&updatetime | set updatetime=2000
+  " au InsertLeave * let &updatetime=updaterestore
 
   " Restore cursor position
   au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
