@@ -1,0 +1,14 @@
+source ~/.muttrc.private
+set from = 'g@gxg.me'
+set realname = 'Guy Hughes'
+set autoedit = yes
+set edit_headers = yes
+set ssl_starttls = yes
+set spoolfile = '+INBOX'
+set postponed = +[Gmail]/Drafts
+unset imap_passive
+set imap_keepalive = 300
+set mail_check = 120
+
+set header_cache = ~/.cache/mutt
+set message_cachedir  = "~/.cache/mutt"
