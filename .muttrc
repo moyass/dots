@@ -1,6 +1,11 @@
 source ~/.muttrc.private
 set from = 'g@gxg.me'
 set realname = 'Guy Hughes'
+set pgp_replysign
+set crypt_replyencrypt
+set pgp_sign_as = 0x363026BBDB4B35B7
+set pgp_use_gpg_agent = yes
+set pgp_verify_sig
 set autoedit = yes
 set edit_headers = yes
 set ssl_starttls = yes
