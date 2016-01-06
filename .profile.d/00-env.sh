@@ -71,9 +71,9 @@ if [[ "$OSTYPE" =~ darwin* ]]; then
 elif [[ "$OSTYPE" =~ linux* ]]; then
   stty -ixon # Disable flow control
 
-  [[ -n "$XDG_CACHE_HOME" ]] || export XDG_CACHE_HOME="$HOME/.cache"
+  [[ -n "$XDG_CACHE_HOME"  ]] || export XDG_CACHE_HOME="$HOME/.cache"
   [[ -n "$XDG_CONFIG_HOME" ]] || export XDG_CONFIG_HOME="$HOME/.config"
-  [[ -n "$XDG_DATA_HOME" ]] || export XDG_DATA_HOME="$HOME/.local/share"
+  [[ -n "$XDG_DATA_HOME"   ]] || export XDG_DATA_HOME="$HOME/.local/share"
 
   if [[ $(lsb_release -is) =~ Debian ]]; then
     export BROWSER='iceweasel'
