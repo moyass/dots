@@ -107,11 +107,14 @@ reagent () {
     fi
   done
 } 
-sshux () { ssh "$1" -t 'tmux a -d || tmux'; }
-ssho  () { ssh -t "$*" -- 'exec ~/bin/onemux'; }
-sshk  () { ssh -A "$*"; }
-sshok () { ssh -tA "$*" -- 'exec ~/bin/onemux'; }
-tmuxa () { [[ -z "$TMUX" ]] && { tmux attach -d || tmux; } }
+sshux  () { ssh "$1" -t 'tmux a -d || tmux'; }
+sshx   () { ssh -X "$1" }
+sshxk  () { ssh -t -X "$*" }
+sshxok () { ssh -t -X "$*" -- 'exec ~/bin/onemux'; }
+ssho   () { ssh -t "$*" -- 'exec ~/bin/onemux'; }
+sshk   () { ssh -A "$*"; }
+sshok  () { ssh -tA "$*" -- 'exec ~/bin/onemux'; }
+tmuxa  () { [[ -z "$TMUX" ]] && { tmux attach -d || tmux; } }
 #{{{1 Encryption
 alias rot13='tr a-zA-Z n-za-mN-ZA-M <<<'
 aes_encypt () {
