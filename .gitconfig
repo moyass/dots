@@ -15,6 +15,7 @@
   au                = add -u
   ap                = add --patch
 
+  b                 = branch
   br                = branch
   bra               = branch -vva
   branches          = branch -vva
