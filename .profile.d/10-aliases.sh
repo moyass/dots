@@ -108,8 +108,8 @@ reagent () {
   done
 } 
 sshux  () { ssh "$1" -t 'tmux a -d || tmux'; }
-sshx   () { ssh -X "$1" }
-sshxk  () { ssh -t -X "$*" }
+sshx   () { ssh -X "$1"; }
+sshxk  () { ssh -t -X "$*"; }
 sshxok () { ssh -t -X "$*" -- 'exec ~/bin/onemux'; }
 ssho   () { ssh -t "$*" -- 'exec ~/bin/onemux'; }
 sshk   () { ssh -A "$*"; }
