@@ -63,9 +63,10 @@
 
   x                 = annex
 
-  schoolboy         = "!sh -c 'git archive --format zip --prefix=\"$1_$(git rev-parse --short HEAD)/\" -o $1_$(git rev-parse --short HEAD).zip HEAD' -"
-  whois             = "!sh -c 'git log -i -1 --pretty=\"format:%an <%ae>\n\" --author = \"$1\"' -"
-  rewrite-date      = "!set -x;DATUM=\"$(date -u -R -d \"$1\")\"; shift; GIT_AUTHOR_DATE=\"$DATUM\" GIT_COMMITTER_DATE=\"$DATUM\" git commit --amend --date \"$DATUM\""
+  schoolboy    = "!sh -c 'git archive --format zip -o $1.zip HEAD' -"
+  preschoolboy = "!sh -c 'git archive --format zip --prefix=\"$1_$(git rev-parse --short HEAD)/\" -o $1_$(git rev-parse --short HEAD).zip HEAD' -"
+  whois        = "!sh -c 'git log -i -1 --pretty=\"format:%an <%ae>\n\" --author = \"$1\"' -"
+  rewrite-date = "!set -x;DATUM=\"$(date -u -R -d \"$1\")\"; shift; GIT_AUTHOR_DATE=\"$DATUM\" GIT_COMMITTER_DATE=\"$DATUM\" git commit --amend --date \"$DATUM\""
 
 [color]
   ui                = auto
