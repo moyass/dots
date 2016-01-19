@@ -56,6 +56,8 @@ esac
 alias h='history'
 alias j="jobs -l"
 
+alias q='exit'
+
 alias d='dirs -v'
 alias dirs='dirs -v'
 alias mkd='mkdir -p'
@@ -115,6 +117,7 @@ ssho   () { ssh -t "$*" -- 'exec ~/bin/onemux'; }
 sshk   () { ssh -A "$*"; }
 sshok  () { ssh -tA "$*" -- 'exec ~/bin/onemux'; }
 tmuxa  () { [[ -z "$TMUX" ]] && { tmux attach -d || tmux; } }
+sskool () { TERM=screen ssh -A -t -X cu }
 #{{{1 Encryption
 alias rot13='tr a-zA-Z n-za-mN-ZA-M <<<'
 aes_encypt () {
