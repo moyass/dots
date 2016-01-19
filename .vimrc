@@ -218,11 +218,11 @@ if has("autocmd")
 		    \ 'right': [ ] }
    		let g:lightline.active = {
 		    \ 'left': [ [ 'mode', 'paste' ],
-		    \           [ 'readonly', 'filename', 'modified' ] ],
+		    \           [ 'readonly', 'relativepath', 'modified' ] ],
 		    \ 'right': [ [ 'lineinfo' ],
 		    \            [ 'fileformat', 'fileencoding', 'filetype' ] ] }
     let g:lightline.inactive = {
-		    \ 'left': [ [ 'filename' ] ],
+		    \ 'left': [ [ 'relativepath' ] ],
 		    \ 'right': [ [ 'lineinfo' ],
         \ ] }
   endif
