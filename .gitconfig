@@ -13,6 +13,7 @@
   ai                = add --interactive
   af                = add --force
   au                = add -u
+  auci              = add -u && git commit --verbose
   ap                = add --patch
 
   b                 = branch
@@ -38,9 +39,11 @@
   dic               = "!sh -c 'git d --cached' -"
   diffs             = diff -C -w --summary --stat
 
+  s                 = status --short --branch -- .
+  si                = status --short --branch --ignored -- .
   st                = status --short --branch
   stv               = status --verbose --branch
-  
+
   tags              = tag -l
 
   l                 = "!sh -c 'git lol -n10'- "
@@ -63,10 +66,10 @@
 
   x                 = annex
 
-  schoolboy    = "!sh -c 'git archive --format zip -o $1.zip HEAD' -"
-  preschoolboy = "!sh -c 'git archive --format zip --prefix=\"$1_$(git rev-parse --short HEAD)/\" -o $1_$(git rev-parse --short HEAD).zip HEAD' -"
-  whois        = "!sh -c 'git log -i -1 --pretty=\"format:%an <%ae>\n\" --author = \"$1\"' -"
-  rewrite-date = "!set -x;DATUM=\"$(date -u -R -d \"$1\")\"; shift; GIT_AUTHOR_DATE=\"$DATUM\" GIT_COMMITTER_DATE=\"$DATUM\" git commit --amend --date \"$DATUM\""
+  schoolboy         = "!sh -c 'git archive --format zip -o $1.zip HEAD' -"
+  preschoolboy      = "!sh -c 'git archive --format zip --prefix=\"$1_$(git rev-parse --short HEAD)/\" -o $1_$(git rev-parse --short HEAD).zip HEAD' -"
+  whois             = "!sh -c 'git log -i -1 --pretty=\"format:%an <%ae>\n\" --author = \"$1\"' -"
+  rewrite-date      = "!set -x;DATUM=\"$(date -u -R -d \"$1\")\"; shift; GIT_AUTHOR_DATE=\"$DATUM\" GIT_COMMITTER_DATE=\"$DATUM\" git commit --amend --date \"$DATUM\""
 
 [color]
   ui                = auto
@@ -142,4 +145,4 @@
   path              = .config/git-hub-oauth
 
 [hub]
-	triangular = false
+  triangular        = false
