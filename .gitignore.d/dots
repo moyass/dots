@@ -2,7 +2,6 @@
 !/.bash_logout
 !/.bash_profile
 !/.bashrc
-!/bin
 !/bin/apt-greplatest
 !/bin/apt-grepunstable
 !/bin/dateiso
@@ -20,7 +19,6 @@
 !/.caff
 !/.caff/gnupghome
 !/.caff/gnupghome/gpg.conf
-!/.config
 !/.config/beets
 !/.config/beets/config.yaml
 !/.config/beets/.gitignore
@@ -60,9 +58,7 @@
 !/.gbp.conf
 !/.gitconfig
 !/.gitignore
-!/.gitignore.d
 !/.gitignore.d/dots
-!/.gnupg
 !/.gnupg/gpg.conf
 !/.hushlogin
 !/.inputrc
@@ -109,6 +105,7 @@
 !/.vim/ftplugin
 !/.vim/ftplugin/pentadactyl.vim
 !/.vim/.gitignore
+/.vim/plugged
 !/.vim/pathogens
 !/.vim/pathogens/euphramiro
 !/.vim/pathogens/euphramiro/autoload
