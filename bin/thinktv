@@ -46,8 +46,3 @@ set -x
 ~/bin/thinkaudio --only "$THINKAUDIO_MODE" &
 xrandr --output HDMI1 "$HDMI_STATE" "$@" &
 set +x
-case "$THINKAUDIO_MODE" in
-  hdmi)
-    b
-    ;;
-esac
