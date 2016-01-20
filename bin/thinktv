@@ -1,0 +1,53 @@
+#!/bin/sh
+THINKAUDIO_MODE='hdmi'
+HDMI_STATE='--off'
+MODE_DUAL=1
+if [ -z $# ]; then
+  echo "USAGE: thinktv [up|halt] [--dual|-2|-d] [--] [XRANDR_PARAMETERS] "
+fi
+
+case "$1" in
+  1|up|start|go|ignite|vroom|whatisgooduxwhenyourejustwritingthingstoimpressyourfriendsandtickleyourfancy)
+    THINKAUDIO_MODE="hdmi"
+    HDMI_STATE="--auto"
+    ;;
+  0|halt|quit|off|bye|sleep|night|nightnight)
+    THINKAUDIO_MODE='hdmi'
+    HDMI_STATE='--off'
+    ;;
+  *)
+    echo "invalid param: ${1}"
+    exit 1
+    ;;
+esac
+shift
+
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --dual|-2|-d)
+      MODE_DUAL=1
+    ;;
+    --)
+      break
+      ;;
+    *)
+      ;;
+  esac
+  shift
+done
+
+if [ -z "$MODE_DUAL" ]; then
+  xrandr --output eDP1 --off
+else
+  xrandr --output eDP1 --auto
+fi
+
+set -x
+~/bin/thinkaudio --only "$THINKAUDIO_MODE" &
+xrandr --output HDMI1 "$HDMI_STATE" "$@" &
+set +x
+case "$THINKAUDIO_MODE" in
+  hdmi)
+    b
+    ;;
+esac
