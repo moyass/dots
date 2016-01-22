@@ -152,7 +152,7 @@ endif
 "{{{1 Plugin Configuration
 
 " Syntastic
-let g:syntastic_javascript_checkers = ['standard']
+" let g:syntastic_javascript_checkers = ['standard']
 
 "  NERDTree
 let g:NERDTreeBookmarksFile = expand('~/.cache/vim/NERDTreeBookmarks')
