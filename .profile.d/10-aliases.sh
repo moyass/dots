@@ -92,7 +92,7 @@ fi
 #{{{1 SSH and TMUX
 # =============================
 keys () {
-  eval `keychain --eval --quiet --agents ssh,gpg --inherit any-once --attempts 3 --timeout 15 id_rsa`
+  eval `keychain --eval --quiet --agents ssh,gpg --inherit any-once --attempts 3 --timeout 30 id_rsa`
   keychain --systemd --stop others --quiet
 }
 alias k=keys
