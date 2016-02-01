@@ -30,7 +30,7 @@ Plug 'chrisbra/vim-diff-enhanced'
 
 " Autocompleting
 Plug 'jiangmiao/auto-pairs'
-" Plug 'mattn/emmet-vim',
+Plug 'mattn/emmet-vim',
 Plug 'nishigori/increment-activator'
 
 " Syntax etc
@@ -153,6 +153,7 @@ endif
 
 " Syntastic
 " let g:syntastic_javascript_checkers = ['standard']
+let g:syntastic_javascript_checkers = [ 'jshint', 'jscs' ]
 
 "  NERDTree
 let g:NERDTreeBookmarksFile = expand('~/.cache/vim/NERDTreeBookmarks')
