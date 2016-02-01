@@ -1,1 +1,1 @@
-find . -type f -regextype egrep -regex '.*(js|hjs)' \! -path './node_modules/*' -exec vim {} + ;
+find . -type f -regextype egrep -regex '.*(js|hjs|json|jade)' \! -path './node_modules/*' -exec vim {} + ;
