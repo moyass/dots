@@ -8,6 +8,11 @@ echo "==========================================================================
 echo ''
 alias q exit
 alias vim vi
+alias l ls -hF --group-directories-first
+alias la ls -hF --group-directories-first -A
+alias lal ls -hF --group-directories-first -A -l
+alias lla ls -hF --group-directories-first -A -l
+alias rmi rm -i
 
 alias ssh1 ssh -t -A vmicron01 /bin/zsh
 alias ssh1 ssh -t -A vmicron01 /bin/zsh
