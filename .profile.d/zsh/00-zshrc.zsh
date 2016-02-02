@@ -178,7 +178,9 @@ bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 
-bindkey -M menuselect "^M" accept-line # accept completion, don't enter (use .accept-line for enter)
+bindkey -M menuselect "^M" .accept-line # accept-line: accept completion, don't enter (use .accept-line for enter)
+# ATTENTION GUY HUGHES, YOU ARE AN IDIOT, don't ever try ^M without .accept-line again
+# you tried it for a month and you hated it [gxg // 20160202T2203Z]
 bindkey -M menuselect "^G" accept-line # accept completion, don't enter
 bindkey -M menuselect "+" accept-and-menu-complete # accept completion, stay in menu
 #bindkey -M menuselect "^[[Z" reverse-menu-complete
