@@ -11,51 +11,52 @@ else
   call plug#begin()
 endif
 
+if has('python')
+  " Plug 'scrooloose/nerdtree'
+  Plug 'editorconfig/editorconfig-vim'
+  Plug 'scrooloose/nerdcommenter'
+  Plug 'tpope/vim-surround'
+  Plug 'tpope/vim-repeat'
+  Plug 'vim-scripts/visualrepeat'
+  Plug 'junegunn/vim-easy-align'
 
-" Plug 'scrooloose/nerdtree'
-Plug 'editorconfig/editorconfig-vim'
-Plug 'scrooloose/nerdcommenter'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-repeat'
-Plug 'vim-scripts/visualrepeat'
-Plug 'junegunn/vim-easy-align'
+  " Plug 'godlygeek/tabular'
+  Plug 'ciaranm/securemodelines'
+  Plug 'tpope/vim-eunuch'  " :SudoWrite / :Wall
+  Plug 'itchyny/lightline.vim'
+  Plug 'jamessan/vim-gnupg'
+  Plug 'rking/ag.vim'
+  Plug 'chrisbra/vim-diff-enhanced'
 
-" Plug 'godlygeek/tabular'
-Plug 'ciaranm/securemodelines'
-Plug 'tpope/vim-eunuch'  " :SudoWrite / :Wall
-Plug 'itchyny/lightline.vim'
-Plug 'jamessan/vim-gnupg'
-Plug 'rking/ag.vim'
-Plug 'chrisbra/vim-diff-enhanced'
+  " Autocompleting
+  Plug 'jiangmiao/auto-pairs'
+  Plug 'mattn/emmet-vim',
+  Plug 'nishigori/increment-activator'
 
-" Autocompleting
-Plug 'jiangmiao/auto-pairs'
-Plug 'mattn/emmet-vim',
-Plug 'nishigori/increment-activator'
+  " Syntax etc
+  Plug 'scrooloose/syntastic',
+  Plug 'sheerun/vim-polyglot',
+  Plug 'git://fedorapeople.org/home/fedora/wwoods/public_git/vim-scripts.git', {}
+  Plug 'plasticboy/vim-markdown',
+  Plug 'guyhughes/vim-ini-fold',
+  " Plug 'vim-scripts/SQLUtilities',
+  " Plug 'PotatoesMaster/i3-vim-syntax'
 
-" Syntax etc
-Plug 'scrooloose/syntastic',
-Plug 'sheerun/vim-polyglot',
-Plug 'git://fedorapeople.org/home/fedora/wwoods/public_git/vim-scripts.git', {}
-Plug 'plasticboy/vim-markdown',
-Plug 'guyhughes/vim-ini-fold',
-" Plug 'vim-scripts/SQLUtilities',
-" Plug 'PotatoesMaster/i3-vim-syntax'
+  " Git/VCS
+  Plug 'airblade/vim-gitgutter',
+  Plug 'tpope/vim-fugitive',
+  Plug 'mattn/gist-vim'
+  Plug 'mattn/webapi-vim'
 
-" Git/VCS
-Plug 'airblade/vim-gitgutter',
-Plug 'tpope/vim-fugitive',
-Plug 'mattn/gist-vim'
-Plug 'mattn/webapi-vim'
+  " Colour
+  Plug 'w0ng/vim-hybrid',
+  Plug 'guns/jellyx.vim',
+  Plug 'fisadev/fisa-vim-colorscheme',
+  Plug 'altercation/vim-colors-solarized'
+  Plug 'whatyouhide/vim-gotham'
 
-" Colour
-Plug 'w0ng/vim-hybrid',
-Plug 'guns/jellyx.vim',
-Plug 'fisadev/fisa-vim-colorscheme',
-Plug 'altercation/vim-colors-solarized'
-Plug 'whatyouhide/vim-gotham'
-
-call plug#end()
+  call plug#end()
+endif
 
 if has('autocmd')
   autocmd!
