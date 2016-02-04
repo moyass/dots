@@ -1,9 +1,9 @@
-func! SignBufferNotDashEscaped()
-    :%! gpg --sign --clearsign --quiet --not-dash-escaped 2>&/dev/null --
+func! s:SignVisualNDE()
+    :'<,'>! gpg --sign --clearsign --quiet --not-dash-escaped 2>&/dev/null --
 endfunction
-command SignBufferNotDashEscaped call SignBufferNotDashEscaped()
+command -range=% SignNotDashEscaped call SignVisual()
 
-func! SignBuffer()
-    :%! gpg --sign --clearsign --quiet 2>&/dev/null --
+func! s:SignVisual()
+    :'<,'>! gpg --sign --clearsign --quiet 2>&/dev/null --
 endfunction
-command SignBuffer call SignBuffer()
+command -range=% -nargs=? Sign call SignVisual()
