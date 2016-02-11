@@ -1,0 +1,1 @@
+find . -type f -regextype posix-extended -regex '.*\.(c|cc|h).*' -exec vim {} +
