@@ -15,5 +15,5 @@ unset imap_passive
 set imap_keepalive = 300
 set mail_check = 120
 
-set header_cache = ~/.cache/mutt
+set header_cache = "~/.cache/mutt"
 set message_cachedir  = "~/.cache/mutt"
