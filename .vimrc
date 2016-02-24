@@ -247,9 +247,9 @@ set nosmartindent
 set nocindent
 set expandtab        " expand <Tabss with spaces
 set shiftround       " always round indents to multiples of shiftwidth
-set tabstop=2        " <Tab> move three characters
-set shiftwidth=2     " >> and << shift 3 spaces
-set softtabstop=2    " see spaces as tabs
+set tabstop=3        " <Tab> move three characters
+set shiftwidth=3     " >> and << shift 3 spaces
+set softtabstop=3    " see spaces as tabs
 
 set showcmd      " show typing in normal mode
 set showbreak=…\  " show x in front of wrapped lines (trailing escaped space `\ `)
