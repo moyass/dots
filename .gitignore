@@ -22,4 +22,6 @@ npm-debug.log
 /tmp
 .DS_Store
 doc/tags
+tags
+.tags
 .netrwhist
