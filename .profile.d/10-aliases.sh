@@ -140,7 +140,7 @@ set_finder() {
 }
 cleanout() { 
   set_finder
-  op="$FIND . -type f -regextype posix-extended -regex '((.*\.(pyc|pyo|bak|tmp|toc|aux|log|cp|fn|tp|vr|pg|ky))|(.*\~))'"
+  op="$FIND . -type f -regextype posix-extended -regex '((.*\.(pyc|class|pyo|bak|tmp|toc|aux|log|cp|fn|tp|vr|pg|ky))|(.*\~))'"
   if [ $# -eq 1  ]; then
     case "$1" in
       "-f")
