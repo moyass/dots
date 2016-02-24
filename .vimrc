@@ -34,6 +34,7 @@ if has('python')
   Plug 'nishigori/increment-activator'
 
   " Syntax etc
+  Plug 'valloric/youcompleteme'
   Plug 'scrooloose/syntastic',
   Plug 'sheerun/vim-polyglot',
   Plug 'git://fedorapeople.org/home/fedora/wwoods/public_git/vim-scripts.git', {}
@@ -102,6 +103,8 @@ if isdirectory(expand('~/.cache/vim/undo'))
 endif
 set undolevels=2000
 
+set tags+=.tags
+
 "{{{1 OS & GUI Settings
 
 "{{{2 Windows... pitiful...
@@ -151,6 +154,10 @@ endif
 
 
 "{{{1 Plugin Configuration
+
+" YouCompleteMe
+let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_autoclose_preview_window_after_insertion = 1
 
 " Syntastic
 " let g:syntastic_javascript_checkers = ['standard']
