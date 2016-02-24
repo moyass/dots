@@ -40,6 +40,8 @@ if has('python')
   Plug 'git://fedorapeople.org/home/fedora/wwoods/public_git/vim-scripts.git', {}
   Plug 'plasticboy/vim-markdown',
   Plug 'guyhughes/vim-ini-fold',
+  Plug 'guyhughes/vim-uncrustify'
+  Plug 'guyhughes/vim-gpg-sign'
   " Plug 'vim-scripts/SQLUtilities',
   " Plug 'PotatoesMaster/i3-vim-syntax'
 
