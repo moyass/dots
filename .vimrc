@@ -378,7 +378,8 @@ elseif has("gui_running")
 else
   " colorscheme mirodark
   " colorscheme molotov
-  colorscheme fisa
+  colorscheme jellyx
+  " colorscheme fisa
   "colorscheme ir_black
   " colorscheme gotham
   " colorscheme hybrid
