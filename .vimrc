@@ -69,14 +69,15 @@ endif
 filetype plugin on
 filetype indent on
 
-set encoding=utf-8 nobomb  " UTF-8 encoding for all new files
-set shortmess=aoOstTAI     " shorten all messages except written
-set ttymouse=xterm2        " More accurate mouse tracking
-set ttyfast                " More redrawing characters sent to terminal
+set encoding=utf-8 nobomb " UTF-8 encoding for all new files
+set shortmess=aoOstTAI    " shorten all messages except written
+set ttymouse=xterm2       " More accurate mouse tracking
+set ttyfast               " More redrawing characters sent to terminal
 set timeoutlen=900
 set ttimeoutlen=0
-set report=0               " Always report the number of lines changed by a cmd
-
+set report=0              " Always report the number of lines changed by a cmd
+set autowriteall          " I'm tired of typing :set awa and it makes me feel
+                          " like I just hit my head and I'm screaming in German
 if &t_Co > 2 || has("gui_running" )
   set t_Co=256 " 256 colors please
   syntax on
@@ -247,9 +248,9 @@ set nosmartindent
 set nocindent
 set expandtab        " expand <Tabss with spaces
 set shiftround       " always round indents to multiples of shiftwidth
-set tabstop=3        " <Tab> move three characters
-set shiftwidth=3     " >> and << shift 3 spaces
-set softtabstop=3    " see spaces as tabs
+set tabstop=2        " <Tab> move three characters
+set shiftwidth=2     " >> and << shift 3 spaces
+set softtabstop=2    " see spaces as tabs
 
 set showcmd      " show typing in normal mode
 set showbreak=…\  " show x in front of wrapped lines (trailing escaped space `\ `)
