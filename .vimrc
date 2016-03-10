@@ -335,8 +335,10 @@ set splitbelow
 "{{{2 Cursor Column
 augroup activecursor
   autocmd!
-  autocmd WinEnter * set cursorcolumn   | set cursorline
-  autocmd WinLeave * set nocursorcolumn | set nocursorline
+  autocmd WinEnter * set cursorline
+  autocmd WinLeave * set nocursorline
+  " autocmd WinEnter * set cursorcolumn   | set cursorline
+  " autocmd WinLeave * set nocursorcolumn | set nocursorline
 augroup END
 
 "{{{2 Commandline & Wildmenu
