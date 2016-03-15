@@ -60,7 +60,8 @@ alias q='exit'
 
 alias d='dirs -v'
 alias dirs='dirs -v'
-alias mkd='mkdir -p'
+alias md='mkdir -p'
+alias rd='rmdir'
 
 alias c="LANG='c'"
 alias langc="LANG='c.UTF-8'"
