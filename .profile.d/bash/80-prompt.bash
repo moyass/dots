@@ -48,19 +48,33 @@ bash_prompt() {
     local BGC="\[\033[46m\]"
     local BGW="\[\033[47m\]"
 
-    local UC=$W # user's color
-    [ $UID -eq "0" ] && UC=$R # root's color
+    local UC=
+    local PROMPT_CHAR_COLOR="${RST}"
+    case "`id -un`" in
+      guy|gxg)
+        UC="$W"
+        ;;
+      guyhughes|dev)
+        UC="$EMM"
+        ;;
+      vagrant)
+        UC="$EMY"
+        ;;
+      root)
+        UC="$EMR"
+        PROMPT_CHAR_COLOR=$UC
+        ;;
+      *)
+        UC="$EMY"
+        ;;
+    esac
 
-    #PS1="${EMK}[${UC}\u${EMK}@${UC}\h ${EMB}\${NEW_PWD}${EMK}]${UC}\\$ ${NONE}"
-    # without colors: PS1="[\u@\h \${NEW_PWD}]\\$ "
-    # extra backslash in front of \$ to make bash colorize the prompt
-
-    local GITBRANCH='`git branch 2> /dev/null | grep -e ^* | sed -E s/^\\\\\*\ \(.+\)$/\(\\\\\1\)\ /`'
-
-    # install prompt
-    # PS1="${RST}\n[ ${B}\$(date -u +\"%Y%m%d${W}T${B}%H%M${W}Z\")${RST} ] $GITBRANCH $P4CLIENT \n${RST}[ ${UC}\u${RST}@${UC}\h ${EMB}\${NEW_PWD}${RST} ]${UC}\\$ ${RST}"
-    # PS1="${RST}\n${B}\$(date -u +\"%Y%m%d${W}T${B}%H%M${W}Z\")${RST} \u${W}@${RST}\H ${B}$GITBRANCH \n${M}\${NEW_PWD}${RST}\n${UC}\\$ ${RST}"
-    PS1="${RST}\n\u${W}@${RST}\H ${B}$GITBRANCH ${M}\${NEW_PWD}${RST}\n${UC}\\$ ${RST}"
+    PS1="\n${RST}"
+    [ -n "$VCSH_REPO_NAME" ] && PS1+="${RST}${EMB}vcsh repo ${VCSH_REPO_NAME}${RST}\n"
+    if [ "`hostname`" != "dacht" ] || [ "`id -un`" != "gxg" ]; then
+      PS1+="${RST}${UC}\u${W}@${RST}\H "
+    fi
+    PS1+="${RST}${B}\${NEW_PWD}${EMB}\$(__git_ps1)\n${RST}${PROMPT_CHAR_COLOR}\\$ ${RST}"
 }
 
 export PROMPT_COMMAND=bash_prompt_command
