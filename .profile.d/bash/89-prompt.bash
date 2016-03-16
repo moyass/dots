@@ -57,7 +57,7 @@ bash_prompt() {
       guyhughes|dev)
         UC="$EMM"
         ;;
-      vagrant)
+      vagrant|COMP2401)
         UC="$EMY"
         ;;
       root)
