@@ -5,20 +5,10 @@ source_if_exists () {
   fi
 }
 
-THEHOSTNAME=`hostname`
-THESHORTHOSTNAME=`hostname -s`
+SHORTHOSTNAME=`hostname -s`
 
-# Sometimes `hostname` is fqdn, sometimes not.
-# So just check for both
+source_if_exists ~/.profile.d/hostnames/${SHORTHOSTNAME}.sh
+source_if_exists ~/.profile.d/hostnames/${SHORTHOSTNAME}.private.sh
 
-if [ $THEHOSTNAME != $THESHORTHOSTNAME   ]; then
-  source_if_exists ~/.profile.d/hostnames/${THESHORTHOSTNAME}.sh
-  source_if_exists ~/.profile.d/hostnames/${THESHORTHOSTNAME}.private.sh
-fi
-
-source_if_exists ~/.profile.d/hostnames/${THEHOSTNAME}.sh
-source_if_exists ~/.profile.d/hostnames/${THEHOSTNAME}.private.sh
-
-unset THEHOSTNAME
-unset THESHORTHOSTNAME
+unset HOSTNAME
 unset source_if_exists

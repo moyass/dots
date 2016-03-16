@@ -58,7 +58,6 @@ fi
 
 # Cleanup
 # ===================
-unset -f adjunct_path_with
 export PATH
 
 #}}}
@@ -137,7 +136,7 @@ export LESS_TERMCAP_us=$'\E[01;35m'
 if [ -n "$TMUX" ] || [ "$TERM" = 'screen' ]; then
     if [ -e '/usr/share/terminfo/s/screen-256color-s' ]; then
       export TERM='screen-256color-s'
-    elif [[ -e /usr/share/terminfo/s/screen-256color || "$OSTYPE" =~ darwin* ]]; then
+    elif [ -e /usr/share/terminfo/s/screen-256color ]  || [ "$OSTYPE" =~ darwin* ]; then
         export TERM='screen-256color'
     fi
 fi
@@ -155,3 +154,10 @@ alias tree='tree -C' # colour
 #{{{1 RVM
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
+#{{{1 fzf
+if [ -x ~/.fzf/bin/fzf ]; then
+  adjunct_path_with "${HOME}/.fzf/bin" false
+  export PATH
+  [ -d ~/.fzf/man ] && export MANPATH="$MANPATH:~/.fzf/man"
+fi
+unset -f adjunct_path_with

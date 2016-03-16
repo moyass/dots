@@ -320,7 +320,7 @@ endif
 
 "{{{2 Basic
 
-set number
+set nonumber
 set synmaxcol=1300 " Avoids editor lockup on extremely long lines
 set laststatus=2  " ??
 set cursorline    " track position
