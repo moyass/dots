@@ -1,18 +1,30 @@
-echo "================================================================================" 
+if ( ! $?prompt ) then
+  exit 0
+endif
+echo "================================================================================"
 echo "        WARNING! You are in ${SHELL} and your life is miserable!"
 printf '%40s %s\n' 'User' `id -un`
 printf '%40s %s\n' 'Hostname' `hostname `
 printf '%40s %s\n' 'Domain' `hostname --domain`
 printf '%40s %s\n' 'IP' `hostname --all-ip-addresses`
-echo "================================================================================" 
+echo "================================================================================"
 echo ''
 alias q exit
+alias wq exit
+alias qa exit
+alias wqa exit
 alias vim vi
+# if ( "$(ls --group-directories-first) >/dev/null 2>/dev/null" == 0  )
+  # echo "yes"
+# else
+  # echo "no"
+# endif
 alias l ls -hF --group-directories-first
 alias la ls -hF --group-directories-first -A
 alias lal ls -hF --group-directories-first -A -l
 alias lla ls -hF --group-directories-first -A -l
 alias rmi rm -i
+alias mvi mv -i
 
 alias ssh1 ssh -t -A vmicron01 /bin/zsh
 alias ssh1 ssh -t -A vmicron01 /bin/zsh
