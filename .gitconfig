@@ -13,7 +13,9 @@
   ai                = add --interactive
   af                = add --force
   au                = add -u
-  auci              = add -u && git commit --verbose
+  auc               = "!sh -c 'git add -u && git commit --verbose' -"
+  auci              = auci
+  aucm              = "!sh -c 'git add -u && git commit --message=\"$*\"' -"
   ap                = add --patch
 
   b                 = branch
@@ -30,7 +32,6 @@
   ci                = commit --verbose
   cm                = "!sh -c 'git commit --message=\"$*\"' -"
   cia               = add --interactive
-  auc               = "!sh -c 'git add -u && git commit --verbose' -"
 
   d                 = diff -C -w --ignore-blank-lines ; -w===--ignore=all-space; -C===--find-copies
   dw                = diff -C -w --color-words=. ; word diff with no ws
@@ -66,9 +67,9 @@
 
   x                 = annex
 
-  schoolboy         = "!sh -c 'set -xe; git archive --format zip -o $1.zip HEAD' -"
-  schoolboy-webdev  = "!sh -c 'set -xe; THING=\"guyhughes-comp2406-assign${1}\"; git archive --format zip --prefix=\"${THING}/\" -o \"${THING}.zip\" HEAD' -"
-  preschoolboy      = "!sh -c 'set -xe; git archive --format zip --prefix=\"$1_$(git rev-parse --short HEAD)/\" -o $1_$(git rev-parse --short HEAD).zip HEAD' -"
+  schoolboy         = "!sh -c 'set -xe; git archive --format zip -o $1.zip HEAD; zip -d $1.zip \"*/.*\" \".*\"; unzip -l $1.zip' -"
+  schoolguy  = "!sh -c 'set -xe; THING=\"guyhughes-${1}\"; git archive --format zip --prefix=\"${THING}/\" -o \"${THING}.zip\" HEAD; zip -d ${THING}.zip \"*/.*\" \".*\"; unzip -l $1.zip' -"
+  schoolboyish      = "!sh -c 'set -xe; THING=\"$1_$(git rev-parse --short HEAD)\"; git archive --format zip --prefix=\"$THING/\" -o $THING.zip HEAD;zip -d $THING.zip \"*/.*\" \".*\";unzip -l $THING.zip' -"
   whois             = "!sh -c 'git log -i -1 --pretty=\"format:%an <%ae>\n\" --author = \"$1\"' -"
   rewrite-date      = "!set -x;DATUM=\"$(date -u -R -d \"$1\")\"; shift; GIT_AUTHOR_DATE=\"$DATUM\" GIT_COMMITTER_DATE=\"$DATUM\" git commit --amend --date \"$DATUM\""
 
