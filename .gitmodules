@@ -1,0 +1,6 @@
+[submodule "shabble"]
+	path = .irssi/scripts/shabble
+	url = gh:shabble/irssi-scripts
+[submodule ".vim/pathogens/youcompleteme"]
+	path = .vim/pathogens/youcompleteme
+	url = gh:valloric/youcompleteme
