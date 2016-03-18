@@ -34,7 +34,7 @@ if has('python')
   Plug 'nishigori/increment-activator'
 
   " Syntax etc
-  Plug 'valloric/youcompleteme'
+  " Plug 'valloric/youcompleteme' " lets only have this manually installed
   Plug 'scrooloose/syntastic',
   Plug 'sheerun/vim-polyglot',
   Plug 'git://fedorapeople.org/home/fedora/wwoods/public_git/vim-scripts.git', {}
