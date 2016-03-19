@@ -152,7 +152,7 @@ fi
 alias tree='tree -C' # colour
 
 #{{{1 RVM
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
 
 #{{{1 fzf
 if [ -x ~/.fzf/bin/fzf ]; then
@@ -161,3 +161,6 @@ if [ -x ~/.fzf/bin/fzf ]; then
   [ -d ~/.fzf/man ] && export MANPATH="$MANPATH:~/.fzf/man"
 fi
 unset -f adjunct_path_with
+
+#{{{1 NVM
+[[ -s "$HOME/.nvm/nvm.sh" ]] && . "$HOME/.nvm/nvm.sh"
