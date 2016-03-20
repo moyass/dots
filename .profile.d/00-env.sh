@@ -109,7 +109,10 @@ export STOW_DIR=/usr/local/stow
 #}}}
 
 #{{{1 Non-interactive shells
-[[ ! $- =~ i ]] && return
+case $- in
+  *i*) ;;
+  *)  return ;;
+esac
 
 #{{{1 TMOUT
 if [ "$(id -u)" -eq 0 ]; then

@@ -1,4 +1,8 @@
 #{{{1 Non-interactive shells
+case "$-" in
+  *i*)  ;;
+  *)  return ;;
+esac
 [[ ! $- =~ i ]] && return
 
 #{{{1 OS-Dependent
