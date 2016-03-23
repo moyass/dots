@@ -36,6 +36,7 @@ if has('python')
   " Syntax etc
   " Plug 'valloric/youcompleteme' " lets only have this manually installed
   Plug 'scrooloose/syntastic',
+  Plug 'digitaltoad/vim-jade'
   Plug 'sheerun/vim-polyglot',
   Plug 'git://fedorapeople.org/home/fedora/wwoods/public_git/vim-scripts.git', {}
   Plug 'plasticboy/vim-markdown',
