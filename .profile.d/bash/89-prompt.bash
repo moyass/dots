@@ -48,8 +48,8 @@ bash_prompt() {
     local BGC="\[\033[46m\]"
     local BGW="\[\033[47m\]"
 
-    local UC=
-    local PROMPT_CHAR_COLOR="${RST}"
+    local UC="$EMY"
+    local EXIT_STATUS='${RST}`exity=$?;if [ $exity -ne 0 ];then echo "[\[\033[1;31m\]${exity}\[\033[0m]\] "; fi`'
     case "`id -un`" in
       guy|gxg)
         UC="$W"
@@ -62,19 +62,15 @@ bash_prompt() {
         ;;
       root)
         UC="$EMR"
-        PROMPT_CHAR_COLOR=$UC
-        ;;
-      *)
-        UC="$EMY"
         ;;
     esac
 
     PS1="\n${RST}"
-    [ -n "$VCSH_REPO_NAME" ] && PS1+="${RST}${EMB}vcsh repo ${VCSH_REPO_NAME}${RST}\n"
+    [ -n "$VCSH_REPO_NAME" ] && PS1+="${RST}${EMB}vcsh repo ${VCSH_REPO_NAME}${RST}${EXIT_STATUS}\n"
     if [ "`hostname`" != "dacht" ] || [ "`id -un`" != "gxg" ]; then
       PS1+="${RST}${UC}\u${W}@${RST}\H "
     fi
-    PS1+="${RST}${B}\${NEW_PWD}${EMB}\$(__git_ps1)\n${RST}${PROMPT_CHAR_COLOR}\\$ ${RST}"
+    PS1+="${RST}${B}\${NEW_PWD}${EMB}\$(__git_ps1)${RST} ${EXIT_STATUS}\n${RST}\\$ ${RST}"
 }
 
 export PROMPT_COMMAND=bash_prompt_command
