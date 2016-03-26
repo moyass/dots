@@ -1,0 +1,4 @@
+#!/bin/bash
+mkdir .out
+javac -cp .out -d .out *.java **/*.java
+[[ -n "$1" ]] && java -cp .out "$1"
